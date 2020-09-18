@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,13 @@ namespace SpellBouc
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void testFunction(object sender, RoutedEventArgs e)
+        {
+            var test1 = Globals.PROJECT_DIRECTORY_PATH;
+            var test2 = Globals.DB_PATH;
+            var wizardSpellBook = new WizardSpellBook();                                 
         }
     }
 }
