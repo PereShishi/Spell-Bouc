@@ -28,8 +28,6 @@ namespace SpellBouc
 
         private void testFunction(object sender, RoutedEventArgs e)
         {
-            var test1 = Globals.PROJECT_DIRECTORY_PATH;
-            var test2 = Globals.DB_PATH;
             var wizardSpellBook = new WizardSpellBook();                                 
         }
     }

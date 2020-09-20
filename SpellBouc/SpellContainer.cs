@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using SpellBouc.AccessLayer;
 
 namespace SpellBouc
 {
@@ -25,10 +27,13 @@ namespace SpellBouc
             switch (containerType)
             {
                 case ContainerType.WizardPlayerSpells:
-                    break; 
+                    spells = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+                    IEnumerable<Spell> query1 = spells.OrderBy(spell => spell.Id);
+                    break;
 
                 case ContainerType.WizardCompleteSpells:
-                    Access.GetWizardCompleteSpells();
+                    spells = Access.GetWizardSpellsFromDB(Globals.DB_WIZARD_SPELL_PATH);
+                    IEnumerable<Spell> query2 = spells.OrderBy(spell => spell.Id);
                     break;
 
                 case ContainerType.PriestPlayerSpells:
@@ -39,7 +44,159 @@ namespace SpellBouc
 
                 default:
                     break;
-            }  
+            }
         }
+
+        /*
+         * Getter de spell de la liste du container. input : ID
+         */
+        public Spell GetSpell(int id)
+        {
+            foreach (Spell spell in spells)
+            {
+                if (spell.Id == id)
+                {
+                    return spell;
+                }
+            }
+            return new Spell();
+        }
+
+        /*
+         * Getter de spell de la liste du container. input : Name
+         */
+        public Spell GetSpell(String name)
+        {
+            foreach (Spell spell in spells)
+            {
+                if (spell.Name == name)
+                {
+                    return spell;
+                }
+            }
+            return new Spell();
+        }
+
+
+        /*
+         * Getter de liste de spells à partir de la liste du container. input : Lvl
+         */
+        public List<Spell> GetSpells(int lvl)
+        {
+            var returnSpells = new List<Spell>();
+
+            foreach (Spell spell in spells)
+            {
+                if (spell.Lvl == lvl)
+                {
+                    returnSpells.Add(spell);
+                }
+            }
+            return returnSpells;
+        }
+
+        /*
+         * Getter de liste de spells à partir de la liste du container. input : Type
+         */
+        public List<Spell> GetSpells(String type)
+        {
+            var returnSpells = new List<Spell>();
+
+            foreach (Spell spell in spells)
+            {
+                if (spell.Type == type)
+                {
+                    returnSpells.Add(spell);
+                }
+            }
+            return returnSpells;
+        }
+
+        /*
+         * Ajoute un spell dans la liste
+         */
+        public void AddSpell(Spell spellToAdd)
+        {
+            foreach (var spell in spells)
+            {
+                if (spellToAdd == spell)
+                {
+                    return;
+                }
+            }
+            spells.Add(spellToAdd);
+        }
+
+        /*
+         * Supprimer un spell dans la liste
+         */
+        public void RemoveSpell(Spell spellToRemove)
+        {
+            foreach (var spell in spells)
+            {
+                if (spellToRemove == spell)
+                {
+                    spells.Remove(spell);
+                }
+            }   
+        }
+
+        /*
+         * Ajoute un spell dans la liste ET dans la BDD
+         */
+        public ErrorCode AddSpellInBookAndBD(Spell spell, ContainerType containerType)
+        {
+            ErrorCode status;
+            switch (containerType)
+            {
+                // Mise à jour sort de Mage
+                case ContainerType.WizardPlayerSpells:
+                    status = Access.AddWizardSpellInPlayerDB(spell);
+                    if (status != ErrorCode.ERROR)
+                    {
+                        AddSpell(spell);
+                    }
+                    else
+                    {
+                        status = ErrorCode.ERROR;
+                    }
+                    break;
+
+                // Default case: ne peut pas rentrer dans cette étape théoriquement
+                default:
+                    status = ErrorCode.ERROR;
+                    break;
+            }
+
+            return status;
+        }
+
+        public ErrorCode RemoveSpellInBookAndBD(Spell spell, ContainerType containerType)
+        {
+            ErrorCode status;
+            switch (containerType)
+            {
+                // Mise à jour sort de Mage
+                case ContainerType.WizardPlayerSpells:
+                    status = Access.RemoveWizardSpellInPlayerDB(spell.Id);
+                    if (status != ErrorCode.ERROR)
+                    {
+                        RemoveSpell(spell);
+                    }
+                    else
+                    {
+                        status = ErrorCode.ERROR;
+                    }
+                    break;
+
+                // Default case: ne peut pas rentrer dans cette étape théoriquement
+                default:
+                    status = ErrorCode.ERROR;
+                    break;
+            }
+
+            return status;
+        }
+
     }
 }
