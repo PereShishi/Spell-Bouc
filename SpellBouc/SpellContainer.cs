@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace SpellBouc
      * Elle est composée d'une liste de sorts et toutes les fonctions qui permetront de lister, accéder, trier, afficher ect...
      */
 
-    class SpellContainer
+    class SpellContainer: IEnumerable 
     {
         private List<Spell> spells { get; set; }
 
@@ -154,7 +155,12 @@ namespace SpellBouc
                     status = Access.AddWizardSpellInPlayerDB(spell);
                     if (status != ErrorCode.ERROR)
                     {
-                        AddSpell(spell);
+                        status = Access.AddSpellInUiDB(spell.Id);
+
+                        if (status != ErrorCode.ERROR)
+                        {
+                            RemoveSpell(spell);
+                        }
                     }
                     else
                     {
@@ -171,6 +177,9 @@ namespace SpellBouc
             return status;
         }
 
+        /*
+         * Retire un spell dans la liste ET dans la BDD
+         */
         public ErrorCode RemoveSpellInBookAndBD(Spell spell, ContainerType containerType)
         {
             ErrorCode status;
@@ -179,9 +188,15 @@ namespace SpellBouc
                 // Mise à jour sort de Mage
                 case ContainerType.WizardPlayerSpells:
                     status = Access.RemoveWizardSpellInPlayerDB(spell.Id);
+
                     if (status != ErrorCode.ERROR)
                     {
-                        RemoveSpell(spell);
+                        status = Access.RemoveSpellFromUiDB(spell.Id);
+
+                        if (status != ErrorCode.ERROR)
+                        {
+                            RemoveSpell(spell);
+                        }                            
                     }
                     else
                     {
@@ -198,5 +213,9 @@ namespace SpellBouc
             return status;
         }
 
+        public IEnumerator GetEnumerator()
+        {
+            return spells.GetEnumerator();
+        }
     }
 }

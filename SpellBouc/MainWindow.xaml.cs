@@ -30,5 +30,10 @@ namespace SpellBouc
         {
             var wizardSpellBook = new WizardSpellBook();                                 
         }
+
+        private void test2Function(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

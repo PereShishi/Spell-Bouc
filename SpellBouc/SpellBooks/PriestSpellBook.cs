@@ -4,6 +4,7 @@ using System.Text;
 
 namespace SpellBouc
 {
+    /* Clase de livre de sort de mage (non utilisée en V1) */
     class PriestSpellBook : SpellBook
     {
 

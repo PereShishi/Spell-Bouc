@@ -63,6 +63,7 @@ namespace SpellBouc.AccessLayer
             return spellList;
         }
 
+
         /*
          * Requête qui ajoute un sort de magicien dans la BDD su joueur.
          */
@@ -112,7 +113,7 @@ namespace SpellBouc.AccessLayer
         }
 
         /*
-         * Requête qui ajoute un sort de magicien dans la BDD su joueur.
+         * Requête qui supprime un sort de magicien dans la BDD su joueur.
          */
         internal static ErrorCode RemoveWizardSpellInPlayerDB(int id)
         {
@@ -136,7 +137,7 @@ namespace SpellBouc.AccessLayer
                 return ErrorCode.ERROR;
             }
         }
-        
+
 
         /*
          *  Retourne la résistance magique à partir du reader de la BDD, cette fonction est nécessaire car on récupère un String Oui/Non à partir de la BDD.
@@ -173,6 +174,106 @@ namespace SpellBouc.AccessLayer
 
         }
 
+        /*
+         *  Récupère les utilisations de sorts du mage et les retroune dans un tableau à deux dimensions
+         */
+        internal static List<UIWizardPlayerSpell> GetAllPlayerCount()
+        {
+            var wizardPlayerSpells = new List<UIWizardPlayerSpell>();
 
+            using (var connection = new SqliteConnection("Data Source=" + Globals.DB_PLAYER_WIZARD_SPELL_PATH))
+            {
+
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    SELECT *
+                    FROM 'player_spell_count';
+                ";
+
+                // Stocke tous les paramètres des sorts dans 
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var uiWizardPlayerSpell = new UIWizardPlayerSpell();
+
+                        // Récupére données des lignes de la BDD
+                        uiWizardPlayerSpell.Id = reader.GetInt32(0);
+                        uiWizardPlayerSpell.PlayerSpellCount = reader.GetInt32(1);
+
+                        wizardPlayerSpells.Add(uiWizardPlayerSpell);
+
+                    }
+                }
+            }
+            return wizardPlayerSpells;
+        }
+
+        /*
+         *  Add spell in spell_count for UI object 
+         */
+        internal static ErrorCode AddSpellInUiDB(int inputID)
+        {
+            try 
+            { 
+                using (var connection = new SqliteConnection("Data Source=" + Globals.DB_PLAYER_WIZARD_SPELL_PATH))
+                {
+
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                        INSERT OR REPLACE INTO 'player_spell_count'
+                        (id, player_count)
+
+                        VALUES($id,0);
+
+                    ";
+
+                    command.Parameters.AddWithValue("$id", inputID);
+                    return ErrorCode.SUCCESS;
+                }
+            }
+            catch
+            {
+                return ErrorCode.ERROR;
+            }
+
+        }
+
+
+        /*
+         *  Remove spell in spell_count for UI object 
+         */
+        internal static ErrorCode RemoveSpellFromUiDB(int inputID)
+        {
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + Globals.DB_PLAYER_WIZARD_SPELL_PATH))
+                {
+
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                        DELETE FROM 'player_spell_count' WHERE id == $id;
+                    ";
+
+                    command.Parameters.AddWithValue("$id", inputID);
+                    return ErrorCode.SUCCESS;
+
+                }
+            }
+            catch
+            {
+                return ErrorCode.ERROR;
+            }
+
+        }
     }
 }

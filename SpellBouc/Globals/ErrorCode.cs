@@ -4,6 +4,7 @@ using System.Text;
 
 namespace SpellBouc
 {
+    /* Différents code erreur */
     public enum ErrorCode
     {
         SUCCESS,

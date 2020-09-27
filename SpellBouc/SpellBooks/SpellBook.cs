@@ -4,6 +4,7 @@ using System.Text;
 
 namespace SpellBouc
 {
+    /* Classe abstraite de livre de sort */
     class SpellBook
     {
         public virtual SpellContainer PlayerSpells { get; set; }
