@@ -1,19 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿using SpellBouc.UIClasses;
 namespace SpellBouc
 {
     /* Classe abstraite de livre de sort */
     class SpellBook
     {
-        public virtual SpellContainer PlayerSpells { get; set; }
+        internal virtual SpellContainer PlayerSpells { get; set; }
 
-        public virtual SpellContainer CompleteClassSpell { get; set; }
+        internal virtual SpellContainer CompleteClassSpell { get; set; }
 
-        public virtual void AddSpellInPlayerBook(String name) { }
+        internal virtual void AddSpellInSpellBook(string name) { }
 
-        public virtual void RemoveSpellInPlayerBook(String name) { }
+        internal virtual void RemoveSpellInSpellBook(string name) { }
+
+        internal virtual void AddSpellInSpellBook(int id) { }
+
+        internal virtual void RemoveSpellInSpellBook(int id) { }
+
+        internal virtual void AddSpellInUIList(Spell spell, UIContainerType uiContainerType) { }
+
+        internal virtual void RemoveSpellInUIList(Spell spell) { }
+
+        internal virtual void FillMissingUIInfosFromPlayerSpells() { }
+
     }
 
 }

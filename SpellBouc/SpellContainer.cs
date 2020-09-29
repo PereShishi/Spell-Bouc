@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using SpellBouc.AccessLayer;
 
 namespace SpellBouc
@@ -11,30 +10,28 @@ namespace SpellBouc
      * Classe qui sert de container aux sorts et leur contenu. Cette classe est l'interface avec la couche Acess.
      * Elle est composée d'une liste de sorts et toutes les fonctions qui permetront de lister, accéder, trier, afficher ect...
      */
-
     class SpellContainer: IEnumerable 
     {
-        private List<Spell> spells { get; set; }
+        private List<Spell> Spells { get; set; }
 
         /* 
          * Constructeur qui construit le containeur de sort dépendament de son type
          * Chaque type appelera un appel différent de la BDD: 
-                * Les PlayerSpells appellent l'entièreté de la BDD du jouer pour une classe spécifique 
-                * Les CompleteSpells appellent l'entièreté  de la BDD des sorts éxistants pour une classe spécifique 
+         *      * Les PlayerSpells appellent l'entièreté de la BDD du jouer pour une classe spécifique 
+         *      * Les CompleteSpells appellent l'entièreté  de la BDD des sorts éxistants pour une classe spécifique 
          */
-
-        public SpellContainer(ContainerType containerType)
+        internal SpellContainer(ContainerType containerType)
         {
             switch (containerType)
             {
                 case ContainerType.WizardPlayerSpells:
-                    spells = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
-                    IEnumerable<Spell> query1 = spells.OrderBy(spell => spell.Id);
+                    Spells = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+                    IEnumerable<Spell> query1 = Spells.OrderBy(spell => spell.Id);
                     break;
 
                 case ContainerType.WizardCompleteSpells:
-                    spells = Access.GetWizardSpellsFromDB(Globals.DB_WIZARD_SPELL_PATH);
-                    IEnumerable<Spell> query2 = spells.OrderBy(spell => spell.Id);
+                    Spells = Access.GetWizardSpellsFromDB(Globals.DB_WIZARD_SPELL_PATH);
+                    IEnumerable<Spell> query2 = Spells.OrderBy(spell => spell.Id);
                     break;
 
                 case ContainerType.PriestPlayerSpells:
@@ -53,7 +50,7 @@ namespace SpellBouc
          */
         public Spell GetSpell(int id)
         {
-            foreach (Spell spell in spells)
+            foreach (Spell spell in Spells)
             {
                 if (spell.Id == id)
                 {
@@ -68,7 +65,7 @@ namespace SpellBouc
          */
         public Spell GetSpell(String name)
         {
-            foreach (Spell spell in spells)
+            foreach (Spell spell in Spells)
             {
                 if (spell.Name == name)
                 {
@@ -86,7 +83,7 @@ namespace SpellBouc
         {
             var returnSpells = new List<Spell>();
 
-            foreach (Spell spell in spells)
+            foreach (Spell spell in Spells)
             {
                 if (spell.Lvl == lvl)
                 {
@@ -103,7 +100,7 @@ namespace SpellBouc
         {
             var returnSpells = new List<Spell>();
 
-            foreach (Spell spell in spells)
+            foreach (Spell spell in Spells)
             {
                 if (spell.Type == type)
                 {
@@ -116,28 +113,28 @@ namespace SpellBouc
         /*
          * Ajoute un spell dans la liste
          */
-        public void AddSpell(Spell spellToAdd)
+        private void AddSpell(Spell spellToAdd)
         {
-            foreach (var spell in spells)
+            foreach (var spell in Spells)
             {
                 if (spellToAdd == spell)
                 {
                     return;
                 }
             }
-            spells.Add(spellToAdd);
+            Spells.Add(spellToAdd);
         }
 
         /*
-         * Supprimer un spell dans la liste
+         * Supprime un spell dans la liste
          */
-        public void RemoveSpell(Spell spellToRemove)
+        private void RemoveSpell(Spell spellToRemove)
         {
-            foreach (var spell in spells)
+            foreach (var spell in Spells)
             {
                 if (spellToRemove == spell)
                 {
-                    spells.Remove(spell);
+                    Spells.Remove(spell);
                 }
             }   
         }
@@ -145,7 +142,7 @@ namespace SpellBouc
         /*
          * Ajoute un spell dans la liste ET dans la BDD
          */
-        public ErrorCode AddSpellInBookAndBD(Spell spell, ContainerType containerType)
+        internal ErrorCode AddSpellInBookAndBD(Spell spell, ContainerType containerType)
         {
             ErrorCode status;
             switch (containerType)
@@ -155,12 +152,7 @@ namespace SpellBouc
                     status = Access.AddWizardSpellInPlayerDB(spell);
                     if (status != ErrorCode.ERROR)
                     {
-                        status = Access.AddSpellInUiDB(spell.Id);
-
-                        if (status != ErrorCode.ERROR)
-                        {
-                            RemoveSpell(spell);
-                        }
+                        AddSpell(spell);
                     }
                     else
                     {
@@ -180,7 +172,7 @@ namespace SpellBouc
         /*
          * Retire un spell dans la liste ET dans la BDD
          */
-        public ErrorCode RemoveSpellInBookAndBD(Spell spell, ContainerType containerType)
+        internal ErrorCode RemoveSpellInBookAndBD(Spell spell, ContainerType containerType)
         {
             ErrorCode status;
             switch (containerType)
@@ -191,11 +183,12 @@ namespace SpellBouc
 
                     if (status != ErrorCode.ERROR)
                     {
-                        status = Access.RemoveSpellFromUiDB(spell.Id);
+                        status = Access.RemoveSpellInUiDB(spell.Id);
 
                         if (status != ErrorCode.ERROR)
                         {
                             RemoveSpell(spell);
+                            return ErrorCode.SUCCESS;
                         }                            
                     }
                     else
@@ -215,7 +208,7 @@ namespace SpellBouc
 
         public IEnumerator GetEnumerator()
         {
-            return spells.GetEnumerator();
+            return Spells.GetEnumerator();
         }
     }
 }

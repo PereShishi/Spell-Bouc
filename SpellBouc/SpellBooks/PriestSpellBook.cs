@@ -8,18 +8,18 @@ namespace SpellBouc
     class PriestSpellBook : SpellBook
     {
 
-        public override SpellContainer PlayerSpells { get; set; }
+        internal override SpellContainer PlayerSpells { get; set; }
 
-        public override SpellContainer CompleteClassSpell { get; set; }
+        internal override SpellContainer CompleteClassSpell { get; set; }
 
 
-        public PriestSpellBook()
+        internal PriestSpellBook()
         {
             PlayerSpells = new SpellContainer(ContainerType.PriestPlayerSpells);
             CompleteClassSpell = new SpellContainer(ContainerType.PriestCompleteSpells);
         }
 
-        public override void AddSpellInPlayerBook(String name) { }
-        public override void RemoveSpellInPlayerBook(String name) { }
+        internal override void AddSpellInPlayerBook(String name) { }
+        internal override void RemoveSpellInPlayerBook(String name) { }
     }
 }

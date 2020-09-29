@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="TEST&#xD;&#xA;" HorizontalAlignment="Left" Margin="46,72,0,0" VerticalAlignment="Top" Click="testFunction" Height="77" Width="103"/>
-        <Button Content="Ajout de spell&#xD;&#xA; manuel&#xD;&#xA;&#xA;" HorizontalAlignment="Left" Margin="213,72,0,0" VerticalAlignment="Top" Click="test2Function" Height="77" Width="103"/>
+        <Button Content="TEST&#xD;&#xA;" HorizontalAlignment="Left" Margin="46,72,0,0" VerticalAlignment="Top" Click="TestFunction" Height="77" Width="103"/>
+        <Button Content="Ajout de spell&#xD;&#xA; manuel&#xD;&#xA;&#xA;" HorizontalAlignment="Left" Margin="213,72,0,0" VerticalAlignment="Top" Click="Test2Function" Height="77" Width="103"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Center" Margin="0,110,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>

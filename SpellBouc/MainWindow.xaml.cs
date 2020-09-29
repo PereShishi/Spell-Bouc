@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpellBouc.AccessLayer;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,13 +27,21 @@ namespace SpellBouc
             InitializeComponent();
         }
 
-        private void testFunction(object sender, RoutedEventArgs e)
+        private void TestFunction(object sender, RoutedEventArgs e)
         {
             var wizardSpellBook = new WizardSpellBook();                                 
         }
 
-        private void test2Function(object sender, RoutedEventArgs e)
+        private void Test2Function(object sender, RoutedEventArgs e)
         {
+            var wizardSpellBook = new WizardSpellBook();
+            var inputID = Int32.Parse(textBox1.Text);
+            
+            wizardSpellBook.AddSpellInSpellBook(inputID);
+            var test = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+
+            wizardSpellBook.AddSpellInSpellBook(inputID);
+            test = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
 
         }
     }

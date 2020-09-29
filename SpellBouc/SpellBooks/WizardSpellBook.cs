@@ -1,9 +1,7 @@
-﻿using SpellBouc.AccessLayer;
+﻿using SpellBouc.UIClasses;
 using System;
 using System.Collections.Generic;
-using System.Printing.IndexedProperties;
-using System.Text;
-using System.Windows.Media;
+using System.Linq;
 
 namespace SpellBouc
 {
@@ -11,76 +9,135 @@ namespace SpellBouc
     class WizardSpellBook : SpellBook
     {
 
-        public override SpellContainer PlayerSpells { get; set; }
+        internal override SpellContainer PlayerSpells { get; set; }
 
-        public override SpellContainer CompleteClassSpell { get; set; }
+        internal override SpellContainer CompleteClassSpell { get; set; }
 
-        public List<UIWizardPlayerSpell> UIPlayerSpells{ get; set;}
+        internal UISpellContainer UIPlayerSpells { get; set;}
 
         /* Initialisation des membres */
-        public WizardSpellBook()
+        internal WizardSpellBook()
         {
+            // Récupère tous les sorts que le joueur a dans son grimoire 
             PlayerSpells = new SpellContainer(ContainerType.WizardPlayerSpells);
+            // Récupère tous les sorts de mages
             CompleteClassSpell = new SpellContainer(ContainerType.WizardCompleteSpells);
-            getPlayerSpellsUI();
+            // Récupère toutes les utilisations quotidiennes des sorts du joueurs, et les infos à afficher dans les UIs
+            UIPlayerSpells = new UISpellContainer(UIContainerType.UIWizardSpell);
+            FillMissingUIInfosFromPlayerSpells();
         }
 
-        /* Ajoute un spelle dans le livre de sort (implémentation de la classe mère)  */
-        public override void AddSpellInPlayerBook(String name)
+        /********************************************* IMPLEMENTATIONS *********************************************/
+
+        /* Ajoute un spell dans le livre de sort (implémentation à partir de la classe mère SpellBook) input: id */
+        internal override void AddSpellInSpellBook(int id)
+        {
+            var spellToAdd = CompleteClassSpell.GetSpell(id);
+
+            // Met à jour les BDD et le PlayerSpells
+            var status = PlayerSpells.AddSpellInBookAndBD(spellToAdd, ContainerType.WizardPlayerSpells);
+
+            if (status == ErrorCode.SUCCESS)
+            {
+                // Met à jour les UIs
+                status = UIPlayerSpells.AddUISpellInBookAndBD(spellToAdd, UIContainerType.UIWizardSpell);
+                if(status != ErrorCode.SUCCESS)
+                {
+                    //TODO: Erreur si l'upload n'a pas marché. msgbox ?
+                }
+            }
+            else
+            {
+                //TODO: Erreur si l'upload n'a pas marché. msgbox ?
+            }
+        }
+
+        /* Ajoute un spell dans le livre de sort (implémentation à partir de la classe mère SpellBook) input: name */
+        internal override void AddSpellInSpellBook(string name)
         {
             var spellToAdd = CompleteClassSpell.GetSpell(name);
 
+            // Met à jour les BDD et le PlayerSpells
             var status = PlayerSpells.AddSpellInBookAndBD(spellToAdd, ContainerType.WizardPlayerSpells);
 
-            if(status == ErrorCode.ERROR)
+            if (status == ErrorCode.SUCCESS)
+            {
+                // Met à jour les UIs
+                status = UIPlayerSpells.AddUISpellInBookAndBD(spellToAdd, UIContainerType.UIWizardSpell);
+                if (status != ErrorCode.SUCCESS)
+                {
+                    //TODO: Erreur si l'upload n'a pas marché. msgbox ?
+                }
+            }
+            else
             {
                 //TODO: Erreur si l'upload n'a pas marché. msgbox ?
             }
         }
 
-        /* Enlève un sort dans le livre du sort du joueur */
-        public override void RemoveSpellInPlayerBook(String name)
+        /* Enlève un sort dans le livre du sort du joueur (implémentation à partir de la classe mère SpellBook) input: name */
+        internal override void RemoveSpellInSpellBook(string name)
         {
             var spellToRemove = CompleteClassSpell.GetSpell(name);
 
+            // Met à jour les BDD et le PlayerSpells
             var status = PlayerSpells.RemoveSpellInBookAndBD(spellToRemove, ContainerType.WizardPlayerSpells);
-
-            if (status == ErrorCode.ERROR)
+            if (status == ErrorCode.SUCCESS)
+            {
+                // Met à jour les UIs
+                status = UIPlayerSpells.RemoveUISpellInBookAndBD(spellToRemove, UIContainerType.UIWizardSpell);
+                if (status != ErrorCode.SUCCESS)
+                {
+                    //TODO: Erreur si l'upload n'a pas marché. msgbox ?
+                }
+            }
+            else
             {
                 //TODO: Erreur si l'upload n'a pas marché. msgbox ?
             }
         }
 
-        /* Récupère les infos du nomre d'utilisation quotidiennes des sorts du joueur */
-        private void getPlayerSpellsUI()
+        /* Enlève un sort dans le livre du sort du joueur (implémentation à partir de la classe mère SpellBook) input: id */
+        internal override void RemoveSpellInSpellBook(int id)
         {
-            // Récupère juste les ID/Use de chaque sorts du joueurs
-            UIPlayerSpells = Access.GetAllPlayerCount();
+            var spellToRemove = CompleteClassSpell.GetSpell(id);
 
-            // Init les conteurs de spells à zero
-            InitUIPlayerSpells();
-
-            // Fait le lien avec la PlayerSpells pour remplir les autres champs de UIPlayerSpells:
-            FillMissingUIInfosFromPlayerSpells();
-
-        }
-
-        /* Initialise les PlayerSpellCount des UIPlayerSpells à 0 (évite les NULL) */
-        private void InitUIPlayerSpells()
-        {
-            foreach (var UISpell in UIPlayerSpells)
+            // Met à jour les BDD et le PlayerSpells
+            var status = PlayerSpells.RemoveSpellInBookAndBD(spellToRemove, ContainerType.WizardPlayerSpells);
+            if (status == ErrorCode.SUCCESS)
             {
-                UISpell.PlayerSpellCount = 0;
+                // Met à jour les UIs
+                status = UIPlayerSpells.RemoveUISpellInBookAndBD(spellToRemove, UIContainerType.UIWizardSpell);
+                if (status != ErrorCode.SUCCESS)
+                {
+                    //TODO: Erreur si l'upload n'a pas marché. msgbox ?
+                }
+            }
+            else
+            {
+                //TODO: Erreur si l'upload n'a pas marché. msgbox ?
             }
         }
 
+        /* Ajoute un spell dans la liste des UI */
+        internal override void AddSpellInUIList(Spell spell, UIContainerType uiContainerType)
+        {
+            UIPlayerSpells.AddUiSpell(spell, uiContainerType);
+        }
+
+        /* Retire un spell dans la liste des UI */
+        internal override void RemoveSpellInUIList(Spell spell) 
+        {
+            UIPlayerSpells.RemoveUiSpell(spell);
+        }
+
         /* Remplir les données manquantes de UIPlayerSpells après son initialisation (Lvl, Name, Description) */
-        private void FillMissingUIInfosFromPlayerSpells()
+        internal override void FillMissingUIInfosFromPlayerSpells()
         {
             var tempUIPlayerSpells = new List<UIWizardPlayerSpell>();
             foreach (Spell playerSpell in PlayerSpells)
             {
-                foreach (var uiWizardPlayerSpell in UIPlayerSpells)
+                foreach (UIWizardPlayerSpell uiWizardPlayerSpell in UIPlayerSpells)
                 {
                     if (playerSpell.Id == uiWizardPlayerSpell.Id)
                     {
@@ -93,8 +150,13 @@ namespace SpellBouc
                     }
                 }
             }
-            UIPlayerSpells.AddRange(tempUIPlayerSpells);
+
+            UIPlayerSpells.AddRange(tempUIPlayerSpells.Select(x => (dynamic)x).ToList());
         }
+
+
+
+        /********************************************* SPECIFIQUE A WIZARDSPELLBOOK *********************************************/
 
         /* Ajoute un sort quotidien */
         private void IncrementWizardPlayerSpell(String name)

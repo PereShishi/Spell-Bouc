@@ -8,18 +8,18 @@ namespace SpellBouc
     class Spell
     {
         public int Id { get; set; }
-        public String Name { get; set; }
+        public string Name { get; set; }
         public int Lvl { get; set; }
-        public String Type { get; set; }
-        public String Source { get; set; }
-        public String Composante { get; set; }
-        public String IncTime { get; set; }
-        public String Range { get; set; }
-        public String AreaEffect { get; set; }
-        public String Duration { get; set; }
-        public String SaveDice { get; set; }
+        public string Type { get; set; }
+        public string Source { get; set; }
+        public string Composante { get; set; }
+        public string IncTime { get; set; }
+        public string Range { get; set; }
+        public string AreaEffect { get; set; }
+        public string Duration { get; set; }
+        public string SaveDice { get; set; }
         public bool MagicResist { get; set; }
-        public String Description { get; set; }
-        public String Comp { get; set; }
+        public string Description { get; set; }
+        public string Comp { get; set; }
     }
 }
