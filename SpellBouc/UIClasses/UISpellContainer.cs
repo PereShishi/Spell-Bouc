@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Controls;
 
 /* Conteneur de UISPells, fonctionne de la même façon que le SpellContainer mais pour les UISpells */
 namespace SpellBouc.UIClasses
@@ -183,8 +182,54 @@ namespace SpellBouc.UIClasses
             {
                 if (uiSpellToRemove.Id == uiSpell.Id)
                 {
-                    UiSpells.Remove(uiSpell);
+                    UiSpells.Remove(UiSpells);
                 }
+            }
+        }
+
+        /*
+         * Incrémente un sort de mage journalier dans la BDD et dans le UIPlayerSpells
+         */
+        internal void IncrementWizardSpellPlayerCount(Spell spell)
+        {
+            try
+            {
+                foreach (UIWizardPlayerSpell iuSpell in UiSpells)
+                {
+                    if (iuSpell.Id == spell.Id)
+                    {
+                        Access.ChangeWizardSpellPlayerCount(spell.Id, iuSpell.PlayerSpellCount +1);
+                        iuSpell.PlayerSpellCount++;
+                        return;
+                    } 
+                }
+            }
+            catch 
+            {
+                // TODO: gerrer l'erreur.
+            }
+        }
+
+        /*
+         * Incrémente un sort de mage journalier dans la BDD et dans le UIPlayerSpells
+         */
+        internal void DecrementWizardSpellPlayerCount(Spell spell)
+        {
+            try
+            {
+                foreach (UIWizardPlayerSpell iuSpell in UiSpells)
+                {
+                    if (iuSpell.Id == spell.Id)
+                    {
+                        Access.ChangeWizardSpellPlayerCount(spell.Id, iuSpell.PlayerSpellCount - 1);
+                        iuSpell.PlayerSpellCount--;
+                        return;
+                    }
+                }
+            }
+            catch
+            {
+                // TODO: gerrer l'erreur.
             }
         }
 

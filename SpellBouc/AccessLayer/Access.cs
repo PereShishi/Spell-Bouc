@@ -217,8 +217,39 @@ namespace SpellBouc.AccessLayer
         }
 
         /*
-         *  Add spell in spell_count for UI object 
+         *  Change le player_count d'un sort de l'UI
          */
+        internal static void ChangeWizardSpellPlayerCount(int id, int newSpellCount)
+        {
+            try
+            {
+                using var connection = new SqliteConnection("Data Source=" + Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                        REPLACE INTO 'player_spell_count'
+                        (id, player_count)
+
+                        VALUES($id,$newSpellCount);
+
+                ";
+
+                command.Parameters.AddWithValue("$id", id);
+                command.Parameters.AddWithValue("$newSpellCount", newSpellCount);
+                command.ExecuteNonQuery();
+            }
+            catch
+            {
+                // Gérrer l'erreur
+                return;
+            }
+        }
+
+        /*
+         *  Ajoute un spell dans le spell_count de l'UI
+         */  
         internal static ErrorCode AddSpellInUiDB(int inputID)
         {
             try 
@@ -250,7 +281,7 @@ namespace SpellBouc.AccessLayer
 
 
         /*
-         *  Remove spell in spell_count for UI object 
+         *  Supprime un spell dans le spell_count de l'UI
          */
         internal static ErrorCode RemoveSpellInUiDB(int inputID)
         {

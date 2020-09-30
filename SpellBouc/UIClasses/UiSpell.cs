@@ -5,9 +5,9 @@ namespace SpellBouc.UIClasses
 {
      internal class UiSpell
     {
-        public int Id { get; set; }
-        public int Lvl { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        internal int Id { get; set; }
+        internal int Lvl { get; set; }
+        internal string Name { get; set; }
+        internal string Description { get; set; }
     }
 }

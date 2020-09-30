@@ -159,15 +159,11 @@ namespace SpellBouc
         /********************************************* SPECIFIQUE A WIZARDSPELLBOOK *********************************************/
 
         /* Ajoute un sort quotidien */
-        private void IncrementWizardPlayerSpell(String name)
+        private void IncrementWizardPlayerSpell(int id)
         {
-            var status = ErrorCode.SUCCESS;
-            var spellToIncrement = CompleteClassSpell.GetSpell(name);
+            var spellToIncrement = CompleteClassSpell.GetSpell(id);
+            UIPlayerSpells.IncrementWizardSpellPlayerCount(spellToIncrement);
 
-            if (status == ErrorCode.ERROR)
-            {  
-                //TODO: Erreur si l'upload n'a pas marché. msgbox ?
-            }
         }
 
     }
