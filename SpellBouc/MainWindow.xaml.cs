@@ -40,8 +40,19 @@ namespace SpellBouc
             wizardSpellBook.AddSpellInSpellBook(inputID);
             var test = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
 
-            wizardSpellBook.AddSpellInSpellBook(inputID);
+            wizardSpellBook.IncrementWizardPlayerSpell(inputID);
+            var test2 = Access.GetUIWizardSpellsFromDB();
+
+            wizardSpellBook.RemoveSpellInSpellBook(inputID);
+
+
             test = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+            test2 = Access.GetUIWizardSpellsFromDB();
+            return;
+
+
+
+
 
         }
     }

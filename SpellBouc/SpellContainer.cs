@@ -135,6 +135,7 @@ namespace SpellBouc
                 if (spellToRemove == spell)
                 {
                     Spells.Remove(spell);
+                    return;
                 }
             }   
         }
@@ -183,13 +184,10 @@ namespace SpellBouc
 
                     if (status != ErrorCode.ERROR)
                     {
-                        status = Access.RemoveSpellInUiDB(spell.Id);
 
-                        if (status != ErrorCode.ERROR)
-                        {
-                            RemoveSpell(spell);
-                            return ErrorCode.SUCCESS;
-                        }                            
+                        RemoveSpell(spell);
+                        return ErrorCode.SUCCESS;
+                         
                     }
                     else
                     {

@@ -90,7 +90,7 @@ namespace SpellBouc.UIClasses
                     status = Access.RemoveSpellInUiDB(spell.Id);
                     if (status != ErrorCode.ERROR)
                     {
-                        RemoveUiSpell(spell.Id);
+                        RemoveUiSpell(spell);
                     }
                     else
                     {
@@ -183,6 +183,7 @@ namespace SpellBouc.UIClasses
                 if (uiSpellToRemove.Id == uiSpell.Id)
                 {
                     UiSpells.Remove(UiSpells);
+                    return;
                 }
             }
         }

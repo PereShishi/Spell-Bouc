@@ -159,10 +159,18 @@ namespace SpellBouc
         /********************************************* SPECIFIQUE A WIZARDSPELLBOOK *********************************************/
 
         /* Ajoute un sort quotidien */
-        private void IncrementWizardPlayerSpell(int id)
+        internal void IncrementWizardPlayerSpell(int id)
         {
             var spellToIncrement = CompleteClassSpell.GetSpell(id);
             UIPlayerSpells.IncrementWizardSpellPlayerCount(spellToIncrement);
+
+        }
+
+        /* Retire un sort quotidien */
+        internal void DecrementWizardPlayerSpell(int id)
+        {
+            var spellToIncrement = CompleteClassSpell.GetSpell(id);
+            UIPlayerSpells.DecrementWizardSpellPlayerCount(spellToIncrement);
 
         }
 
