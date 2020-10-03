@@ -118,7 +118,7 @@ namespace SpellBouc
         {
             foreach (var spell in Spells)
             {
-                if (spellToAdd == spell)
+                if (spellToAdd.Id == spell.Id)
                 {
                     return;
                 }
@@ -203,6 +203,21 @@ namespace SpellBouc
             }
 
             return status;
+        }
+
+        /*
+         * Check les doublons 
+         */
+        internal bool IsDuplicated(int spellId)
+        {
+            foreach (var spell in Spells)
+            {
+                if (spellId == spell.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public IEnumerator GetEnumerator()

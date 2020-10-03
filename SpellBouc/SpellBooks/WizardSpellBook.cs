@@ -41,6 +41,7 @@ namespace SpellBouc
         /* Ajoute un spell dans le livre de sort (implémentation à partir de la classe mère SpellBook) input: id */
         internal override void AddSpellInSpellBook(int id)
         {
+            if (PlayerSpells.IsDuplicated(id) == true) return;
             var spellToAdd = CompleteClassSpells.GetSpell(id);
 
             // Met à jour les BDD et le PlayerSpells
@@ -48,6 +49,7 @@ namespace SpellBouc
 
             if (status == ErrorCode.SUCCESS)
             {
+                if (UIPlayerSpells.IsDuplicated(spellToAdd) == true) return;
                 // Met à jour les UIs
                 status = UIPlayerSpells.AddUISpellInBookAndBD(spellToAdd, UIContainerType.UIWizardSpell);
                 if(status != ErrorCode.SUCCESS)
@@ -65,14 +67,16 @@ namespace SpellBouc
 
         /* Ajoute un spell dans le livre de sort (implémentation à partir de la classe mère SpellBook) input: name */
         internal override void AddSpellInSpellBook(string name)
-        {
+        {         
             var spellToAdd = CompleteClassSpells.GetSpell(name);
+            if (PlayerSpells.IsDuplicated(spellToAdd.Id) == true) return;
 
             // Met à jour les BDD et le PlayerSpells
             var status = PlayerSpells.AddSpellInBookAndBD(spellToAdd, ContainerType.WizardPlayerSpells);
 
             if (status == ErrorCode.SUCCESS)
             {
+                if (UIPlayerSpells.IsDuplicated(spellToAdd) == true) return;
                 // Met à jour les UIs
                 status = UIPlayerSpells.AddUISpellInBookAndBD(spellToAdd, UIContainerType.UIWizardSpell);
                 if (status != ErrorCode.SUCCESS)

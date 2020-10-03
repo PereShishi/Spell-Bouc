@@ -29,7 +29,13 @@ namespace SpellBouc
 
         private void TestFunction(object sender, RoutedEventArgs e)
         {
-            var wizardSpellBook = new WizardSpellBook();                                 
+            var wizardSpellBook = new WizardSpellBook();
+
+            var test = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+            var test2 = Access.GetUIWizardSpellsFromDB();
+
+
+            return;
         }
 
         private void Test2Function(object sender, RoutedEventArgs e)
@@ -44,13 +50,24 @@ namespace SpellBouc
             var test2 = Access.GetUIWizardSpellsFromDB();
 
             wizardSpellBook.UpdateMaxLvlSpell();
-            wizardSpellBook.RemoveSpellInSpellBook(inputID);
-
 
             test = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
             test2 = Access.GetUIWizardSpellsFromDB();
 
            
+            return;
+        }
+
+        private void Test3Function(object sender, RoutedEventArgs e)
+        {
+            var wizardSpellBook = new WizardSpellBook();
+            var inputID = Int32.Parse(textBox1.Text);
+
+            wizardSpellBook.RemoveSpellInSpellBook(inputID);
+            
+            var test = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+            var test2 = Access.GetUIWizardSpellsFromDB();
+
             return;
         }
     }

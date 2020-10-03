@@ -52,7 +52,7 @@ namespace SpellBouc.UIClasses
                     status = Access.AddSpellInUiDB(spell.Id);
                     if (status != ErrorCode.ERROR)
                     {
-                        AddUiSpell(uiSpell, uiContainerType);
+                        AddUiSpell(uiSpell);
                     }
                     else
                     {
@@ -152,7 +152,7 @@ namespace SpellBouc.UIClasses
             // Si l'input est un Spell 
             try
             {
-                var returnUiSpell = CreateUISpellFromSpell((Spell)InputuiSpellToAdd, uiContainerType);
+                var returnUiSpell = CreateUISpellFromSpell(InputuiSpellToAdd, uiContainerType);
                 UiSpells.Add(InputuiSpellToAdd);
             }
             catch
@@ -169,7 +169,7 @@ namespace SpellBouc.UIClasses
             foreach (var uiSpell in UiSpells)
             {
                 // Dans le cas où le sort existe déjà on abort l'ajout.
-                if (InputuiSpellToAdd == uiSpell)
+                if (InputuiSpellToAdd.Id == uiSpell.Id)
                 {
                     return;
                 }
@@ -272,6 +272,21 @@ namespace SpellBouc.UIClasses
                 }
                 if (isDuplicated == false) UiSpells.Add(inputUiSpell);
             }
+        }
+
+        /*
+         * Check les doublons 
+         */
+        internal bool IsDuplicated(dynamic spellToAdd)
+        {
+            foreach (var spell in UiSpells)
+            {
+                if (spellToAdd.Id == spell.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 

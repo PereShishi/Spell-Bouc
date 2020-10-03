@@ -14,13 +14,13 @@ namespace SpellBouc.Logs
         /* Génère un log msgBox + message dans le debugger */
         public static void GenerateLog(ErrorCode errorCode, string message)
         {
-            var outputMessage = GENERIC_LOG_MESSAGE + GetMethodNameInStack() + " :" + message;
+            var outputMessage = GENERIC_LOG_MESSAGE + GetMethodNameInStack() + " : " + message;
             Console.WriteLine(outputMessage);
             MessageBox.Show(outputMessage);
         }
 
         /* Récupère le nom de la dernière methode dans la stack */
-        private static object GetMethodNameInStack()
+        private static string GetMethodNameInStack()
         {
             var s = new StackTrace();
             var thisasm = Assembly.GetExecutingAssembly();
