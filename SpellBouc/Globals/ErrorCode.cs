@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SpellBouc
+﻿
+namespace SpellBouc.Globals
 {
     /* Différents code erreur */
     public enum ErrorCode

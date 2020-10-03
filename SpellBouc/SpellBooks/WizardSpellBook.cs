@@ -1,4 +1,5 @@
-﻿using SpellBouc.UIClasses;
+﻿using SpellBouc.Globals;
+using SpellBouc.UIClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,29 @@ namespace SpellBouc
 
         internal override SpellContainer PlayerSpells { get; set; }
 
-        internal override SpellContainer CompleteClassSpell { get; set; }
+        internal override SpellContainer CompleteClassSpells { get; set; }
 
-        internal UISpellContainer UIPlayerSpells { get; set;}
+        internal override UISpellContainer UIPlayerSpells { get; set;}
 
+        internal override UISpellContainer UICompleteClassSpells { get; set; }
+        
         /* Initialisation des membres */
         internal WizardSpellBook()
         {
             // Récupère tous les sorts que le joueur a dans son grimoire 
             PlayerSpells = new SpellContainer(ContainerType.WizardPlayerSpells);
             // Récupère tous les sorts de mages
-            CompleteClassSpell = new SpellContainer(ContainerType.WizardCompleteSpells);
+            CompleteClassSpells = new SpellContainer(ContainerType.WizardCompleteSpells);
             // Récupère toutes les utilisations quotidiennes des sorts du joueurs, et les infos à afficher dans les UIs
             UIPlayerSpells = new UISpellContainer(UIContainerType.UIWizardSpell);
             FillMissingUIInfosFromPlayerSpells();
+            // Set le nombre d'onglets.
+            UpdateMaxLvlSpell();
+
+            UICompleteClassSpells = new UISpellContainer();
+            // Initialise CompleteClassSpells & update les sorts qui sont ajoutables
+            InitUICompleteClassSpells();
+            UpdateUICompleteClassSpell();
         }
 
         /********************************************* IMPLEMENTATIONS *********************************************/
@@ -32,7 +42,7 @@ namespace SpellBouc
         /* Ajoute un spell dans le livre de sort (implémentation à partir de la classe mère SpellBook) input: id */
         internal override void AddSpellInSpellBook(int id)
         {
-            var spellToAdd = CompleteClassSpell.GetSpell(id);
+            var spellToAdd = CompleteClassSpells.GetSpell(id);
 
             // Met à jour les BDD et le PlayerSpells
             var status = PlayerSpells.AddSpellInBookAndBD(spellToAdd, ContainerType.WizardPlayerSpells);
@@ -43,19 +53,21 @@ namespace SpellBouc
                 status = UIPlayerSpells.AddUISpellInBookAndBD(spellToAdd, UIContainerType.UIWizardSpell);
                 if(status != ErrorCode.SUCCESS)
                 {
-                    //TODO: Erreur si l'upload n'a pas marché. msgbox ?
+                    Log.GenerateLog(status, "Erreur lors de la mise à jour des UIs dans AddUISpellInBookAndBD");
                 }
+                // Update adable spell from CompleteClassSpell
+                UpdateUICompleteClassSpell();
             }
             else
             {
-                //TODO: Erreur si l'upload n'a pas marché. msgbox ?
+                Log.GenerateLog(status, "Erreur lors de la mise à jour des sorts dans AddSpellInBookAndBD");
             }
         }
 
         /* Ajoute un spell dans le livre de sort (implémentation à partir de la classe mère SpellBook) input: name */
         internal override void AddSpellInSpellBook(string name)
         {
-            var spellToAdd = CompleteClassSpell.GetSpell(name);
+            var spellToAdd = CompleteClassSpells.GetSpell(name);
 
             // Met à jour les BDD et le PlayerSpells
             var status = PlayerSpells.AddSpellInBookAndBD(spellToAdd, ContainerType.WizardPlayerSpells);
@@ -66,19 +78,21 @@ namespace SpellBouc
                 status = UIPlayerSpells.AddUISpellInBookAndBD(spellToAdd, UIContainerType.UIWizardSpell);
                 if (status != ErrorCode.SUCCESS)
                 {
-                    //TODO: Erreur si l'upload n'a pas marché. msgbox ?
+                    Log.GenerateLog(status, "Erreur lors de la mise à jour des UIs dans AddUISpellInBookAndBD");
                 }
+                // Update adable spell from CompleteClassSpell
+                UpdateUICompleteClassSpell();
             }
             else
             {
-                //TODO: Erreur si l'upload n'a pas marché. msgbox ?
+                Log.GenerateLog(status, "Erreur lors de la mise à jour des sorts dans AddSpellInBookAndBD");
             }
         }
 
         /* Enlève un sort dans le livre du sort du joueur (implémentation à partir de la classe mère SpellBook) input: name */
         internal override void RemoveSpellInSpellBook(string name)
         {
-            var spellToRemove = CompleteClassSpell.GetSpell(name);
+            var spellToRemove = CompleteClassSpells.GetSpell(name);
 
             // Met à jour les BDD et le PlayerSpells
             var status = PlayerSpells.RemoveSpellInBookAndBD(spellToRemove, ContainerType.WizardPlayerSpells);
@@ -88,19 +102,21 @@ namespace SpellBouc
                 status = UIPlayerSpells.RemoveUISpellInBookAndBD(spellToRemove, UIContainerType.UIWizardSpell);
                 if (status != ErrorCode.SUCCESS)
                 {
-                    //TODO: Erreur si l'upload n'a pas marché. msgbox ?
+                    Log.GenerateLog(status, "Erreur lors de la mise à jour des UIs dans RemoveUISpellInBookAndBD");
                 }
+                // Update adable spell from CompleteClassSpell
+                UpdateUICompleteClassSpell();
             }
             else
             {
-                //TODO: Erreur si l'upload n'a pas marché. msgbox ?
+                Log.GenerateLog(status, "Erreur lors de la mise à jour des sorts dans RemoveSpellInBookAndBD");
             }
         }
 
         /* Enlève un sort dans le livre du sort du joueur (implémentation à partir de la classe mère SpellBook) input: id */
         internal override void RemoveSpellInSpellBook(int id)
         {
-            var spellToRemove = CompleteClassSpell.GetSpell(id);
+            var spellToRemove = CompleteClassSpells.GetSpell(id);
 
             // Met à jour les BDD et le PlayerSpells
             var status = PlayerSpells.RemoveSpellInBookAndBD(spellToRemove, ContainerType.WizardPlayerSpells);
@@ -110,12 +126,14 @@ namespace SpellBouc
                 status = UIPlayerSpells.RemoveUISpellInBookAndBD(spellToRemove, UIContainerType.UIWizardSpell);
                 if (status != ErrorCode.SUCCESS)
                 {
-                    //TODO: Erreur si l'upload n'a pas marché. msgbox ?
+                    Log.GenerateLog(status, "Erreur lors de la mise à jour des UIs dans RemoveUISpellInBookAndBD");
                 }
+                // Update adable spell from CompleteClassSpell
+                UpdateUICompleteClassSpell();
             }
             else
             {
-                //TODO: Erreur si l'upload n'a pas marché. msgbox ?
+                Log.GenerateLog(status, "Erreur lors de la mise à jour des sorts dans RemoveSpellInBookAndBD");
             }
         }
 
@@ -161,7 +179,7 @@ namespace SpellBouc
         /* Ajoute un sort quotidien */
         internal void IncrementWizardPlayerSpell(int id)
         {
-            var spellToIncrement = CompleteClassSpell.GetSpell(id);
+            var spellToIncrement = CompleteClassSpells.GetSpell(id);
             UIPlayerSpells.IncrementWizardSpellPlayerCount(spellToIncrement);
 
         }
@@ -169,7 +187,7 @@ namespace SpellBouc
         /* Retire un sort quotidien */
         internal void DecrementWizardPlayerSpell(int id)
         {
-            var spellToIncrement = CompleteClassSpell.GetSpell(id);
+            var spellToIncrement = CompleteClassSpells.GetSpell(id);
             UIPlayerSpells.DecrementWizardSpellPlayerCount(spellToIncrement);
 
         }

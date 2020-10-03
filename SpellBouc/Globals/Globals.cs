@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using System.Text;
 
-namespace SpellBouc
+namespace SpellBouc.Globals
 {
     /* Variables globales */
     class Globals

@@ -8,6 +8,13 @@ namespace SpellBouc.UIClasses
         internal int Id { get; set; }
         internal int Lvl { get; set; }
         internal string Name { get; set; }
+        internal String School { get; set; }
         internal string Description { get; set; }
+        internal bool IsAddable { get; set; }
+
+        internal UiSpell()
+        {
+            this.IsAddable = true;
+        }
     }
 }

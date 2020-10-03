@@ -43,17 +43,15 @@ namespace SpellBouc
             wizardSpellBook.IncrementWizardPlayerSpell(inputID);
             var test2 = Access.GetUIWizardSpellsFromDB();
 
+            wizardSpellBook.UpdateMaxLvlSpell();
             wizardSpellBook.RemoveSpellInSpellBook(inputID);
 
 
             test = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
             test2 = Access.GetUIWizardSpellsFromDB();
+
+           
             return;
-
-
-
-
-
         }
     }
 }

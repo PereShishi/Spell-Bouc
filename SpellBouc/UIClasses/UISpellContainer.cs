@@ -1,5 +1,5 @@
 ﻿using SpellBouc.AccessLayer;
-using System;
+using SpellBouc.Globals;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +17,7 @@ namespace SpellBouc.UIClasses
          *      * Les UIWizardSpell appellent la BDD qui stock le nombre d'utilisations journalière des sorts de mages du joueur.
          *      * Les UIPriestSpell appellent la BDD qui stock le nombre d'utilisations journalière des sorts de prêtre du joueur.
          */
-
-        internal UISpellContainer(UIContainerType uiContainerType)
+        internal UISpellContainer(UIContainerType uiContainerType = default)
         {
             switch (uiContainerType)
             {
@@ -57,7 +56,7 @@ namespace SpellBouc.UIClasses
                     }
                     else
                     {
-                        // TODO: Implementation de l'erreur
+                        Log.GenerateLog(status, "Erreur lors de l'ajout des UIs dans la fonction CreateUISpellFromSpell");
                         status = ErrorCode.ERROR;
                     }
                     break;
@@ -94,7 +93,7 @@ namespace SpellBouc.UIClasses
                     }
                     else
                     {
-                        // TODO: Implementation de l'erreur
+                        Log.GenerateLog(status, "Erreur lors de la supression des UIs dans la fonction CreateUISpellFromSpell");
                         status = ErrorCode.ERROR;
                     }
                     break;
@@ -116,26 +115,31 @@ namespace SpellBouc.UIClasses
         /*
          * Créer un UISpell à partir d'un Spell.
          */
-        private dynamic CreateUISpellFromSpell(Spell spell, UIContainerType uiContainerType)
+        internal dynamic CreateUISpellFromSpell(Spell spell, UIContainerType uiContainerType = default)
         {
             switch (uiContainerType)
             {
                 case UIContainerType.UIWizardSpell:
-                    var uiWizardPlayerSpell = new UIWizardPlayerSpell();
-
-                    uiWizardPlayerSpell.Id = spell.Id;
-                    uiWizardPlayerSpell.Lvl = spell.Lvl;
-                    uiWizardPlayerSpell.Name = spell.Name;
-                    uiWizardPlayerSpell.PlayerSpellCount = 0;
-                    uiWizardPlayerSpell.Description = "Description";
+                    var uiWizardPlayerSpell = new UIWizardPlayerSpell
+                    {
+                        Id = spell.Id,
+                        Lvl = spell.Lvl,
+                        Name = spell.Name,
+                        PlayerSpellCount = 0,
+                        Description = "Description"
+                    };
                     return uiWizardPlayerSpell;
 
-                case UIContainerType.UIPriestSpell:
-                    //TODO: implémenter les UIPrêtre
-                    return 0;
-
+            //Default sera utilisé pour des UISpells classiques
                 default:
-                    return 0;
+                    var returnedSpell = new UiSpell
+                    {
+                        Id = spell.Id,
+                        Lvl = spell.Lvl,
+                        Name = spell.Name,
+                        Description = "Description"
+                    };
+                    return returnedSpell;
             }
                 
         }
@@ -151,26 +155,26 @@ namespace SpellBouc.UIClasses
                 var returnUiSpell = CreateUISpellFromSpell((Spell)InputuiSpellToAdd, uiContainerType);
                 UiSpells.Add(InputuiSpellToAdd);
             }
-            // Sinon c'est c'est le même type que UiSpells, qu'on ajoute dans la liste.
             catch
             {
-                try
+                Log.GenerateLog(ErrorCode.ERROR, "Erreur lors de l'ajout d'un UISpell dans le container ");
+            }
+        }
+
+        /*
+         * Ajoute un UIspell dans la liste l'input peut être un spell ou un UISpell traité dans un Try/Catch.
+         */
+        internal void AddUiSpell(dynamic InputuiSpellToAdd)
+        {
+            foreach (var uiSpell in UiSpells)
+            {
+                // Dans le cas où le sort existe déjà on abort l'ajout.
+                if (InputuiSpellToAdd == uiSpell)
                 {
-                    foreach (var uiSpell in UiSpells)
-                    {
-                        // Dans le cas où le sort existe déjà on abort l'ajout.
-                        if (InputuiSpellToAdd == uiSpell)
-                        {
-                            return;
-                        }
-                    }
-                    UiSpells.Add(InputuiSpellToAdd);
-                }
-                catch
-                {
-                    // TODO: gerrer l'erreur.
+                    return;
                 }
             }
+            UiSpells.Add(InputuiSpellToAdd);     
         }
 
         /*
@@ -207,7 +211,7 @@ namespace SpellBouc.UIClasses
             }
             catch 
             {
-                // TODO: gerrer l'erreur.
+                Log.GenerateLog(ErrorCode.ERROR, "Erreur lors l'incrémentation du sort ");
             }
         }
 
@@ -230,7 +234,7 @@ namespace SpellBouc.UIClasses
             }
             catch
             {
-                // TODO: gerrer l'erreur.
+                Log.GenerateLog(ErrorCode.ERROR, "Erreur lors la décrémentation du sort ");
             }
         }
 

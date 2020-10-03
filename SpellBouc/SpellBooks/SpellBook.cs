@@ -1,4 +1,7 @@
 ﻿using SpellBouc.UIClasses;
+using System.DirectoryServices;
+using System.Windows.Controls;
+
 namespace SpellBouc
 {
     /* Classe abstraite de livre de sort */
@@ -6,7 +9,13 @@ namespace SpellBouc
     {
         internal virtual SpellContainer PlayerSpells { get; set; }
 
-        internal virtual SpellContainer CompleteClassSpell { get; set; }
+        internal virtual SpellContainer CompleteClassSpells { get; set; }
+
+        internal virtual UISpellContainer UIPlayerSpells { get; set; }
+
+        internal virtual  UISpellContainer UICompleteClassSpells { get; set; }
+
+        private int MaxLvlSpell { get; set; }
 
         internal virtual void AddSpellInSpellBook(string name) { }
 
@@ -21,6 +30,50 @@ namespace SpellBouc
         internal virtual void RemoveSpellInUIList(Spell spell) { }
 
         internal virtual void FillMissingUIInfosFromPlayerSpells() { }
+
+        /* Récupère le niveau le plus haut du sort du joueur */
+        internal void UpdateMaxLvlSpell()
+        {
+            var maxSpell = 0;
+            foreach( Spell spell in PlayerSpells)
+            {
+                if (spell.Lvl > maxSpell) maxSpell = spell.Lvl;
+            }
+            MaxLvlSpell = maxSpell;
+        }
+
+        /* Créer une liste de UISpells à partir de la liste complète des sorts de la classe du joueur */
+        internal void InitUICompleteClassSpells()
+        {
+            foreach (Spell spell in CompleteClassSpells)
+            {
+                var spellToAdd = UICompleteClassSpells.CreateUISpellFromSpell(spell);
+                UICompleteClassSpells.AddUiSpell(spellToAdd);
+            }
+        }
+
+        /* Met à jour les membres isAdable de UICompleteClassSpells en fonctions des sorts présents */
+        internal void UpdateUICompleteClassSpell()
+        {
+            foreach (Spell playerSpell in PlayerSpells)
+            {
+                foreach (UiSpell finalSpell in UICompleteClassSpells)
+                {
+                    if (playerSpell.Id == finalSpell.Id)
+                    {
+                        finalSpell.IsAddable = false;
+                        continue;
+                    }
+                    else
+                    {
+                        finalSpell.IsAddable = true;
+                        continue;
+                    }
+                }
+            }
+        }
+
+
 
     }
 

@@ -8,13 +8,13 @@ namespace SpellBouc
 
         internal override SpellContainer PlayerSpells { get; set; }
 
-        internal override SpellContainer CompleteClassSpell { get; set; }
+        internal override SpellContainer CompleteClassSpells { get; set; }
 
 
         internal PriestSpellBook()
         {
             PlayerSpells = new SpellContainer(ContainerType.PriestPlayerSpells);
-            CompleteClassSpell = new SpellContainer(ContainerType.PriestCompleteSpells);
+            CompleteClassSpells = new SpellContainer(ContainerType.PriestCompleteSpells);
         }
 
         internal override void AddSpellInSpellBook(string name) { }
