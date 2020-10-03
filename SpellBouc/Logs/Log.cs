@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 
-namespace SpellBouc.Globals
+namespace SpellBouc.Logs
 {
     /* Classe de génération de logs */
     class Log

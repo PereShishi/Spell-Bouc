@@ -1,5 +1,5 @@
 ﻿using SpellBouc.AccessLayer;
-using SpellBouc.Globals;
+using SpellBouc.Logs;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

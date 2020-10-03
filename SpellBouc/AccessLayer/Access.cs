@@ -1,11 +1,8 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Text;
-using SpellBouc;
 using SpellBouc.UIClasses;
+using SpellBouc.Logs;
 
 namespace SpellBouc.AccessLayer
 {

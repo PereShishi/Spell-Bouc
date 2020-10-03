@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SpellBouc.AccessLayer;
+using SpellBouc.Logs;
 
 namespace SpellBouc
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace SpellBouc.Globals
+namespace SpellBouc
 {
     /* Variables globales */
     class Globals
