@@ -30,5 +30,22 @@ namespace SpellBouc
         internal override void RemoveSpellInUIList(Spell spell) { }
 
         internal override void FillMissingUIInfosFromPlayerSpells() { }
+
+        /* Récupère le nombre de sorts par niveau */
+        internal override void UpdateSpellNumberByLvl()
+        {
+
+            // Set le tableur:
+            for (int i = 0; i < MaxLvlSpell + 1; i++)
+            {
+                SpellNumberByLvl[i] = 0;
+            }
+
+            // Compte  
+            foreach (Spell spell in PlayerSpells)
+            {
+                SpellNumberByLvl[spell.Lvl]++;
+            }
+        }
     }
 }

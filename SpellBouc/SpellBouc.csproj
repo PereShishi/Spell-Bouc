@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="img\" />
     <Folder Include="Xaml\" />
   </ItemGroup>
 

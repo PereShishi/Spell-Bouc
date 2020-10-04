@@ -34,7 +34,6 @@ namespace SpellBouc
             var test = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
             var test2 = Access.GetUIWizardSpellsFromDB();
 
-
             return;
         }
 

@@ -7,10 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="TEST&#xD;&#xA;" HorizontalAlignment="Left" Margin="46,72,0,0" VerticalAlignment="Top" Click="TestFunction" Height="77" Width="103"/>
-        <Button Content="Ajout de spell&#xD;&#xA; manuel&#xD;&#xA;&#xA;" HorizontalAlignment="Left" Margin="213,72,0,0" VerticalAlignment="Top" Click="Test2Function" Height="77" Width="103"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Center" Margin="0,110,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Suppression &#xD;&#xA;d'un spell&#xD;&#xA;manuel" HorizontalAlignment="Left" Margin="213,154,0,0" VerticalAlignment="Top" Click="Test3Function" Height="77" Width="103"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
 
+        </Grid.ColumnDefinitions>
+        <Button Name="MageButton" Content="Mage" Grid.Column="0" VerticalAlignment = "Center" Margin= "100" Height= "150"></Button>
+        <Button Name="PriestButton" Content="Prêtre" Grid.Column="1" VerticalAlignment = "Center" Margin= "100" Height= "150"></Button>
+
+        <Button Content="TEST&#xD;&#xA;" HorizontalAlignment="Left" Margin="219,319,0,0" VerticalAlignment="Top" Click="TestFunction" Height="77" Width="103"/>
+        <Button Content="Ajout de spell&#xD;&#xA; manuel&#xD;&#xA;&#xA;" HorizontalAlignment="Left" Margin="76,319,0,0" VerticalAlignment="Top" Click="Test2Function" Height="77" Width="104" Grid.Column="1"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Margin="340,349,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <Button Content="Suppression &#xD;&#xA;d'un spell&#xD;&#xA;manuel" HorizontalAlignment="Left" Margin="200,319,0,0" VerticalAlignment="Top" Click="Test3Function" Height="78" Width="103" Grid.Column="1"/>
+        <Image Grid.Column="1" Margin="76,103,-1176,-369" Stretch="Fill" Source="pack://siteoforigin:,,,/spellbook_0.png"/>
     </Grid>
 </Window>

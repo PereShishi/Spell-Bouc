@@ -16,6 +16,7 @@ namespace SpellBouc
         internal override UISpellContainer UIPlayerSpells { get; set;}
 
         internal override UISpellContainer UICompleteClassSpells { get; set; }
+
         
         /* Initialisation des membres */
         internal WizardSpellBook()
@@ -34,6 +35,7 @@ namespace SpellBouc
             // Initialise CompleteClassSpells & update les sorts qui sont ajoutables
             InitUICompleteClassSpells();
             UpdateUICompleteClassSpell();
+            UpdateSpellNumberByLvl();
         }
 
         /********************************************* IMPLEMENTATIONS *********************************************/
@@ -58,6 +60,7 @@ namespace SpellBouc
                 }
                 // Update adable spell from CompleteClassSpell
                 UpdateUICompleteClassSpell();
+                UpdateSpellNumberByLvl();
             }
             else
             {
@@ -85,6 +88,7 @@ namespace SpellBouc
                 }
                 // Update adable spell from CompleteClassSpell
                 UpdateUICompleteClassSpell();
+                UpdateSpellNumberByLvl();
             }
             else
             {
@@ -109,6 +113,7 @@ namespace SpellBouc
                 }
                 // Update adable spell from CompleteClassSpell
                 UpdateUICompleteClassSpell();
+                UpdateSpellNumberByLvl();
             }
             else
             {
@@ -133,6 +138,7 @@ namespace SpellBouc
                 }
                 // Update adable spell from CompleteClassSpell
                 UpdateUICompleteClassSpell();
+                UpdateSpellNumberByLvl();
             }
             else
             {
@@ -175,7 +181,21 @@ namespace SpellBouc
             UIPlayerSpells.AddRange(tempUIPlayerSpells.Select(x => (dynamic)x).ToList());
         }
 
+        /* Récupère le nombre de sorts par niveau */
+        internal override void UpdateSpellNumberByLvl()
+        {
+            // Set le tableur:
+            for (int i = 0; i < MaxLvlSpell + 1; i++)
+            {
+                SpellNumberByLvl[i] = 0;
+            }
 
+            // Compte  
+            foreach (UIWizardPlayerSpell spell in UIPlayerSpells)
+            {
+                SpellNumberByLvl[spell.Lvl] = SpellNumberByLvl[spell.Lvl] + spell.PlayerSpellCount;
+            }
+        }
 
         /********************************************* SPECIFIQUE A WIZARDSPELLBOOK *********************************************/
 
@@ -184,6 +204,7 @@ namespace SpellBouc
         {
             var spellToIncrement = CompleteClassSpells.GetSpell(id);
             UIPlayerSpells.IncrementWizardSpellPlayerCount(spellToIncrement);
+            UpdateSpellNumberByLvl();
 
         }
 
@@ -192,7 +213,7 @@ namespace SpellBouc
         {
             var spellToIncrement = CompleteClassSpells.GetSpell(id);
             UIPlayerSpells.DecrementWizardSpellPlayerCount(spellToIncrement);
-
+            UpdateSpellNumberByLvl();
         }
 
     }
