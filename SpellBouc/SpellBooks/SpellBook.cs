@@ -5,7 +5,7 @@ using System.Windows.Controls;
 namespace SpellBouc
 {
     /* Classe abstraite de livre de sort */
-    class SpellBook
+    public class SpellBook
     {
         internal virtual SpellContainer PlayerSpells { get; set; }
 

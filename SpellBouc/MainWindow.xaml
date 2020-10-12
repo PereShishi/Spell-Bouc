@@ -1,24 +1,64 @@
-﻿<Window x:Class="SpellBouc.MainWindow"
+﻿<Window x:Class="SpellBouc.MainWindow"     
+        WindowStyle="None"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown"
+        ResizeMode="CanResizeWithGrip"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SpellBouc"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="750" Width="1200">
+    <Window.Background>
+        <ImageBrush ImageSource="img/spellbook_0.png" Stretch="UniformToFill" Opacity="1" />
+    </Window.Background>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_1" />
+        <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_3" />
+    </Window.CommandBindings>
+
+    <!-- Découpage du livre -->
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="*"/>
-
+            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <Button Name="MageButton" Content="Mage" Grid.Column="0" VerticalAlignment = "Center" Margin= "100" Height= "150"></Button>
-        <Button Name="PriestButton" Content="Prêtre" Grid.Column="1" VerticalAlignment = "Center" Margin= "100" Height= "150"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="0.16*"/>
+            <RowDefinition Height ="0.1*"/>
+            <RowDefinition Height ="*"/>
+            <RowDefinition Height ="0.26*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Boutons Close et Minimize -->
+        <StackPanel Orientation="Vertical" Grid.Column="4" Grid.Row="0" VerticalAlignment = "Bottom" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{x:Static SystemCommands.MinimizeWindowCommand}" Content="Minimize" />
+                <Button Command="{x:Static SystemCommands.CloseWindowCommand}" Content="Close" />
+            </StackPanel>
+        </StackPanel>
+        
+        <!-- Bouton de mage -->
+        <Button Name="MageButton" Content="Mage" Grid.Column="1" Grid.Row="2" Click="TestMainButtonWindow"></Button>
+        <!-- Boutons de lanceurs de sort divins -->
+        <Grid Grid.Column="3" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Name="PriestButton" Content="Prêtre" Grid.Row="0"></Button>
+            <Button Name="DruidButton" Content="Druide" Grid.Row="1"></Button>
+        </Grid>
 
+        <!--
         <Button Content="TEST&#xD;&#xA;" HorizontalAlignment="Left" Margin="219,319,0,0" VerticalAlignment="Top" Click="TestFunction" Height="77" Width="103"/>
         <Button Content="Ajout de spell&#xD;&#xA; manuel&#xD;&#xA;&#xA;" HorizontalAlignment="Left" Margin="76,319,0,0" VerticalAlignment="Top" Click="Test2Function" Height="77" Width="104" Grid.Column="1"/>
         <TextBox x:Name="textBox1" HorizontalAlignment="Left" Margin="340,349,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
         <Button Content="Suppression &#xD;&#xA;d'un spell&#xD;&#xA;manuel" HorizontalAlignment="Left" Margin="200,319,0,0" VerticalAlignment="Top" Click="Test3Function" Height="78" Width="103" Grid.Column="1"/>
-        <Image Grid.Column="1" Margin="76,103,-1176,-369" Stretch="Fill" Source="pack://siteoforigin:,,,/spellbook_0.png"/>
+        -->
     </Grid>
 </Window>

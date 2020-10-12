@@ -6,7 +6,7 @@ using System.Linq;
 namespace SpellBouc
 {
     /* Clase de livre de sort de mage */
-    class WizardSpellBook : SpellBook
+    public class WizardSpellBook : SpellBook
     {
 
         internal override SpellContainer PlayerSpells { get; set; }
