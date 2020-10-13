@@ -28,33 +28,33 @@ namespace SpellBouc.AccessLayer
                 ";
 
                 // Stocke tous les paramètres des sorts dans 
-                using (var reader = command.ExecuteReader())
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    var spell = new Spell
                     {
-                        var spell = new Spell();
 
                         // Récupére données des lignes de la BDD
-                        spell.Id = reader.GetInt32(0);
-                        spell.Name = reader.GetString(1);
-                        spell.Lvl = reader.GetInt32(2);
-                        spell.Type = reader.GetString(3);
-                        spell.Source = reader.GetString(4);
+                        Id = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        Lvl = reader.GetInt32(2),
+                        Type = reader.GetString(3),
+                        Source = reader.GetString(4),
                         // 5: Niveau mal formaté 
                         // 6: Domaine
                         // 7: Initie
-                        spell.Composante = reader.GetString(8);
-                        spell.IncTime = reader.GetString(9);
-                        spell.Range = reader.GetString(10);
-                        spell.AreaEffect = reader.GetString(11);
-                        spell.Duration = reader.GetString(12);
-                        spell.SaveDice = reader.GetString(13);
-                        spell.MagicResist = GetMagicRes(reader);
-                        spell.Description = reader.GetString(15);
-                        spell.Comp = reader.GetString(16);
+                        Composante = reader.GetString(8),
+                        IncTime = reader.GetString(9),
+                        Range = reader.GetString(10),
+                        AreaEffect = reader.GetString(11),
+                        Duration = reader.GetString(12),
+                        SaveDice = reader.GetString(13),
+                        MagicResist = GetMagicRes(reader),
+                        Description = reader.GetString(15),
+                        Comp = reader.GetString(16)
+                    };
 
-                        spellList.Add(spell);
-                    }
+                    spellList.Add(spell);
                 }
             }
 
@@ -192,20 +192,18 @@ namespace SpellBouc.AccessLayer
                 ";
 
                 // Stocke tous les paramètres des sorts dans 
-                using (var reader = command.ExecuteReader())
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    var uiWizardPlayerSpell = new UIWizardPlayerSpell
                     {
-                        var uiWizardPlayerSpell = new UIWizardPlayerSpell
-                        {
-                            // Récupére données des lignes de la BDD
-                            Id = reader.GetInt32(0),
-                            PlayerSpellCount = reader.GetInt32(1)
-                        };
+                        // Récupére données des lignes de la BDD
+                        Id = reader.GetInt32(0),
+                        PlayerSpellCount = reader.GetInt32(1)
+                    };
 
-                        wizardUIPlayerSpells.Add(uiWizardPlayerSpell);
+                    wizardUIPlayerSpells.Add(uiWizardPlayerSpell);
 
-                    }
                 }
             }
 

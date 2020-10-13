@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SpellBouc.ViewModel;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,22 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SpellBouc.Xaml
+namespace SpellBouc.View
 {
     /// <summary>
     /// Logique d'interaction pour WizardSpellTab.xaml
     /// </summary>
-    public partial class WizardSpellTab : UserControl
+    public partial class WizardSpellTabView : UserControl
     {
-        private WizardWindow wizardWindow = null;
-
-        public WizardSpellTab()
+        
+        public WizardSpellTabView()
         {
             InitializeComponent();
-        }
-        private void OnControlLoaded(object sender, RoutedEventArgs e)
-        {
-            wizardWindow = Window.GetWindow(this) as WizardWindow;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using SpellBouc.Xaml;
+using SpellBouc.View;
 
 
 namespace SpellBouc
@@ -15,6 +15,7 @@ namespace SpellBouc
             InitializeComponent();
         }
 
+        /* Permet le dragMove de la page */
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -23,25 +24,29 @@ namespace SpellBouc
             }
 
         }
+
         private void CommandBinding_CanExecute_1(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
 
+        /* Commande le bouton de fermeture de la page */
         private void CommandBinding_Executed_1(object sender, ExecutedRoutedEventArgs e)
         {
             SystemCommands.CloseWindow(this);
         }
 
+        /* Commande le bouton de minimize de la page */
         private void CommandBinding_Executed_3(object sender, ExecutedRoutedEventArgs e)
         {
             SystemCommands.MinimizeWindow(this);
         }
 
-        private void TestMainButtonWindow(object sender, RoutedEventArgs e)
+        /* Bascule sur un livre de sort du Mage */
+        private void ChoseMageSpellBook(object sender, RoutedEventArgs e)
         {
             var wizardSpellBook = new WizardSpellBook();
-            var test = new WizardWindow(wizardSpellBook);
+            var test = new WizardWindowView(wizardSpellBook);
             SystemCommands.CloseWindow(this);
             test.Show();
         }

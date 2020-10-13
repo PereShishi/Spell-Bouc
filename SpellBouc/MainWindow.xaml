@@ -9,6 +9,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="MainWindow" Height="750" Width="1200">
+    
     <Window.Background>
         <ImageBrush ImageSource="img/spellbook_0.png" Stretch="UniformToFill" Opacity="1" />
     </Window.Background>
@@ -43,7 +44,7 @@
         </StackPanel>
         
         <!-- Bouton de mage -->
-        <Button Name="MageButton" Content="Mage" Grid.Column="1" Grid.Row="2" Click="TestMainButtonWindow"></Button>
+        <Button Name="MageButton" Content="Mage" Grid.Column="1" Grid.Row="2" Click="ChoseMageSpellBook"></Button>
         <!-- Boutons de lanceurs de sort divins -->
         <Grid Grid.Column="3" Grid.Row="2">
             <Grid.RowDefinitions>

@@ -11,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SpellBouc.Xaml
+namespace SpellBouc.View
 {
     /// <summary>
-    /// Logique d'interaction pour UserControlSpellHeader.xaml
+    /// Logique d'interaction pour WizardSpellItemView.xaml
     /// </summary>
-    public partial class UserControlSpellHeader : UserControl
+    public partial class WizardSpellItemView : UserControl
     {
-        public UserControlSpellHeader()
+        public WizardSpellItemView()
         {
             InitializeComponent();
         }

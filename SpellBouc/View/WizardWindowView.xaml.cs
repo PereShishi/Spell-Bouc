@@ -1,21 +1,43 @@
-﻿using System.Windows;
+﻿using SpellBouc.Model;
+using SpellBouc.ViewModel;
+using System;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 
-namespace SpellBouc.Xaml
+namespace SpellBouc.View
 {
     /// <summary>
     /// Logique d'interaction pour WizardWindow.xaml
     /// </summary>
-    public partial class WizardWindow : Window
+    public partial class WizardWindowView : Window
     {
-        public WizardWindow(WizardSpellBook wizardSpellBook)
+        WizardSpellBook _wizardSpellBook;
+
+        public WizardWindowView(WizardSpellBook wizardSpellBook)
         {
             InitializeComponent();
             this._wizardSpellBook = wizardSpellBook;
+            InitializeCurrentWizardSpellTab();
         }
 
-        WizardSpellBook _wizardSpellBook;
+        /* Initialise la première wizardSpellTab en utilisant le VM */
+        private void InitializeCurrentWizardSpellTab()
+        {
+            WizardSpellTabViewModel test = new WizardSpellTabViewModel(_wizardSpellBook);
+            ObservableCollection<WizardSpellTab> list = test.WizardSpellTabList;
+
+            currentWizardSpellTab.wizardTab.DataContext = list;
+            currentWizardSpellTab.wizardTab.SelectedIndex = 0;
+        }
+
+
+
+
+
+
+
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {

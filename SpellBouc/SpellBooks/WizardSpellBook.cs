@@ -184,6 +184,7 @@ namespace SpellBouc
         /* Récupère le nombre de sorts par niveau */
         internal override void UpdateSpellNumberByLvl()
         {
+            SpellNumberByLvl = new int[MaxLvlSpell + 1];
             // Set le tableur:
             for (int i = 0; i < MaxLvlSpell + 1; i++)
             {

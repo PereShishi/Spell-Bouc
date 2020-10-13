@@ -17,7 +17,7 @@ namespace SpellBouc
 
         internal int MaxLvlSpell { get; set; }
 
-        internal int [] SpellNumberByLvl { get; set; }
+        internal int[] SpellNumberByLvl { get; set; }
 
         internal virtual void AddSpellInSpellBook(string name) { }
 

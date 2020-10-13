@@ -1,4 +1,4 @@
-﻿<Window x:Class="SpellBouc.Xaml.WizardWindow"
+﻿<Window x:Class="SpellBouc.View.WizardWindowView"
         WindowStyle="None"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown"
@@ -7,14 +7,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:wizardSpellTab="clr-namespace:SpellBouc.Xaml"
+        xmlns:wizardSpellTab="clr-namespace:SpellBouc.View"
         mc:Ignorable="d"
         
-        Title="WizardWindow" Height="750" Width="1200">
+    Title="WizardWindow" Height="750" Width="1200">
+    
     <Window.Background>
         <ImageBrush ImageSource="../img/spellbook_0.png" Stretch="UniformToFill" Opacity="1" />
     </Window.Background>
-
+    
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_1" />
         <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_3" />
@@ -44,5 +45,6 @@
             </StackPanel>
         </StackPanel>
 
+        <wizardSpellTab:WizardSpellTabView Grid.Column="1" Grid.Row="2" x:Name="currentWizardSpellTab"/>
     </Grid>
 </Window>
