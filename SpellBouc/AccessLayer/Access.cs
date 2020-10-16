@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
-using SpellBouc.UIClasses;
+using SpellBouc.UISpells;
 using SpellBouc.Logs;
 
 namespace SpellBouc.AccessLayer

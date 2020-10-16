@@ -3,26 +3,38 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wizardSpellView="clr-namespace:SpellBouc.View"
+        xmlns:wizardSpellModelView="clr-namespace:SpellBouc.ViewModel"
         mc:Ignorable="d"
         >
 
-    <TabControl Name="wizardTab" ItemsSource="{Binding}">
-        <TabControl.ItemTemplate>
-            <DataTemplate>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Lvl}"/>
-                    <TextBlock Text="{Binding SpellMaxPerDay}" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="5" />
-                </StackPanel>
-            </DataTemplate>
-        </TabControl.ItemTemplate>
-        <TabControl.ContentTemplate>
-            <DataTemplate>
-                <ScrollViewer>
-                    <ListView ItemsSource="{Binding SpellList}"/>
-                </ScrollViewer>
-            </DataTemplate>
-        </TabControl.ContentTemplate>
+    <UserControl.Resources>
+        <!-- Onglets des tabs -->
+        <DataTemplate x:Key="HeaderTemplate" DataType="{x:Type wizardSpellModelView:WizardSpellTabViewModel}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat=" Niveau {0}">
+                            <Binding Path="Lvl"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock Text="{Binding SpellMaxPerDay}" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="5" />
+            </StackPanel>
+        </DataTemplate>
+
+        <!-- Contenu des tabs -->
+        <DataTemplate x:Key="ContentTemplate" DataType="{x:Type wizardSpellModelView:WizardPlayerSpellViewModel}">
+            <wizardSpellView:WizardSpellItemView/>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <!-- TabControl des onglets de sorts  -->
+
+    <TabControl Name="wizardTab" ItemsSource="{Binding}"
+                ItemTemplate="{StaticResource HeaderTemplate}"
+                ContentTemplate="{StaticResource ContentTemplate}">
     </TabControl>
-    
+
 </UserControl>
     

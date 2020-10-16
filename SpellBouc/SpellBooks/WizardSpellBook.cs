@@ -1,5 +1,5 @@
 ﻿using SpellBouc.Logs;
-using SpellBouc.UIClasses;
+using SpellBouc.UISpells;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -170,7 +170,7 @@ namespace SpellBouc
                     {
                         uiWizardPlayerSpell.Lvl = playerSpell.Lvl;
                         uiWizardPlayerSpell.Name = playerSpell.Name;
-                        uiWizardPlayerSpell.Name = "Description";
+                        uiWizardPlayerSpell.Description = "Description";
                         // TODO: Description 
 
                         tempUIPlayerSpells.Add(uiWizardPlayerSpell);

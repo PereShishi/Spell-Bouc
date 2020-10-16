@@ -4,10 +4,10 @@ using System.Text;
 
 namespace SpellBouc.Model
 {
-    public abstract class Tab
+    public abstract class UiTab
     {
         // Header: 
-        public string Lvl { get; set; }
+        public int Lvl { get; set; }
 
         public string SpellMaxPerDay { get; set; } = 10.ToString();
 

@@ -1,13 +1,13 @@
 ﻿using SpellBouc.Model;
-using SpellBouc.UIClasses;
+using SpellBouc.UISpells;
 using System.Collections.ObjectModel;
 
 
 namespace SpellBouc.ViewModel
 {
-    internal class WizardSpellTabViewModel : ViewModel
+    internal class WizardSpellTabViewModel
     {
-        public ObservableCollection<WizardSpellTab> WizardSpellTabList { get; set; } = new ObservableCollection<WizardSpellTab>();
+        public ObservableCollection<UiWizardSpellTab> WizardSpellTabList { get; set; } = new ObservableCollection<UiWizardSpellTab>();
 
 
         private readonly WizardSpellBook _wizardSpellBook;
@@ -21,11 +21,9 @@ namespace SpellBouc.ViewModel
         /* Initialise tous les header des tabs */
         private void InitializeWizardSpellTabList()
         {
-            // Retourne une liste 
-            WizardSpellTabList = WizardSpellTab.GetTabListFromWizardSpellBook(_wizardSpellBook);
+            // Retourne une liste de Tab
+            WizardSpellTabList = UiWizardSpellTab.GetTabListFromWizardSpellBook(_wizardSpellBook);
         }
     }
-
-
 }
 

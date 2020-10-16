@@ -1,4 +1,4 @@
-﻿using SpellBouc.UIClasses;
+﻿using SpellBouc.UISpells;
 
 namespace SpellBouc
 {

@@ -26,18 +26,11 @@ namespace SpellBouc.View
         private void InitializeCurrentWizardSpellTab()
         {
             WizardSpellTabViewModel test = new WizardSpellTabViewModel(_wizardSpellBook);
-            ObservableCollection<WizardSpellTab> list = test.WizardSpellTabList;
+            ObservableCollection<UiWizardSpellTab> list = test.WizardSpellTabList;
 
             currentWizardSpellTab.wizardTab.DataContext = list;
             currentWizardSpellTab.wizardTab.SelectedIndex = 0;
         }
-
-
-
-
-
-
-
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -45,7 +38,6 @@ namespace SpellBouc.View
             {
                 DragMove();
             }
-
         }
 
         private void CommandBinding_CanExecute_1(object sender, CanExecuteRoutedEventArgs e)

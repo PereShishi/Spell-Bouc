@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 /* Conteneur de UISPells, fonctionne de la même façon que le SpellContainer mais pour les UISpells */
-namespace SpellBouc.UIClasses
+namespace SpellBouc.UISpells
 {
     class UISpellContainer: IEnumerable
     { 
