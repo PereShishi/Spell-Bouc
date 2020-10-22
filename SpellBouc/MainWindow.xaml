@@ -44,7 +44,7 @@
         </StackPanel>
         
         <!-- Bouton de mage -->
-        <Button Name="MageButton" Content="Mage" Grid.Column="1" Grid.Row="2" Click="ChoseMageSpellBook"></Button>
+        <Button Name="MageButton" Content="Mage" Grid.Column="1" Grid.Row="2" Click="ChoseWizardSpellBook"></Button>
         <!-- Boutons de lanceurs de sort divins -->
         <Grid Grid.Column="3" Grid.Row="2">
             <Grid.RowDefinitions>
@@ -55,7 +55,7 @@
             <Button Name="DruidButton" Content="Druide" Grid.Row="1"></Button>
         </Grid>
 
-        <!--
+        <!-- TODO TO DELETE AFTER TESTS
         <Button Content="TEST&#xD;&#xA;" HorizontalAlignment="Left" Margin="219,319,0,0" VerticalAlignment="Top" Click="TestFunction" Height="77" Width="103"/>
         <Button Content="Ajout de spell&#xD;&#xA; manuel&#xD;&#xA;&#xA;" HorizontalAlignment="Left" Margin="76,319,0,0" VerticalAlignment="Top" Click="Test2Function" Height="77" Width="104" Grid.Column="1"/>
         <TextBox x:Name="textBox1" HorizontalAlignment="Left" Margin="340,349,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>

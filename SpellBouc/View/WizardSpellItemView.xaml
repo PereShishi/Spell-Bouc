@@ -6,17 +6,17 @@
              xmlns:local="clr-namespace:SpellBouc.View"
              mc:Ignorable="d">
 
-
-    <ScrollViewer>
-        <StackPanel Orientation="Horizontal" Name="wizardSpells" DataContext="{Binding}" >
-            <TextBox Text="{Binding PlayerSpellCount}" Grid.Column="0" HorizontalAlignment="Center" 
-                       VerticalAlignment="Center" Margin="0,0,5,0"></TextBox >
-            <Button Content=" + " Grid.Column="1" Margin="0,0,0,0"></Button>
-            <Button Content=" - " Grid.Column="2" Margin="0,0,5,0"></Button>
-            <TextBox Text="{Binding Name}" Grid.Column="3" HorizontalAlignment="Center" 
-                       VerticalAlignment="Center" Margin="0,0,5,0"></TextBox >
-            <TextBox Text="{Binding School}" Grid.Column="3" HorizontalAlignment="Center" 
-                       VerticalAlignment="Center" Margin="0,0,5,0" ></TextBox >
+    <Grid HorizontalAlignment="Right" >
+        <StackPanel Grid.Column="0"  Orientation="Horizontal" Name="wizardSpells" DataContext="{Binding}" >
+            <Label Content="{Binding PlayerSpellCount}" Grid.Column="0" HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" Margin="0,0,5,0" BorderBrush="Gray" BorderThickness="1" ></Label>
+            <Button Content=" + " Margin="0,0,5,0" Width="20"></Button>
+            <Button Content=" - " Margin="0,0,5,0" Width="20"></Button>
+            <Label Content="{Binding Name}" Grid.Column="3" HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" Margin="0,0,5,0" BorderBrush="Gray" BorderThickness="1" ></Label>
+            <Label Content="{Binding School}" Grid.Column="3" HorizontalAlignment="Right"
+                       VerticalAlignment="Center" Margin="0,0,0,0" BorderBrush="Gray" BorderThickness="1"></Label>
         </StackPanel>
-    </ScrollViewer>
+    </Grid>
+
 </UserControl>

@@ -1,9 +1,9 @@
 ﻿using SpellBouc.UISpells;
 
-namespace SpellBouc
+namespace SpellBouc.SpellBooks
 {
     /* Clase de livre de sort de mage (non utilisée en V1) */
-    class PriestSpellBook : SpellBook
+    internal class PriestSpellBook : SpellBook
     {
 
         internal override SpellContainer PlayerSpells { get; set; }

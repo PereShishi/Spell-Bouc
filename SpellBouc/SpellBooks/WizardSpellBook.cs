@@ -3,7 +3,7 @@ using SpellBouc.UISpells;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SpellBouc
+namespace SpellBouc.SpellBooks
 {
     /* Clase de livre de sort de mage */
     public class WizardSpellBook : SpellBook
@@ -170,6 +170,7 @@ namespace SpellBouc
                     {
                         uiWizardPlayerSpell.Lvl = playerSpell.Lvl;
                         uiWizardPlayerSpell.Name = playerSpell.Name;
+                        uiWizardPlayerSpell.School = playerSpell.Type;
                         uiWizardPlayerSpell.Description = "Description";
                         // TODO: Description 
 

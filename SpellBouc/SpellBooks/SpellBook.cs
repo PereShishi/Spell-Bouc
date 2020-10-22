@@ -2,7 +2,7 @@
 using System.DirectoryServices;
 using System.Windows.Controls;
 
-namespace SpellBouc
+namespace SpellBouc.SpellBooks
 {
     /* Classe abstraite de livre de sort */
     public class SpellBook

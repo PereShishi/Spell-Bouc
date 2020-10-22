@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using SpellBouc.SpellBooks;
 
 namespace SpellBouc.Model
 {
     public class UiWizardSpellTab: UiTab
     {
-        internal List<UIWizardPlayerSpell> SpellList { get; set; }
+        public List<UIWizardPlayerSpell> SpellList { get; set; }
 
         /* Génère une tab de sort (header + liste de sorts) à afficher dans l'interface utilisateur */
         public static ObservableCollection<UiWizardSpellTab> GetTabListFromWizardSpellBook(WizardSpellBook wizardSpellBook)

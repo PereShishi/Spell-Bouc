@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using SpellBouc.View;
-
+using SpellBouc.SpellBooks;
 
 namespace SpellBouc
 {
@@ -43,12 +43,11 @@ namespace SpellBouc
         }
 
         /* Bascule sur un livre de sort du Mage */
-        private void ChoseMageSpellBook(object sender, RoutedEventArgs e)
+        private void ChoseWizardSpellBook(object sender, RoutedEventArgs e)
         {
-            var wizardSpellBook = new WizardSpellBook();
-            var test = new WizardWindowView(wizardSpellBook);
+            WizardWindowView wizardWindowView = new WizardWindowView();
             SystemCommands.CloseWindow(this);
-            test.Show();
+            wizardWindowView.Show();
         }
 
 

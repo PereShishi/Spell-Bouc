@@ -1,4 +1,5 @@
 ﻿using SpellBouc.Model;
+using SpellBouc.SpellBooks;
 using SpellBouc.ViewModel;
 using System;
 using System.Collections.ObjectModel;
@@ -13,23 +14,13 @@ namespace SpellBouc.View
     /// </summary>
     public partial class WizardWindowView : Window
     {
-        WizardSpellBook _wizardSpellBook;
-
-        public WizardWindowView(WizardSpellBook wizardSpellBook)
+        public WizardWindowView()
         {
             InitializeComponent();
-            this._wizardSpellBook = wizardSpellBook;
-            InitializeCurrentWizardSpellTab();
-        }
-
-        /* Initialise la première wizardSpellTab en utilisant le VM */
-        private void InitializeCurrentWizardSpellTab()
-        {
-            WizardSpellTabViewModel test = new WizardSpellTabViewModel(_wizardSpellBook);
-            ObservableCollection<UiWizardSpellTab> list = test.WizardSpellTabList;
-
-            currentWizardSpellTab.wizardTab.DataContext = list;
-            currentWizardSpellTab.wizardTab.SelectedIndex = 0;
+            //currentWizardSpellTab.wizardTab.DataContext = new WizardSpellTabViewModel().WizardSpellTabList;
+            //currentWizardSpellTab.wizardTab.SelectedIndex = 0;
+            //this._wizardSpellBook = wizardSpellBook;
+            //InitializeCurrentWizardSpellTab();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

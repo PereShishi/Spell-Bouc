@@ -3,16 +3,16 @@
 /* Classe UISpells (classe mère). Elle définit les objets passés aux différents interfaces utilisateurs */
 namespace SpellBouc.UISpells
 {
-     internal class UiSpell
+     public class UiSpell
     {
-        internal int Id { get; set; }
-        internal int Lvl { get; set; }
-        internal string Name { get; set; }
-        internal String School { get; set; }
-        internal string Description { get; set; }
-        internal bool IsAddable { get; set; }
+        public int Id { get; set; }
+        public int Lvl { get; set; }
+        public string Name { get; set; }
+        public string School { get; set; }
+        public string Description { get; set; }
+        public bool IsAddable { get; set; }
 
-        internal UiSpell()
+        public UiSpell()
         {
             this.IsAddable = true;
         }

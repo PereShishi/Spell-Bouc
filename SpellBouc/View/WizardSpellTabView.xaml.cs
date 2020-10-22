@@ -14,6 +14,13 @@ namespace SpellBouc.View
         public WizardSpellTabView()
         {
             InitializeComponent();
+            this.DataContext = new WizardSpellTabViewModel().WizardSpellTabList;
+            this.wizardTab.SelectedIndex = 0;
+        }
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
         }
     }
 }

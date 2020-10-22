@@ -3,15 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:wizardSpellView="clr-namespace:SpellBouc.View"
-        xmlns:wizardSpellModelView="clr-namespace:SpellBouc.ViewModel"
+        xmlns:View="clr-namespace:SpellBouc.View"
+        xmlns:vm="clr-namespace:SpellBouc.ViewModel"
+        xmlns:sb="clr-namespace:SpellBouc.SpellBooks"
         mc:Ignorable="d"
         >
-
+    
     <UserControl.Resources>
         <!-- Onglets des tabs -->
-        <DataTemplate x:Key="HeaderTemplate" DataType="{x:Type wizardSpellModelView:WizardSpellTabViewModel}">
-            <StackPanel Orientation="Horizontal">
+        <DataTemplate x:Key="HeaderTemplate" >
+            <StackPanel Orientation="Horizontal" Background="Transparent">
                 <TextBlock>
                     <TextBlock.Text>
                         <MultiBinding StringFormat=" Niveau {0}">
@@ -24,17 +25,32 @@
         </DataTemplate>
 
         <!-- Contenu des tabs -->
-        <DataTemplate x:Key="ContentTemplate" DataType="{x:Type wizardSpellModelView:WizardPlayerSpellViewModel}">
-            <wizardSpellView:WizardSpellItemView/>
+        <DataTemplate x:Key="ContentTemplate">
+            <ListBox ItemsSource="{Binding SpellList}" Background="Transparent">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <View:WizardSpellItemView/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </DataTemplate>
     </UserControl.Resources>
 
     <!-- TabControl des onglets de sorts  -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
 
-    <TabControl Name="wizardTab" ItemsSource="{Binding}"
-                ItemTemplate="{StaticResource HeaderTemplate}"
-                ContentTemplate="{StaticResource ContentTemplate}">
-    </TabControl>
-
+        <TabControl Grid.Row="0"
+                    Background="Transparent" BorderThickness="0"
+                    Name="wizardTab" ItemsSource="{Binding}"
+                    ItemTemplate="{StaticResource HeaderTemplate}"
+                    ContentTemplate="{StaticResource ContentTemplate}">
+        </TabControl>
+        <Button Grid.Row="1" Content="AddSpell" DataContext="{Binding}" Command="{Binding SimpleCommand}" ></Button>
+    </Grid>
+   
 </UserControl>
     

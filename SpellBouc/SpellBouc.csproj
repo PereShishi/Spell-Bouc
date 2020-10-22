@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="img\spellbook_0.png" />
+    <None Remove="ViewModel\WizardSpellTabViewModel.cs~RF2d26bd1.TMP" />
   </ItemGroup>
 
   <ItemGroup>

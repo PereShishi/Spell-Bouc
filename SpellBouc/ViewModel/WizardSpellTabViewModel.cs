@@ -1,20 +1,37 @@
 ﻿using SpellBouc.Model;
-using SpellBouc.UISpells;
+using SpellBouc.SpellBooks;
+using SpellBouc.ViewModel.Commands;
 using System.Collections.ObjectModel;
-
+using System.Diagnostics;
 
 namespace SpellBouc.ViewModel
 {
-    internal class WizardSpellTabViewModel
+    public class WizardSpellTabViewModel
     {
+        // Commands
+        public SimpleCommand SimpleCommand { get; set; }
+
+        // ObservableCollections
         public ObservableCollection<UiWizardSpellTab> WizardSpellTabList { get; set; } = new ObservableCollection<UiWizardSpellTab>();
 
-
+        // Properties
         private readonly WizardSpellBook _wizardSpellBook;
 
+        public WizardSpellTabViewModel()
+        {
+            this._wizardSpellBook = new WizardSpellBook();
+            InitializeCommands();
+            InitializeWizardSpellTabList();
+
+            WizardSpellTabViewModel test = new WizardSpellTabViewModel(_wizardSpellBook);
+            ObservableCollection<UiWizardSpellTab> list = test.WizardSpellTabList;
+
+        }
+    
         public WizardSpellTabViewModel(WizardSpellBook wizardSpellBook)
         {
             this._wizardSpellBook = wizardSpellBook;
+            InitializeCommands();
             InitializeWizardSpellTabList();
         }
 
@@ -23,6 +40,16 @@ namespace SpellBouc.ViewModel
         {
             // Retourne une liste de Tab
             WizardSpellTabList = UiWizardSpellTab.GetTabListFromWizardSpellBook(_wizardSpellBook);
+        }
+
+        /* Initialise les commandes */
+        public void InitializeCommands()
+        {
+            this.SimpleCommand = new SimpleCommand(this);
+        }
+        public void SimpleMethod()
+        {
+            Debug.WriteLine("Hello Word");
         }
     }
 }
