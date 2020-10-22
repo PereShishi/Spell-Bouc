@@ -1,11 +1,9 @@
-﻿<UserControl  x:Class="SpellBouc.View.WizardSpellTabView"
+﻿<UserControl  x:Class="SpellBouc.View.WTabView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:View="clr-namespace:SpellBouc.View"
-        xmlns:vm="clr-namespace:SpellBouc.ViewModel"
-        xmlns:sb="clr-namespace:SpellBouc.SpellBooks"
+        xmlns:v="clr-namespace:SpellBouc.View"
         mc:Ignorable="d"
         >
     
@@ -29,7 +27,7 @@
             <ListBox ItemsSource="{Binding SpellList}" Background="Transparent">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <View:WizardSpellItemView/>
+                        <v:WItemView/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -49,7 +47,8 @@
                     ItemTemplate="{StaticResource HeaderTemplate}"
                     ContentTemplate="{StaticResource ContentTemplate}">
         </TabControl>
-        <Button Grid.Row="1" Content="AddSpell" DataContext="{Binding}" Command="{Binding SimpleCommand}" ></Button>
+
+        <Button Grid.Row="1" Content="AddSpell" DataContext="{Binding}" Command="{Binding }" ></Button>
     </Grid>
    
 </UserControl>

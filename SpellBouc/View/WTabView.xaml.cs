@@ -8,13 +8,13 @@ namespace SpellBouc.View
     /// <summary>
     /// Logique d'interaction pour WizardSpellTab.xaml
     /// </summary>
-    public partial class WizardSpellTabView : UserControl
+    public partial class WTabView : UserControl
     {
         
-        public WizardSpellTabView()
+        public WTabView()
         {
             InitializeComponent();
-            this.DataContext = new WizardSpellTabViewModel().WizardSpellTabList;
+            this.DataContext = new WTabViewModel().WizardSpellTabList;
             this.wizardTab.SelectedIndex = 0;
         }
 

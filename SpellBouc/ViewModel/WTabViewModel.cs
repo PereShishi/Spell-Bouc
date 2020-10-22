@@ -6,10 +6,10 @@ using System.Diagnostics;
 
 namespace SpellBouc.ViewModel
 {
-    public class WizardSpellTabViewModel
+    public class WTabViewModel
     {
         // Commands
-        public SimpleCommand SimpleCommand { get; set; }
+        public SimpleCommand AddSpellCommand { get; set; }
 
         // ObservableCollections
         public ObservableCollection<UiWizardSpellTab> WizardSpellTabList { get; set; } = new ObservableCollection<UiWizardSpellTab>();
@@ -17,24 +17,18 @@ namespace SpellBouc.ViewModel
         // Properties
         private readonly WizardSpellBook _wizardSpellBook;
 
-        public WizardSpellTabViewModel()
+        public WTabViewModel()
         {
             this._wizardSpellBook = new WizardSpellBook();
             InitializeCommands();
             InitializeWizardSpellTabList();
+            Debug.WriteLine("TAB INITAILIZED !");
 
-            WizardSpellTabViewModel test = new WizardSpellTabViewModel(_wizardSpellBook);
-            ObservableCollection<UiWizardSpellTab> list = test.WizardSpellTabList;
+            //WizardSpellTabViewModel test = new WizardSpellTabViewModel(_wizardSpellBook);
+            //ObservableCollection<UiWizardSpellTab> list = test.WizardSpellTabList;
 
         }
     
-        public WizardSpellTabViewModel(WizardSpellBook wizardSpellBook)
-        {
-            this._wizardSpellBook = wizardSpellBook;
-            InitializeCommands();
-            InitializeWizardSpellTabList();
-        }
-
         /* Initialise tous les header des tabs */
         private void InitializeWizardSpellTabList()
         {
@@ -45,8 +39,13 @@ namespace SpellBouc.ViewModel
         /* Initialise les commandes */
         public void InitializeCommands()
         {
-            this.SimpleCommand = new SimpleCommand(this);
+            AddSpellCommand = new SimpleCommand(this);
         }
+        public void test_cmd()
+        {
+            Debug.WriteLine("Binding");
+        }
+
         public void SimpleMethod()
         {
             Debug.WriteLine("Hello Word");

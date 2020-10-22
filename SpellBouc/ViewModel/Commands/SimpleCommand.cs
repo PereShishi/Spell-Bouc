@@ -5,9 +5,9 @@ namespace SpellBouc.ViewModel.Commands
 {
     public class SimpleCommand : ICommand
     {
-        public WizardSpellTabViewModel TabVM { get; set; }
+        public WTabViewModel TabVM { get; set; }
 
-        public SimpleCommand(WizardSpellTabViewModel wizardSpellTabViewModel)
+        public SimpleCommand(WTabViewModel wizardSpellTabViewModel)
         {
             TabVM = wizardSpellTabViewModel;
         }

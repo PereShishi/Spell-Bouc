@@ -12,9 +12,9 @@ namespace SpellBouc.View
     /// <summary>
     /// Logique d'interaction pour WizardWindow.xaml
     /// </summary>
-    public partial class WizardWindowView : Window
+    public partial class WWindowView : Window
     {
-        public WizardWindowView()
+        public WWindowView()
         {
             InitializeComponent();
             //currentWizardSpellTab.wizardTab.DataContext = new WizardSpellTabViewModel().WizardSpellTabList;

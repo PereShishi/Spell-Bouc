@@ -1,4 +1,4 @@
-﻿<Window x:Class="SpellBouc.View.WizardWindowView"
+﻿<Window x:Class="SpellBouc.View.WWindowView"
         WindowStyle="None"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown"
@@ -44,6 +44,6 @@
                 <Button Command="{x:Static SystemCommands.CloseWindowCommand}" Content="Close" />
             </StackPanel>
         </StackPanel>
-        <v:WizardSpellTabView Grid.Column="1" Grid.Row="1" x:Name="currentWizardSpellTab" Background="Transparent"/>
+        <v:WTabView Grid.Column="1" Grid.Row="1" x:Name="currentWizardSpellTab" Background="Transparent"/>
     </Grid>
 </Window>

@@ -45,7 +45,7 @@ namespace SpellBouc
         /* Bascule sur un livre de sort du Mage */
         private void ChoseWizardSpellBook(object sender, RoutedEventArgs e)
         {
-            WizardWindowView wizardWindowView = new WizardWindowView();
+            WWindowView wizardWindowView = new WWindowView();
             SystemCommands.CloseWindow(this);
             wizardWindowView.Show();
         }
