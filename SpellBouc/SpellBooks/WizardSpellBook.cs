@@ -1,6 +1,9 @@
 ﻿using SpellBouc.Logs;
+using SpellBouc.UIContainers;
 using SpellBouc.UISpells;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace SpellBouc.SpellBooks
@@ -31,12 +34,13 @@ namespace SpellBouc.SpellBooks
             // Set le nombre d'onglets.
             UpdateMaxLvlSpell();
 
-            UICompleteClassSpells = new UISpellContainer();
+            UICompleteClassSpells = new UISpellContainer(UIContainerType.UIWizardCompletSpell);
             // Initialise CompleteClassSpells & update les sorts qui sont ajoutables
             InitUICompleteClassSpells();
             UpdateUICompleteClassSpell();
             UpdateSpellNumberByLvl();
         }
+
 
         /********************************************* IMPLEMENTATIONS *********************************************/
 
@@ -171,7 +175,7 @@ namespace SpellBouc.SpellBooks
                         uiWizardPlayerSpell.Lvl = playerSpell.Lvl;
                         uiWizardPlayerSpell.Name = playerSpell.Name;
                         uiWizardPlayerSpell.School = playerSpell.Type;
-                        uiWizardPlayerSpell.Description = "Description";
+                        uiWizardPlayerSpell.Description = playerSpell.Description;
                         // TODO: Description 
 
                         tempUIPlayerSpells.Add(uiWizardPlayerSpell);
@@ -218,6 +222,19 @@ namespace SpellBouc.SpellBooks
             UpdateSpellNumberByLvl();
         }
 
+        /* Retourne une liste de ObservableCollection<UIWizardPlayerSpell> qui sera affichée les pages d'ajout de sort */
+        internal ObservableCollection<UIWizardPlayerSpell> GetUiSpellListByLvl(int pageLvl)
+        {
+            ObservableCollection<UIWizardPlayerSpell>  returnList = new ObservableCollection<UIWizardPlayerSpell>();
+            foreach (UIWizardPlayerSpell wUiSpell in UICompleteClassSpells)
+            {
+                if (wUiSpell.Lvl == pageLvl)
+                {
+                    returnList.Add(wUiSpell);
+                }
+            }
+            return returnList;
+        }
     }
 }
  

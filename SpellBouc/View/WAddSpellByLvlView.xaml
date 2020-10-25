@@ -1,0 +1,36 @@
+﻿<Window x:Class="SpellBouc.View.WAddSpellByLvlView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:v="clr-namespace:SpellBouc.View"
+        mc:Ignorable="d"
+        Title="WAddSpellByLvlView" Height="800" Width="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="*"/>
+            <RowDefinition Height ="0.33*"/>
+        </Grid.RowDefinitions>
+
+        <ListBox ItemsSource="{Binding AddSpellList}" Background="Transparent" Grid.Row="0" x:Name="testList" SelectedItem="{Binding SelectedSpell, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <StackPanel Grid.Column="0"  Orientation="Horizontal" Name="wizardSpells" DataContext="{Binding}" >
+                            <Button Content=" Ajouter " Margin="0,0,5,0"></Button>
+                            <Button Content=" Supprimer " Margin="0,0,5,0" ></Button>
+                            <Label Content="{Binding Name}" Grid.Column="3" HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" Margin="0,0,5,0" BorderBrush="Gray" BorderThickness="1" ></Label>
+                            <Label Content="{Binding School}" Grid.Column="3" HorizontalAlignment="Right"
+                       VerticalAlignment="Center" Margin="0,0,0,0" BorderBrush="Gray" BorderThickness="1"></Label>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Label Grid.Row="1" Grid.Column="0" Content="{Binding SelectedSpell.Description}" Width="400"></Label>
+    </Grid>
+</Window>

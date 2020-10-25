@@ -1,14 +1,17 @@
 ﻿using SpellBouc.AccessLayer;
 using SpellBouc.Logs;
+using SpellBouc.UISpells;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 /* Conteneur de UISPells, fonctionne de la même façon que le SpellContainer mais pour les UISpells */
-namespace SpellBouc.UISpells
+namespace SpellBouc.UIContainers
 {
     class UISpellContainer: IEnumerable
     { 
+        internal string Type { get; set; }
+
         private List<dynamic> UiSpells { get; set; }
 
         /* 
@@ -17,7 +20,7 @@ namespace SpellBouc.UISpells
          *      * Les UIWizardSpell appellent la BDD qui stock le nombre d'utilisations journalière des sorts de mages du joueur.
          *      * Les UIPriestSpell appellent la BDD qui stock le nombre d'utilisations journalière des sorts de prêtre du joueur.
          */
-        internal UISpellContainer(UIContainerType uiContainerType = default)
+        internal UISpellContainer(UIContainerType uiContainerType)
         {
             switch (uiContainerType)
             {
@@ -26,7 +29,12 @@ namespace SpellBouc.UISpells
                     UiSpells = Access.GetUIWizardSpellsFromDB().Select(x => (dynamic)x).ToList();
                     //IEnumerable<UIWizardSpell> query1 = (IEnumerable<UIWizardSpell>)UiSpells.OrderBy(spell => spell.Id);
                     break;
-                    
+
+                /* Dans le cas d'un UIWizardCompletSpell UiSpells devient une List<UIWizardPlayerSpell> (empty qui sera remplie ulterieurement)*/
+                case UIContainerType.UIWizardCompletSpell:
+                    UiSpells = new List<UIWizardPlayerSpell>().Select(x => (dynamic)x).ToList();
+                    break;
+
                 /* Dans le cas d'un UIPriestSpell UiSpells devient une List<UIPriestPlayerSpell> */
                 case UIContainerType.UIPriestSpell:
                     // TODO: Implementer les sorts de prêtre.
@@ -125,19 +133,21 @@ namespace SpellBouc.UISpells
                         Id = spell.Id,
                         Lvl = spell.Lvl,
                         Name = spell.Name,
+                        School = spell.Type,
                         PlayerSpellCount = 0,
-                        Description = "Description"
+                        Description = spell.Description
                     };
                     return uiWizardPlayerSpell;
 
-            //Default sera utilisé pour des UISpells classiques
+            // Default sera utilisé pour des UISpells classiques
                 default:
                     var returnedSpell = new UiSpell
                     {
                         Id = spell.Id,
                         Lvl = spell.Lvl,
                         Name = spell.Name,
-                        Description = "Description"
+                        School = spell.Type,
+                        Description = spell.Description
                     };
                     return returnedSpell;
             }

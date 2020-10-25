@@ -13,27 +13,19 @@ namespace SpellBouc.ViewModel
 
         // ObservableCollections
         public ObservableCollection<UiWizardSpellTab> WizardSpellTabList { get; set; } = new ObservableCollection<UiWizardSpellTab>();
-
-        // Properties
-        private readonly WizardSpellBook _wizardSpellBook;
+        public UiWizardSpellTab SelectedTab { get; set; }
 
         public WTabViewModel()
-        {
-            this._wizardSpellBook = new WizardSpellBook();
+        {     
             InitializeCommands();
             InitializeWizardSpellTabList();
-            Debug.WriteLine("TAB INITAILIZED !");
-
-            //WizardSpellTabViewModel test = new WizardSpellTabViewModel(_wizardSpellBook);
-            //ObservableCollection<UiWizardSpellTab> list = test.WizardSpellTabList;
-
         }
     
         /* Initialise tous les header des tabs */
         private void InitializeWizardSpellTabList()
         {
             // Retourne une liste de Tab
-            WizardSpellTabList = UiWizardSpellTab.GetTabListFromWizardSpellBook(_wizardSpellBook);
+            WizardSpellTabList = UiWizardSpellTab.GetTabListFromWizardSpellBook();
         }
 
         /* Initialise les commandes */

@@ -1,4 +1,5 @@
-﻿using SpellBouc.UISpells;
+﻿using SpellBouc.UIContainers;
+using SpellBouc.UISpells;
 
 namespace SpellBouc.SpellBooks
 {

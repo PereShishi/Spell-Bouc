@@ -17,10 +17,6 @@ namespace SpellBouc.View
         public WWindowView()
         {
             InitializeComponent();
-            //currentWizardSpellTab.wizardTab.DataContext = new WizardSpellTabViewModel().WizardSpellTabList;
-            //currentWizardSpellTab.wizardTab.SelectedIndex = 0;
-            //this._wizardSpellBook = wizardSpellBook;
-            //InitializeCurrentWizardSpellTab();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

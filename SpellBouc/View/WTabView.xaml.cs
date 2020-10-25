@@ -14,13 +14,16 @@ namespace SpellBouc.View
         public WTabView()
         {
             InitializeComponent();
-            this.DataContext = new WTabViewModel().WizardSpellTabList;
-            this.wizardTab.SelectedIndex = 0;
+            this.DataContext = new WTabViewModel();
+            this.wizardTab.SelectedIndex = 1;
         }
 
-        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void GenerateAddSpellPage(object sender, System.Windows.RoutedEventArgs e)
         {
+            int currentLvl = this.wizardTab.SelectedIndex;
+            WAddSpellByLvlView addSpellByLvlView = new WAddSpellByLvlView(currentLvl);
 
+            addSpellByLvlView.Show();
         }
     }
 }

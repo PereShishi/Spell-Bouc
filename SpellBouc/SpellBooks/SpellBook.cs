@@ -1,4 +1,6 @@
-﻿using SpellBouc.UISpells;
+﻿using SpellBouc.UIContainers;
+using SpellBouc.UISpells;
+using System.Collections.ObjectModel;
 using System.DirectoryServices;
 using System.Windows.Controls;
 
@@ -34,6 +36,7 @@ namespace SpellBouc.SpellBooks
         internal virtual void FillMissingUIInfosFromPlayerSpells() { }
 
         internal virtual void UpdateSpellNumberByLvl() {}
+
 
         /* Récupère le niveau le plus haut du sort du joueur */
         internal void UpdateMaxLvlSpell()
