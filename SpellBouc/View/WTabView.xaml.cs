@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using SpellBouc.Model;
 using SpellBouc.UISpells;
 using SpellBouc.ViewModel;
@@ -14,8 +15,7 @@ namespace SpellBouc.View
         public WTabView()
         {
             InitializeComponent();
-            this.DataContext = new WTabViewModel();
-            this.wizardTab.SelectedIndex = 1;
+            wizardTab.SelectedIndex = 0;
         }
 
         private void GenerateAddSpellPage(object sender, System.Windows.RoutedEventArgs e)

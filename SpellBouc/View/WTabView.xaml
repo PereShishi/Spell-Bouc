@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:v="clr-namespace:SpellBouc.View"
+        xmlns:vm="clr-namespace:SpellBouc.ViewModel"
         mc:Ignorable="d"
         >
+    <UserControl.DataContext>
+        <vm:WTabViewModel x:Name="_model1"/>
+    </UserControl.DataContext>
     
     <UserControl.Resources>
         <!-- Onglets des tabs -->
@@ -27,7 +31,7 @@
             <ListBox ItemsSource="{Binding SpellList}" Background="Transparent" SelectedItem="{Binding SelectedSpell, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <v:WItemView/>
+                        <v:WItemView x:Name="itemview"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -50,9 +54,12 @@
                 <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
 
-            <TabControl Grid.Row="0" SelectedItem="{Binding SelectedTab}"
+            <TabControl Grid.Row="0" 
                     Background="Transparent" BorderThickness="0"
-                    Name="wizardTab" ItemsSource="{Binding WizardSpellTabList}"
+                    SelectedItem="{Binding SelectedTab}"
+                    SelectedIndex="{Binding SelectedIndex}"
+                    Name="wizardTab" 
+                    ItemsSource="{Binding WizardSpellTabList}"
                     ItemTemplate="{StaticResource HeaderTemplate}"
                     ContentTemplate="{StaticResource ContentTemplate}">
             </TabControl>

@@ -3,12 +3,13 @@ using SpellBouc.UISpells;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text;
 
 namespace SpellBouc.ViewModel
 {
-    public class WAddSpellByLvlViewModel
+    public class WAddSpellByLvlViewModel: INotifyPropertyChanged
     {
         // ObservableCollections
         public ObservableCollection<UIWizardPlayerSpell> AddSpellList { get; set; } = new ObservableCollection<UIWizardPlayerSpell>();
@@ -29,6 +30,8 @@ namespace SpellBouc.ViewModel
             GenerateSPellList();
             SelectedSpell = (UIWizardPlayerSpell)AddSpellList[0];
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private void GenerateSPellList()
         {

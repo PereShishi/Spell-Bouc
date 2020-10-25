@@ -34,10 +34,5 @@ namespace SpellBouc.View
             this.DataContext = new WAddSpellByLvlViewModel(lvl);
             this.testList.SelectedItem = 0;
         }
-
-        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-      
-        }
     }
 }
