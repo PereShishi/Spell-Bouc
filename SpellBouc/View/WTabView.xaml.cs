@@ -14,8 +14,8 @@ namespace SpellBouc.View
         
         public WTabView()
         {
-            InitializeComponent();
-            wizardTab.SelectedIndex = 0;
+            InitializeComponent();   
+            wizardTab.SelectedIndex =1;
         }
 
         private void GenerateAddSpellPage(object sender, System.Windows.RoutedEventArgs e)

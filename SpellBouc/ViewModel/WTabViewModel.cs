@@ -16,6 +16,7 @@ namespace SpellBouc.ViewModel
 
         private ObservableCollection<UiWizardSpellTab> _wizardSpellTabList;
         private int _selectedIndex;
+        private UiWizardSpellTab _selectedTab;
 
         // Commands
         public WSimpleCommand AddSpellCommand { get; set; }
@@ -24,7 +25,7 @@ namespace SpellBouc.ViewModel
         public WSimpleCommand DecrementSpellCountCommand { get; set; }
 
         // ObservableCollections de UiWizardSpellTab lié à un evênement pour rafraichir l'IU à chaque changement du tableau
-        public ObservableCollection<UiWizardSpellTab> WizardSpellTabList 
+        public ObservableCollection<UiWizardSpellTab> WizardSpellTabList
         { 
             get { 
                 return _wizardSpellTabList; 
@@ -34,11 +35,25 @@ namespace SpellBouc.ViewModel
                 if (_wizardSpellTabList == value)
                     return;
                 _wizardSpellTabList = value;
+
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(WizardSpellTabList)));
             } 
         
         }
-        public UiWizardSpellTab SelectedTab { get; set; }
+        public UiWizardSpellTab SelectedTab
+        {
+            get
+            {
+                return _selectedTab;
+            }
+            set
+            {
+                if (_selectedTab == value)
+                    return;
+                _selectedTab = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedTab)));
+            }
+        }
         public int SelectedIndex 
         { 
             get { 
@@ -67,7 +82,6 @@ namespace SpellBouc.ViewModel
             RemoveSpellCommand = new WSimpleCommand(this, WSimpleCommandType.RemoveSpell);
             IncrementSpellCountCommand = new WSimpleCommand(this, WSimpleCommandType.IncrementSpellCount);
             DecrementSpellCountCommand = new WSimpleCommand(this, WSimpleCommandType.DecrementSpellCount);
-
         }
 
         /* Initialise tous les header des tabs */
@@ -83,13 +97,14 @@ namespace SpellBouc.ViewModel
             Globals.AppWizardSpellBook.IncrementWizardPlayerSpell(id);
 
             //TODO TO INMPLEMENTE PROPERLY AFTER TESTING
-            foreach (var spellinList in WizardSpellTabList[SelectedIndex].SpellList)
+            foreach (var spellinList in SelectedTab.SpellList)
             {
                 foreach(UIWizardPlayerSpell uiSpell in Globals.AppWizardSpellBook.UIPlayerSpells)
                 {
                     if(spellinList.Id == uiSpell.Id)
                     {
                         spellinList.PlayerSpellCount = uiSpell.PlayerSpellCount;
+                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedTab)));
                         continue;
                     }
                 }
@@ -113,8 +128,6 @@ namespace SpellBouc.ViewModel
         {
             Globals.AppWizardSpellBook.RemoveSpellInSpellBook(id);
         }
-
-
     }
 }
 
