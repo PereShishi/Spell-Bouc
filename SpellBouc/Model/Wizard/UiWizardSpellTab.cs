@@ -4,13 +4,48 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using SpellBouc.SpellBooks;
+using System.ComponentModel;
 
 namespace SpellBouc.Model
 {
-    public class UiWizardSpellTab: UiTab
+    public class UiWizardSpellTab: UiTab,INotifyPropertyChanged
     {
-        public List<UIWizardPlayerSpell> SpellList { get; set; }
-        public UIWizardPlayerSpell SelectedSpell { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
+
+        private ObservableCollection<UIWizardPlayerSpell> _spellList;
+        private UIWizardPlayerSpell _selectedSpell;
+        public ObservableCollection<UIWizardPlayerSpell> SpellList
+        {
+            get
+            {
+                return _spellList;
+            }
+            set
+            {
+                if (_spellList == value)
+                    return;
+                _spellList = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(SpellList)));
+
+
+            }
+        }
+
+        public UIWizardPlayerSpell SelectedSpell 
+        {
+            get
+            {
+                return _selectedSpell;
+            }
+            set
+            {
+                if (_selectedSpell == value)
+                    return;
+                _selectedSpell = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedSpell)));
+            }
+
+        }
 
         /* Génère une tab de sort (header + liste de sorts) à afficher dans l'interface utilisateur */
         public static ObservableCollection<UiWizardSpellTab> GetTabListFromWizardSpellBook()
@@ -35,7 +70,7 @@ namespace SpellBouc.Model
         /* Génère la liste des item de la tab à partir d'un WizardSpellBook => appel du model Item */
         private void SetSpellListFromWizardSpellBook()
         {
-            List<UIWizardPlayerSpell> returnedWizardItemList = new List<UIWizardPlayerSpell>();
+            ObservableCollection<UIWizardPlayerSpell> returnedWizardItemList = new ObservableCollection<UIWizardPlayerSpell>();
 
             foreach (UiSpell uispell in Globals.AppWizardSpellBook.UIPlayerSpells)
             {

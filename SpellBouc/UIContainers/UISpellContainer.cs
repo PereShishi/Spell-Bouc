@@ -236,9 +236,12 @@ namespace SpellBouc.UIContainers
                 {
                     if (iuSpell.Id == spell.Id)
                     {
-                        Access.ChangeWizardSpellPlayerCount(spell.Id, iuSpell.PlayerSpellCount - 1);
-                        iuSpell.PlayerSpellCount--;
-                        return;
+                        if(iuSpell.PlayerSpellCount > 0)
+                        {
+                            Access.ChangeWizardSpellPlayerCount(spell.Id, iuSpell.PlayerSpellCount - 1);
+                            iuSpell.PlayerSpellCount--;
+                            return;
+                        }
                     }
                 }
             }

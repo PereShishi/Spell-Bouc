@@ -20,8 +20,8 @@
                 <DataTemplate>
                     <Grid>
                         <StackPanel Grid.Column="0"  Orientation="Horizontal" Name="wizardSpells" DataContext="{Binding}" >
-                            <!--<Button Content=" Ajouter " Margin="0,0,5,0" Click="AddSpell" Tag="{Binding Id}" ></Button>-->
-                            <!--<Button Content=" Supprimer " Margin="0,0,5,0" Click="RemoveSpell" Tag="{Binding Id}" ></Button>-->
+                            <Button Content=" Ajouter " Margin="0,0,5,0" Click="AddSpell" Tag="{Binding Id}" ></Button>
+                            <Button Content=" Supprimer " Margin="0,0,5,0" Click="RemoveSpell" Tag="{Binding Id}" ></Button>
                             <Label Content="{Binding Name}" Grid.Column="3" HorizontalAlignment="Center" 
                        VerticalAlignment="Center" Margin="0,0,5,0" BorderBrush="Gray" BorderThickness="1" ></Label>
                             <Label Content="{Binding School}" Grid.Column="3" HorizontalAlignment="Right"

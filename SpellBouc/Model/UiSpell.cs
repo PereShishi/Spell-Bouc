@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 /* Classe UISpells (classe mère). Elle définit les objets passés aux différents interfaces utilisateurs */
 namespace SpellBouc.UISpells

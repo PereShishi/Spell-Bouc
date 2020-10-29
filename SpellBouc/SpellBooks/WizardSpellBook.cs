@@ -22,7 +22,7 @@ namespace SpellBouc.SpellBooks
 
         
         /* Initialisation des membres */
-        internal WizardSpellBook()
+        public WizardSpellBook()
         {
             // Récupère tous les sorts que le joueur a dans son grimoire 
             PlayerSpells = new SpellContainer(ContainerType.WizardPlayerSpells);
@@ -47,7 +47,7 @@ namespace SpellBouc.SpellBooks
         /* Ajoute un spell dans le livre de sort (implémentation à partir de la classe mère SpellBook) input: id */
         internal override void AddSpellInSpellBook(int id)
         {
-            if (PlayerSpells.IsDuplicated(id) == true) return;
+            if (PlayerSpells.IsInContainer(id) == true) return;
             var spellToAdd = CompleteClassSpells.GetSpell(id);
 
             // Met à jour les BDD et le PlayerSpells
@@ -76,7 +76,7 @@ namespace SpellBouc.SpellBooks
         internal override void AddSpellInSpellBook(string name)
         {         
             var spellToAdd = CompleteClassSpells.GetSpell(name);
-            if (PlayerSpells.IsDuplicated(spellToAdd.Id) == true) return;
+            if (PlayerSpells.IsInContainer(spellToAdd.Id) == true) return;
 
             // Met à jour les BDD et le PlayerSpells
             var status = PlayerSpells.AddSpellInBookAndBD(spellToAdd, ContainerType.WizardPlayerSpells);
@@ -104,6 +104,7 @@ namespace SpellBouc.SpellBooks
         internal override void RemoveSpellInSpellBook(string name)
         {
             var spellToRemove = CompleteClassSpells.GetSpell(name);
+            if (PlayerSpells.IsNotInContainer(spellToRemove.Id)) return;
 
             // Met à jour les BDD et le PlayerSpells
             var status = PlayerSpells.RemoveSpellInBookAndBD(spellToRemove, ContainerType.WizardPlayerSpells);
@@ -128,6 +129,7 @@ namespace SpellBouc.SpellBooks
         /* Enlève un sort dans le livre du sort du joueur (implémentation à partir de la classe mère SpellBook) input: id */
         internal override void RemoveSpellInSpellBook(int id)
         {
+            if (PlayerSpells.IsNotInContainer(id)) return;
             var spellToRemove = CompleteClassSpells.GetSpell(id);
 
             // Met à jour les BDD et le PlayerSpells

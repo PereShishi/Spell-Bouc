@@ -5,6 +5,7 @@ using SpellBouc.ViewModel.Commands;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 
 namespace SpellBouc.ViewModel
@@ -19,8 +20,7 @@ namespace SpellBouc.ViewModel
         private UiWizardSpellTab _selectedTab;
 
         // Commands
-        public WSimpleCommand AddSpellCommand { get; set; }
-        public WSimpleCommand RemoveSpellCommand { get; set; }
+
         public WSimpleCommand IncrementSpellCountCommand { get; set; }
         public WSimpleCommand DecrementSpellCountCommand { get; set; }
 
@@ -69,7 +69,7 @@ namespace SpellBouc.ViewModel
         }
 
         public WTabViewModel()
-        {     
+        {
             InitializeCommands();
             WizardSpellTabList = new ObservableCollection<UiWizardSpellTab>();
             InitializeWizardSpellTabList();
@@ -78,8 +78,6 @@ namespace SpellBouc.ViewModel
         /* Initialise les commandes */
         public void InitializeCommands()
         {
-            AddSpellCommand = new WSimpleCommand(this, WSimpleCommandType.AddSpell);
-            RemoveSpellCommand = new WSimpleCommand(this, WSimpleCommandType.RemoveSpell);
             IncrementSpellCountCommand = new WSimpleCommand(this, WSimpleCommandType.IncrementSpellCount);
             DecrementSpellCountCommand = new WSimpleCommand(this, WSimpleCommandType.DecrementSpellCount);
         }
@@ -96,15 +94,14 @@ namespace SpellBouc.ViewModel
         {
             Globals.AppWizardSpellBook.IncrementWizardPlayerSpell(id);
 
-            //TODO TO INMPLEMENTE PROPERLY AFTER TESTING
-            foreach (var spellinList in SelectedTab.SpellList)
+            //TODO TO INMPLEMENT PROPERLY AFTER TESTING
+            foreach (var spellInList in SelectedTab.SpellList)
             {
                 foreach(UIWizardPlayerSpell uiSpell in Globals.AppWizardSpellBook.UIPlayerSpells)
                 {
-                    if(spellinList.Id == uiSpell.Id)
+                    if(spellInList.Id == uiSpell.Id)
                     {
-                        spellinList.PlayerSpellCount = uiSpell.PlayerSpellCount;
-                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedTab)));
+                        spellInList.PlayerSpellCount = uiSpell.PlayerSpellCount;
                         continue;
                     }
                 }
@@ -115,18 +112,98 @@ namespace SpellBouc.ViewModel
         public void DecrementSpell(int id)
         {
             Globals.AppWizardSpellBook.DecrementWizardPlayerSpell(id);
+
+            //TODO TO INMPLEMENT PROPERLY AFTER TESTING
+            foreach (var spellInList in SelectedTab.SpellList)
+            {
+                foreach (UIWizardPlayerSpell uiSpell in Globals.AppWizardSpellBook.UIPlayerSpells)
+                {
+                    if (spellInList.Id == uiSpell.Id)
+                    {
+                        spellInList.PlayerSpellCount = uiSpell.PlayerSpellCount;
+                        continue;
+                    }
+                }
+            }
         }
 
         /* Au click du boutton Ajouter de la page ADD/REMOVE SPELL on ajoute le sort spécifié au spell book */
         public void AddSpell(int id)
         {
+            //TODO TO INMPLEMENT PROPERLY AFTER TESTING
+            // Update WizardSpellBook
             Globals.AppWizardSpellBook.AddSpellInSpellBook(id);
+
+            // Check for UI duplication
+            foreach (UiWizardSpellTab tab in WizardSpellTabList)
+            {
+                foreach (UIWizardPlayerSpell spellInTab in tab.SpellList)
+                {
+                    if (spellInTab.Id == id) return;
+                }
+            }
+
+            // Update Ui 
+            UIWizardPlayerSpell spellToAdd = new UIWizardPlayerSpell();
+            foreach (UIWizardPlayerSpell uiSpell in Globals.AppWizardSpellBook.UICompleteClassSpells)
+            {
+                if (uiSpell.Id == id)
+                {
+                    spellToAdd = uiSpell;
+                    break;
+                }
+            }
+            if (spellToAdd.Lvl == SelectedTab.Lvl)
+                SelectedTab.SpellList.Add(spellToAdd);
+
+            else
+            {
+                WizardSpellTabList[spellToAdd.Lvl].SpellList.Add(spellToAdd);
+            }
         }
 
         /* Au click du boutton Supprimer de la page ADD/REMOVE SPELL on ajoute le sort spécifié au spell book */
         public void RemoveSpell(int id)
         {
             Globals.AppWizardSpellBook.RemoveSpellInSpellBook(id);
+
+            //TODO TO INMPLEMENT PROPERLY AFTER TESTING
+
+            // Update Ui 
+            int lvlOfSpellToDelete = 0;
+            foreach (UIWizardPlayerSpell uiSpell in Globals.AppWizardSpellBook.UICompleteClassSpells)
+            {
+                if (uiSpell.Id == id)
+                {
+                    lvlOfSpellToDelete = uiSpell.Lvl;
+                    break;
+                }
+
+            }
+            if (lvlOfSpellToDelete == SelectedTab.Lvl)
+            {
+                foreach(UIWizardPlayerSpell spell in SelectedTab.SpellList)
+                {
+                    if (id == spell.Id)
+                    {
+                        SelectedTab.SpellList.Remove(spell);
+                        return;
+                    }
+                }
+               
+            }      
+            else
+            {
+                foreach (UIWizardPlayerSpell spell in WizardSpellTabList[lvlOfSpellToDelete].SpellList)
+                {
+                    if (id == spell.Id)
+                    {
+                        SelectedTab.SpellList.Remove(spell);
+                        return;
+                    }
+                }
+            }
+
         }
     }
 }

@@ -8,12 +8,77 @@
         mc:Ignorable="d"
         >
     <UserControl.DataContext>
-        <vm:WTabViewModel x:Name="_model1"/>
+        <vm:WTabViewModel x:Name="currentTabVM"/>
     </UserControl.DataContext>
     
     <UserControl.Resources>
+
+        <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF" />
+        <SolidColorBrush x:Key="SolidBorderBrush" Color="#888" />
+        <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
+        <SolidColorBrush x:Key="DisabledBorderBrush" Color="#AAA" />
+
+        <Style  TargetType="{x:Type TabControl}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid KeyboardNavigation.TabNavigation="Local">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <!-- This inserts the button -> -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="TabPanelButton"                            
+                                Command="{Binding TabPanelButtonClickCommand}"
+                                Margin="0,0,0,0" 
+                                Content=" + " 
+                                Height="20"
+                                Grid.Column="1"
+                                HorizontalAlignment="left"/>
+                                <TabPanel Name="HeaderPanel"
+                                  Grid.Column="0"
+                                  Panel.ZIndex="1" 
+                                  Margin="0,0,0,-1" 
+                                  IsItemsHost="True"
+                                  KeyboardNavigation.TabIndex="1"
+                                  Background="Transparent" />
+                            </Grid>
+                            <!-- <- This inserts the button -->
+                            <Border Name="Border" 
+                                Grid.Row="1" 
+                                Background="Transparent" 
+                                BorderBrush="{StaticResource SolidBorderBrush}" 
+                                BorderThickness="1" 
+                                CornerRadius="2" 
+                                KeyboardNavigation.TabNavigation="Local"
+                                KeyboardNavigation.DirectionalNavigation="Contained"
+                                KeyboardNavigation.TabIndex="2" >
+                                <ContentPresenter Name="PART_SelectedContentHost"
+                                             Margin="4"
+                                             ContentSource="SelectedContent" />
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        
         <!-- Onglets des tabs -->
-        <DataTemplate x:Key="HeaderTemplate" >
+        <DataTemplate x:Key="HeaderTemplate">
             <StackPanel Orientation="Horizontal" Background="Transparent">
                 <TextBlock>
                     <TextBlock.Text>
@@ -28,7 +93,7 @@
 
         <!-- Contenu des tabs -->
         <DataTemplate x:Key="ContentTemplate">
-            <ListBox ItemsSource="{Binding SpellList}" Background="Transparent" SelectedItem="{Binding SelectedSpell, Mode=TwoWay}">
+            <ListBox ItemsSource="{Binding SpellList}" Background="Transparent" SelectedItem="{Binding SelectedSpell, Mode=TwoWay}" BorderBrush="Transparent">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <v:WItemView x:Name="itemview"/>
@@ -54,6 +119,7 @@
                 <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
 
+
             <TabControl Grid.Row="0" 
                     Background="Transparent" BorderThickness="0"
                     SelectedItem="{Binding SelectedTab}"
@@ -63,7 +129,7 @@
                     ItemTemplate="{StaticResource HeaderTemplate}"
                     ContentTemplate="{StaticResource ContentTemplate}">
             </TabControl>
-            <Button Grid.Row="1" Content="Add Spell" Click="GenerateAddSpellPage" ></Button>
+            <Button Grid.Row="1" Content="Add or Remove Spell" Click="GenerateAddSpellPage" ></Button>
         </Grid>
         <!-- Partie droite du livre: description du sort séléctionné -->
 

@@ -6,8 +6,6 @@ namespace SpellBouc.ViewModel.Commands
 {
     internal enum WSimpleCommandType
     {
-        AddSpell,
-        RemoveSpell,
         IncrementSpellCount,
         DecrementSpellCount,
     }

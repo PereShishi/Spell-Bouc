@@ -30,12 +30,6 @@ namespace SpellBouc.ViewModel.Commands
 
             switch (_commandType)
             {
-                case WSimpleCommandType.AddSpell:
-                    TabVM.AddSpell(id);
-                    break;
-                case WSimpleCommandType.RemoveSpell:
-                    TabVM.RemoveSpell(id);
-                    break;
                 case WSimpleCommandType.IncrementSpellCount:
                     TabVM.IncrementSpellCount(id);
                     break;

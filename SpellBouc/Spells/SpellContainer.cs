@@ -208,7 +208,7 @@ namespace SpellBouc
         /*
          * Check les doublons 
          */
-        internal bool IsDuplicated(int spellId)
+        internal bool IsInContainer(int spellId)
         {
             foreach (var spell in Spells)
             {
@@ -219,6 +219,22 @@ namespace SpellBouc
             }
             return false;
         }
+
+        /*
+         * Check si le sort est présent ou non dans le container 
+         */
+        internal bool IsNotInContainer(int spellId)
+        {
+            foreach (var spell in Spells)
+            {
+                if (spellId == spell.Id)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
 
         public IEnumerator GetEnumerator()
         {
