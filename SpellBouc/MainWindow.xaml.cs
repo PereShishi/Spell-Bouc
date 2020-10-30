@@ -46,6 +46,8 @@ namespace SpellBouc
         private void ChoseWizardSpellBook(object sender, RoutedEventArgs e)
         {
             WWindowView wizardWindowView = new WWindowView();
+            wizardWindowView.Top = this.Top;
+            wizardWindowView.Left = this.Left;
             SystemCommands.CloseWindow(this);
             wizardWindowView.Show();
         }

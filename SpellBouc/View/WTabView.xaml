@@ -132,8 +132,11 @@
             <Button Grid.Row="1" Content="Add or Remove Spell" Click="GenerateAddSpellPage" ></Button>
         </Grid>
         <!-- Partie droite du livre: description du sort séléctionné -->
-
-        <Label Grid.Column="2" Content="{Binding SelectedTab.SelectedSpell.Description}"></Label>
+        <StackPanel Orientation="Vertical" Grid.Column="2" VerticalAlignment="Center">
+            <TextBlock Text="{Binding SelectedTab.SelectedSpell.Description}"
+                       TextWrapping="Wrap">
+            </TextBlock>
+        </StackPanel>
     </Grid>
    
 </UserControl>
