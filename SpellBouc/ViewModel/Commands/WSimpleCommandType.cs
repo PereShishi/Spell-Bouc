@@ -8,5 +8,6 @@ namespace SpellBouc.ViewModel.Commands
     {
         IncrementSpellCount,
         DecrementSpellCount,
+        AddNewTab 
     }
 }

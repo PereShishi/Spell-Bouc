@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Controls;
-using SpellBouc.Model;
-using SpellBouc.UISpells;
-using SpellBouc.ViewModel;
 
 namespace SpellBouc.View
 {
@@ -12,10 +8,10 @@ namespace SpellBouc.View
     /// </summary>
     public partial class WTabView : UserControl
     {
-        
+
         public WTabView()
         {
-            InitializeComponent();   
+            InitializeComponent();
             wizardTab.SelectedIndex = 0;
         }
 
@@ -27,4 +23,5 @@ namespace SpellBouc.View
             addSpellByLvlView.Show();
         }
     }
+
 }

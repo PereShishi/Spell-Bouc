@@ -16,7 +16,12 @@ namespace SpellBouc.ViewModel.Commands
             TabVM = wizardSpellTabViewModel;
             _commandType = simpleCommandType;
         }
-        public event EventHandler CanExecuteChanged;
+
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
         public bool CanExecute(object parameter)
         {
@@ -26,8 +31,9 @@ namespace SpellBouc.ViewModel.Commands
         /* Bind la WSimple commande a une methode dans le VM dépendament du WSimpleCommandType définit à sa création */
         public void Execute(object parameter)
         {
-            int id = (int)parameter;
 
+            int id = (int)parameter;
+            
             switch (_commandType)
             {
                 case WSimpleCommandType.IncrementSpellCount:

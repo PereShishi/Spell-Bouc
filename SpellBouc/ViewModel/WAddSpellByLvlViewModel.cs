@@ -1,11 +1,8 @@
-﻿using SpellBouc.Model;
-using SpellBouc.UISpells;
+﻿using SpellBouc.UISpells;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.InteropServices;
-using System.Text;
+
 
 namespace SpellBouc.ViewModel
 {
@@ -39,4 +36,6 @@ namespace SpellBouc.ViewModel
             Console.WriteLine("break");
         }
     }
+
+
 }

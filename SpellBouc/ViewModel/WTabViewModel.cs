@@ -1,12 +1,13 @@
 ﻿using SpellBouc.Model;
-using SpellBouc.SpellBooks;
 using SpellBouc.UISpells;
+using SpellBouc.View;
 using SpellBouc.ViewModel.Commands;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Input;
 
 namespace SpellBouc.ViewModel
 {
@@ -19,10 +20,10 @@ namespace SpellBouc.ViewModel
         private int _selectedIndex;
         private UiWizardSpellTab _selectedTab;
 
-        // Commands
-
+        /* Commandes */
         public WSimpleCommand IncrementSpellCountCommand { get; set; }
         public WSimpleCommand DecrementSpellCountCommand { get; set; }
+        public WAddTabCommand TabPanelButtonClickCommand { get; set; }
 
         // ObservableCollections de UiWizardSpellTab lié à un evênement pour rafraichir l'IU à chaque changement du tableau
         public ObservableCollection<UiWizardSpellTab> WizardSpellTabList
@@ -80,6 +81,7 @@ namespace SpellBouc.ViewModel
         {
             IncrementSpellCountCommand = new WSimpleCommand(this, WSimpleCommandType.IncrementSpellCount);
             DecrementSpellCountCommand = new WSimpleCommand(this, WSimpleCommandType.DecrementSpellCount);
+            TabPanelButtonClickCommand = new WAddTabCommand(this);
         }
 
         /* Initialise tous les header des tabs */
@@ -94,7 +96,6 @@ namespace SpellBouc.ViewModel
         {
             Globals.AppWizardSpellBook.IncrementWizardPlayerSpell(id);
 
-            //TODO TO INMPLEMENT PROPERLY AFTER TESTING
             foreach (var spellInList in SelectedTab.SpellList)
             {
                 foreach(UIWizardPlayerSpell uiSpell in Globals.AppWizardSpellBook.UIPlayerSpells)
@@ -113,7 +114,6 @@ namespace SpellBouc.ViewModel
         {
             Globals.AppWizardSpellBook.DecrementWizardPlayerSpell(id);
 
-            //TODO TO INMPLEMENT PROPERLY AFTER TESTING
             foreach (var spellInList in SelectedTab.SpellList)
             {
                 foreach (UIWizardPlayerSpell uiSpell in Globals.AppWizardSpellBook.UIPlayerSpells)
@@ -130,13 +130,17 @@ namespace SpellBouc.ViewModel
         /* Au click du boutton Ajouter de la page ADD/REMOVE SPELL on ajoute le sort spécifié au spell book */
         public void AddSpell(int id)
         {
-            //TODO TO INMPLEMENT PROPERLY AFTER TESTING
             // Update WizardSpellBook
             Globals.AppWizardSpellBook.AddSpellInSpellBook(id);
+
 
             // Check for UI duplication
             foreach (UiWizardSpellTab tab in WizardSpellTabList)
             {
+                if(tab.SpellList == null)
+                {
+                    tab.SpellList = new ObservableCollection<UIWizardPlayerSpell>();
+                }
                 foreach (UIWizardPlayerSpell spellInTab in tab.SpellList)
                 {
                     if (spellInTab.Id == id) return;
@@ -166,8 +170,6 @@ namespace SpellBouc.ViewModel
         public void RemoveSpell(int id)
         {
             Globals.AppWizardSpellBook.RemoveSpellInSpellBook(id);
-
-            //TODO TO INMPLEMENT PROPERLY AFTER TESTING
 
             // Update Ui 
             int lvlOfSpellToDelete = 0;
@@ -205,6 +207,26 @@ namespace SpellBouc.ViewModel
             }
 
         }
+
+        public void AddTab()
+        {
+            int lvl = 0;
+            // Get le niveau max des table
+            foreach(var tab in WizardSpellTabList)
+            {
+                if (tab.Lvl > lvl)
+                {
+                    lvl = tab.Lvl;
+                }
+            }
+            lvl++;
+
+            // Ajoute une nouvelle Tabe et la selectionne
+            UiWizardSpellTab spellTabToAdd = new UiWizardSpellTab(lvl);
+            WizardSpellTabList.Add(spellTabToAdd);
+            SelectedIndex = lvl;
+        }
+
     }
 }
 

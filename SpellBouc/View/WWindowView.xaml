@@ -40,6 +40,7 @@
             <StackPanel Orientation="Horizontal">
                 <Button Command="{x:Static SystemCommands.MinimizeWindowCommand}" Content="Minimize" />
                 <Button Command="{x:Static SystemCommands.CloseWindowCommand}" Content="Close" />
+                <Button Click="RefreshButton" Content="Refresh" />
             </StackPanel>
         </StackPanel>
         <v:WTabView Grid.Column="1" Grid.Row="1" x:Name="currentWizardSpellTab" Background="Transparent"/>

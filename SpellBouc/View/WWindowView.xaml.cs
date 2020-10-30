@@ -1,9 +1,4 @@
-﻿using SpellBouc.Model;
-using SpellBouc.SpellBooks;
-using SpellBouc.ViewModel;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 
@@ -41,6 +36,19 @@ namespace SpellBouc.View
         {
             SystemCommands.MinimizeWindow(this);
         }
-  
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RefreshButton(object sender, RoutedEventArgs e)
+        {
+            WWindowView res = new WWindowView();
+            Application.Current.MainWindow = res;
+            res.Show();
+            this.Close();
+
+        }
     }
 }

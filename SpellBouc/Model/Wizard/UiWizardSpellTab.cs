@@ -47,6 +47,15 @@ namespace SpellBouc.Model
 
         }
 
+        /* Créer une tab en fonction d'un niveau de sort */
+        public UiWizardSpellTab(int lvl)
+        {
+            this.Lvl = lvl;
+            GetTabListFromWizardSpellBook(lvl);
+
+        }
+        public UiWizardSpellTab(){}
+
         /* Génère une tab de sort (header + liste de sorts) à afficher dans l'interface utilisateur */
         public static ObservableCollection<UiWizardSpellTab> GetTabListFromWizardSpellBook()
         {
@@ -65,6 +74,15 @@ namespace SpellBouc.Model
             }
 
             return WizardSpellTabList;
+        }
+
+        /* Génère une tab de sort pour un lvl spécifique */
+        public static UiWizardSpellTab GetTabListFromWizardSpellBook(int lvl)
+        {
+            UiWizardSpellTab spellTabToAdd = new UiWizardSpellTab { Lvl = lvl };
+            spellTabToAdd.SetSpellListFromWizardSpellBook();
+
+            return spellTabToAdd;
         }
 
         /* Génère la liste des item de la tab à partir d'un WizardSpellBook => appel du model Item */
