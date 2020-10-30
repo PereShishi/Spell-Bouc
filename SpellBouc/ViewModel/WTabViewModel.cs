@@ -221,6 +221,12 @@ namespace SpellBouc.ViewModel
             }
             lvl++;
 
+            // Bloque le nombre d'onglets maximums à 5
+            if (lvl == 6)
+            {
+                return;
+            }
+
             // Ajoute une nouvelle Tabe et la selectionne
             UiWizardSpellTab spellTabToAdd = new UiWizardSpellTab(lvl);
             WizardSpellTabList.Add(spellTabToAdd);

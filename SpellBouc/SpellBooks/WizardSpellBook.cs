@@ -91,6 +91,7 @@ namespace SpellBouc.SpellBooks
                 {
                     Log.GenerateLog(status, "Erreur lors de la mise à jour des UIs dans AddUISpellInBookAndBD");
                 }
+                UpdateMaxLvlSpell();
                 // Update adable spell from CompleteClassSpell
                 UpdateUICompleteClassSpell();
                 UpdateSpellNumberByLvl();
@@ -117,6 +118,7 @@ namespace SpellBouc.SpellBooks
                 {
                     Log.GenerateLog(status, "Erreur lors de la mise à jour des UIs dans RemoveUISpellInBookAndBD");
                 }
+                UpdateMaxLvlSpell();
                 // Update adable spell from CompleteClassSpell
                 UpdateUICompleteClassSpell();
                 UpdateSpellNumberByLvl();
@@ -143,6 +145,7 @@ namespace SpellBouc.SpellBooks
                 {
                     Log.GenerateLog(status, "Erreur lors de la mise à jour des UIs dans RemoveUISpellInBookAndBD");
                 }
+                UpdateMaxLvlSpell();
                 // Update adable spell from CompleteClassSpell
                 UpdateUICompleteClassSpell();
                 UpdateSpellNumberByLvl();

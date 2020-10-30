@@ -45,6 +45,8 @@ namespace SpellBouc.View
         private void RefreshButton(object sender, RoutedEventArgs e)
         {
             WWindowView res = new WWindowView();
+            res.Top = this.Top;
+            res.Left = this.Left;
             Application.Current.MainWindow = res;
             res.Show();
             this.Close();

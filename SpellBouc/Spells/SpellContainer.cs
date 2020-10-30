@@ -133,7 +133,7 @@ namespace SpellBouc
         {
             foreach (var spell in Spells)
             {
-                if (spellToRemove == spell)
+                if (spellToRemove.Id == spell.Id)
                 {
                     Spells.Remove(spell);
                     return;

@@ -196,7 +196,7 @@ namespace SpellBouc.UIContainers
             {
                 if (uiSpellToRemove.Id == uiSpell.Id)
                 {
-                    UiSpells.Remove(UiSpells);
+                    UiSpells.Remove(uiSpell);
                     return;
                 }
             }
