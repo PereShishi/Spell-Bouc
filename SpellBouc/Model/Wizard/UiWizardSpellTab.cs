@@ -14,6 +14,7 @@ namespace SpellBouc.Model
 
         private ObservableCollection<UIWizardPlayerSpell> _spellList;
         private UIWizardPlayerSpell _selectedSpell;
+        private int _totalSpellCount = 0;
         public ObservableCollection<UIWizardPlayerSpell> SpellList
         {
             get
@@ -28,6 +29,20 @@ namespace SpellBouc.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(SpellList)));
 
 
+            }
+        }
+        public int TotalSpellCount
+        {
+            get
+            {
+                return _totalSpellCount;
+            }
+            set
+            {
+                if (_totalSpellCount == value)
+                    return;
+                _totalSpellCount = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(TotalSpellCount)));
             }
         }
 
@@ -54,7 +69,10 @@ namespace SpellBouc.Model
             GetTabListFromWizardSpellBook(lvl);
 
         }
-        public UiWizardSpellTab(){}
+        /* Constructeur vide utilisé lorsqu'on créer une fenêtre vide */
+        public UiWizardSpellTab()
+        {
+        }
 
         /* Génère une tab de sort (header + liste de sorts) à afficher dans l'interface utilisateur */
         public static ObservableCollection<UiWizardSpellTab> GetTabListFromWizardSpellBook()
@@ -71,6 +89,7 @@ namespace SpellBouc.Model
             foreach (UiWizardSpellTab wizardSpellTab in WizardSpellTabList)
             {
                 wizardSpellTab.SetSpellListFromWizardSpellBook();
+                wizardSpellTab.UpdateTotalSpellCount();
             }
 
             return WizardSpellTabList;
@@ -81,6 +100,7 @@ namespace SpellBouc.Model
         {
             UiWizardSpellTab spellTabToAdd = new UiWizardSpellTab { Lvl = lvl };
             spellTabToAdd.SetSpellListFromWizardSpellBook();
+            spellTabToAdd.UpdateTotalSpellCount();
 
             return spellTabToAdd;
         }
@@ -99,6 +119,17 @@ namespace SpellBouc.Model
             }
 
             SpellList = returnedWizardItemList;
+        }
+
+        /* Update TotalSpellCount depending on the PlayerSpellCount for each spell in SpellList*/
+        private void UpdateTotalSpellCount()
+        {
+            int totalSpellCount = 0;
+            foreach (UIWizardPlayerSpell spell in SpellList)
+            {
+                totalSpellCount += spell.PlayerSpellCount;
+            }
+            TotalSpellCount = totalSpellCount;
         }
 
     }

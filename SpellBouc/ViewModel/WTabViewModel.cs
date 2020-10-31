@@ -55,18 +55,20 @@ namespace SpellBouc.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedTab)));
             }
         }
-        public int SelectedIndex 
-        { 
-            get { 
-                return _selectedIndex; 
+        public int SelectedIndex
+        {
+            get
+            {
+                return _selectedIndex;
             }
+
             set
             {
                 if (_selectedIndex == value)
                     return;
                 _selectedIndex = value;
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedIndex)));
-            } 
+            }
         }
 
         public WTabViewModel()
@@ -93,9 +95,10 @@ namespace SpellBouc.ViewModel
 
         /* Au click du boutton + on incrément le nombre d'utilisation journalière d'un sort spécifique */
         public void IncrementSpellCount(int id)
-        {
+        { 
             Globals.AppWizardSpellBook.IncrementWizardPlayerSpell(id);
 
+            int totalSpellCount = 0;
             foreach (var spellInList in SelectedTab.SpellList)
             {
                 foreach(UIWizardPlayerSpell uiSpell in Globals.AppWizardSpellBook.UIPlayerSpells)
@@ -103,10 +106,13 @@ namespace SpellBouc.ViewModel
                     if(spellInList.Id == uiSpell.Id)
                     {
                         spellInList.PlayerSpellCount = uiSpell.PlayerSpellCount;
+                        totalSpellCount += spellInList.PlayerSpellCount;
                         continue;
                     }
                 }
             }
+            // Update le total des sorts dans le header 
+            SelectedTab.TotalSpellCount = totalSpellCount;
         }
 
         /* Au click du boutton - on décrémente le nombre d'utilisation journalière d'un sort spécifique */
@@ -114,6 +120,7 @@ namespace SpellBouc.ViewModel
         {
             Globals.AppWizardSpellBook.DecrementWizardPlayerSpell(id);
 
+            int totalSpellCount = 0;
             foreach (var spellInList in SelectedTab.SpellList)
             {
                 foreach (UIWizardPlayerSpell uiSpell in Globals.AppWizardSpellBook.UIPlayerSpells)
@@ -121,10 +128,13 @@ namespace SpellBouc.ViewModel
                     if (spellInList.Id == uiSpell.Id)
                     {
                         spellInList.PlayerSpellCount = uiSpell.PlayerSpellCount;
+                        totalSpellCount += spellInList.PlayerSpellCount;
                         continue;
                     }
                 }
             }
+            // Update le total des sorts dans le header 
+            SelectedTab.TotalSpellCount = totalSpellCount;
         }
 
         /* Au click du boutton Ajouter de la page ADD/REMOVE SPELL on ajoute le sort spécifié au spell book */

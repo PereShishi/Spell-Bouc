@@ -80,6 +80,10 @@
         <!-- Onglets des tabs -->
         <DataTemplate x:Key="HeaderTemplate">
             <StackPanel Orientation="Horizontal" Background="Transparent">
+                <TextBlock Text="{Binding TotalSpellCount}"/>
+                <TextBlock Text="/"/>
+                <!--<TextBlock Text="{Binding SpellMaxPerDay}"/>-->
+                <TextBox></TextBox>
                 <TextBlock>
                     <TextBlock.Text>
                         <MultiBinding StringFormat=" Niveau {0}">
@@ -87,7 +91,6 @@
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
-                <TextBlock Text="{Binding SpellMaxPerDay}" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="5" />
             </StackPanel>
         </DataTemplate>
 

@@ -31,6 +31,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Label Grid.Row="1" Grid.Column="0" Content="{Binding SelectedSpell.Description}" Width="400"></Label>
+        <TextBlock Grid.Row="1" Grid.Column="0" 
+                   Text="{Binding SelectedSpell.Description}"
+                   TextWrapping="Wrap"
+                   HorizontalAlignment="Center">
+        </TextBlock>
     </Grid>
 </Window>
