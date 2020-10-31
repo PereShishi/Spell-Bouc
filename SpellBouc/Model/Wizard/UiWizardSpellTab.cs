@@ -31,6 +31,8 @@ namespace SpellBouc.Model
 
             }
         }
+
+        /* Total de sorts affichés dans les headers */
         public int TotalSpellCount
         {
             get
@@ -46,6 +48,7 @@ namespace SpellBouc.Model
             }
         }
 
+        /* Sort sélectionné */
         public UIWizardPlayerSpell SelectedSpell 
         {
             get

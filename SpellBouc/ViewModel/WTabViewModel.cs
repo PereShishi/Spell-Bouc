@@ -137,7 +137,7 @@ namespace SpellBouc.ViewModel
             SelectedTab.TotalSpellCount = totalSpellCount;
         }
 
-        /* Au click du boutton Ajouter de la page ADD/REMOVE SPELL on ajoute le sort spécifié au spell book */
+        /* Au click du boutton Ajouter de la page ADD SPELL on ajoute le sort spécifié au spell book */
         public void AddSpell(int id)
         {
             // Update WizardSpellBook
@@ -176,46 +176,21 @@ namespace SpellBouc.ViewModel
             }
         }
 
-        /* Au click du boutton Supprimer de la page ADD/REMOVE SPELL on ajoute le sort spécifié au spell book */
+        /* Au click du boutton de supression on ajoute le sort spécifié au spell book */
         public void RemoveSpell(int id)
         {
             Globals.AppWizardSpellBook.RemoveSpellInSpellBook(id);
 
             // Update Ui 
-            int lvlOfSpellToDelete = 0;
-            foreach (UIWizardPlayerSpell uiSpell in Globals.AppWizardSpellBook.UICompleteClassSpells)
+            foreach(UIWizardPlayerSpell spell in SelectedTab.SpellList)
             {
-                if (uiSpell.Id == id)
+                if (id == spell.Id)
                 {
-                    lvlOfSpellToDelete = uiSpell.Lvl;
-                    break;
-                }
-
-            }
-            if (lvlOfSpellToDelete == SelectedTab.Lvl)
-            {
-                foreach(UIWizardPlayerSpell spell in SelectedTab.SpellList)
-                {
-                    if (id == spell.Id)
-                    {
-                        SelectedTab.SpellList.Remove(spell);
-                        return;
-                    }
-                }
-               
-            }      
-            else
-            {
-                foreach (UIWizardPlayerSpell spell in WizardSpellTabList[lvlOfSpellToDelete].SpellList)
-                {
-                    if (id == spell.Id)
-                    {
-                        SelectedTab.SpellList.Remove(spell);
-                        return;
-                    }
+                    SelectedTab.SpellList.Remove(spell);
+                    SelectedTab.TotalSpellCount -= spell.PlayerSpellCount;
+                    return;
                 }
             }
-
         }
 
         public void AddTab()

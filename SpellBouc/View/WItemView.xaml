@@ -24,7 +24,10 @@
             <Label Content="{Binding Name}" Grid.Column="3" HorizontalAlignment="Center" 
                        VerticalAlignment="Center" Margin="0,0,5,0" BorderBrush="Gray" BorderThickness="1" ></Label>
             <Label Content="{Binding School}" Grid.Column="3" HorizontalAlignment="Right"
-                       VerticalAlignment="Center" Margin="0,0,0,0" BorderBrush="Gray" BorderThickness="1"></Label>
+                       VerticalAlignment="Center" Margin="0,0,5,0" BorderBrush="Gray" BorderThickness="1"></Label>
+            <Button Content=" X " Margin="0,0,5,0" Width="20"
+                    Click="RemoveSpell" Tag="{Binding Id}"
+                    ></Button>
         </StackPanel>
     </Grid>
 

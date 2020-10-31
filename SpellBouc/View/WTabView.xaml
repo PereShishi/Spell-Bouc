@@ -132,7 +132,7 @@
                     ItemTemplate="{StaticResource HeaderTemplate}"
                     ContentTemplate="{StaticResource ContentTemplate}">
             </TabControl>
-            <Button Grid.Row="1" Content="Add or Remove Spell" Click="GenerateAddSpellPage" ></Button>
+            <Button Grid.Row="1" Content="Add Spell" Click="GenerateAddSpellPage" ></Button>
         </Grid>
         <!-- Partie droite du livre: description du sort séléctionné -->
         <StackPanel Orientation="Vertical" Grid.Column="2" VerticalAlignment="Center">
