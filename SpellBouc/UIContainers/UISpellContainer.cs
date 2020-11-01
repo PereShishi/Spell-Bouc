@@ -134,8 +134,17 @@ namespace SpellBouc.UIContainers
                         Lvl = spell.Lvl,
                         Name = spell.Name,
                         School = spell.Type,
-                        PlayerSpellCount = 0,
-                        Description = spell.Description
+                        Description = spell.Description,
+                        Source = spell.Source,
+                        Composante = spell.Composante,
+                        IncTime = spell.IncTime,
+                        Range = spell.Range,
+                        AreaEffect = spell.AreaEffect,
+                        Duration = spell.Duration,
+                        SaveDice = spell.SaveDice,
+                        MagicResist = spell.MagicResist,
+                        Comp = spell.Comp,
+                        PlayerSpellCount = 0
                     };
                     return uiWizardPlayerSpell;
 
@@ -147,7 +156,16 @@ namespace SpellBouc.UIContainers
                         Lvl = spell.Lvl,
                         Name = spell.Name,
                         School = spell.Type,
-                        Description = spell.Description
+                        Description = spell.Description,
+                        Source = spell.Source,
+                        Composante = spell.Composante,
+                        IncTime = spell.IncTime,
+                        Range = spell.Range,
+                        AreaEffect = spell.AreaEffect,
+                        Duration = spell.Duration,
+                        SaveDice = spell.SaveDice,
+                        MagicResist = spell.MagicResist,
+                        Comp = spell.Comp
                     };
                     return returnedSpell;
             }

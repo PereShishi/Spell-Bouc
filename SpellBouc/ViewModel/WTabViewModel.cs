@@ -193,6 +193,7 @@ namespace SpellBouc.ViewModel
             }
         }
 
+        /* Ajoute un sort dans la Tab à partir du boutton Ajouter du menu d'ajout des sorts*/
         public void AddTab()
         {
             int lvl = 0;
@@ -207,7 +208,7 @@ namespace SpellBouc.ViewModel
             lvl++;
 
             // Bloque le nombre d'onglets maximums à 5
-            if (lvl == 6)
+            if (lvl == 5)
             {
                 return;
             }

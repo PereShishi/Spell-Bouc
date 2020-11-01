@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using SpellBouc.UISpells;
 using SpellBouc.Logs;
+using System.Runtime.CompilerServices;
 
 namespace SpellBouc.AccessLayer
 {
@@ -50,7 +51,7 @@ namespace SpellBouc.AccessLayer
                         Duration = reader.GetString(12),
                         SaveDice = reader.GetString(13),
                         MagicResist = GetMagicRes(reader),
-                        Description = reader.GetString(15),
+                        Description = FormatDescr(reader.GetString(15)),
                         Comp = reader.GetString(16)
                     };
 
@@ -299,8 +300,23 @@ namespace SpellBouc.AccessLayer
             catch
             {
                 return ErrorCode.ERROR;
+            } 
+        }
+
+        /*
+         *  Formate la description pour remplacer les balises "<br/>" par des "\n"
+         */
+        private static string FormatDescr(string descr)
+        {
+            string formatedDescr = "";
+            if (descr != null && descr != "")
+            {
+                formatedDescr = descr.Replace("<br/>", "\n");
+                formatedDescr= formatedDescr.Substring(0, formatedDescr.Length - 1);
             }
 
+            //var test2 = 15;
+            return formatedDescr;
         }
     }
 }

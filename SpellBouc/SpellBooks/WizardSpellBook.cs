@@ -1,7 +1,6 @@
 ﻿using SpellBouc.Logs;
 using SpellBouc.UIContainers;
 using SpellBouc.UISpells;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,11 +15,11 @@ namespace SpellBouc.SpellBooks
 
         internal override SpellContainer CompleteClassSpells { get; set; }
 
-        internal override UISpellContainer UIPlayerSpells { get; set;}
+        internal override UISpellContainer UIPlayerSpells { get; set; }
 
         internal override UISpellContainer UICompleteClassSpells { get; set; }
 
-        
+
         /* Initialisation des membres */
         public WizardSpellBook()
         {
@@ -58,7 +57,7 @@ namespace SpellBouc.SpellBooks
                 if (UIPlayerSpells.IsDuplicated(spellToAdd) == true) return;
                 // Met à jour les UIs
                 status = UIPlayerSpells.AddUISpellInBookAndBD(spellToAdd, UIContainerType.UIWizardSpell);
-                if(status != ErrorCode.SUCCESS)
+                if (status != ErrorCode.SUCCESS)
                 {
                     Log.GenerateLog(status, "Erreur lors de la mise à jour des UIs dans AddUISpellInBookAndBD");
                 }
@@ -75,7 +74,7 @@ namespace SpellBouc.SpellBooks
 
         /* Ajoute un spell dans le livre de sort (implémentation à partir de la classe mère SpellBook) input: name */
         internal override void AddSpellInSpellBook(string name)
-        {         
+        {
             var spellToAdd = CompleteClassSpells.GetSpell(name);
             if (PlayerSpells.IsInContainer(spellToAdd.Id) == true) return;
 
@@ -163,12 +162,12 @@ namespace SpellBouc.SpellBooks
         }
 
         /* Retire un spell dans la liste des UI */
-        internal override void RemoveSpellInUIList(Spell spell) 
+        internal override void RemoveSpellInUIList(Spell spell)
         {
             UIPlayerSpells.RemoveUiSpell(spell);
         }
 
-        /* Remplir les données manquantes de UIPlayerSpells après son initialisation (Lvl, Name, Description) */
+        /* Remplir les données manquantes de UIPlayerSpells après son initialisation */
         internal override void FillMissingUIInfosFromPlayerSpells()
         {
             var tempUIPlayerSpells = new List<UIWizardPlayerSpell>();
@@ -182,7 +181,15 @@ namespace SpellBouc.SpellBooks
                         uiWizardPlayerSpell.Name = playerSpell.Name;
                         uiWizardPlayerSpell.School = playerSpell.Type;
                         uiWizardPlayerSpell.Description = playerSpell.Description;
-                        // TODO: Description 
+                        uiWizardPlayerSpell.Source = playerSpell.Source;
+                        uiWizardPlayerSpell.Composante = playerSpell.Composante;
+                        uiWizardPlayerSpell.IncTime = playerSpell.IncTime;
+                        uiWizardPlayerSpell.Range = playerSpell.Range;
+                        uiWizardPlayerSpell.AreaEffect = playerSpell.AreaEffect;
+                        uiWizardPlayerSpell.Duration = playerSpell.Duration;
+                        uiWizardPlayerSpell.SaveDice = playerSpell.SaveDice;
+                        uiWizardPlayerSpell.MagicResist = playerSpell.MagicResist;
+                        uiWizardPlayerSpell.Comp = playerSpell.Comp;
 
                         tempUIPlayerSpells.Add(uiWizardPlayerSpell);
                     }
@@ -231,7 +238,7 @@ namespace SpellBouc.SpellBooks
         /* Retourne une liste de ObservableCollection<UIWizardPlayerSpell> qui sera affichée les pages d'ajout de sort */
         internal ObservableCollection<UIWizardPlayerSpell> GetUiSpellListByLvl(int pageLvl)
         {
-            ObservableCollection<UIWizardPlayerSpell>  returnList = new ObservableCollection<UIWizardPlayerSpell>();
+            ObservableCollection<UIWizardPlayerSpell> returnList = new ObservableCollection<UIWizardPlayerSpell>();
             foreach (UIWizardPlayerSpell wUiSpell in UICompleteClassSpells)
             {
                 if (wUiSpell.Lvl == pageLvl)
@@ -243,4 +250,3 @@ namespace SpellBouc.SpellBooks
         }
     }
 }
- 

@@ -12,7 +12,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height ="*"/>
-            <RowDefinition Height ="0.33*"/>
+            <RowDefinition Height ="0.6*"/>
         </Grid.RowDefinitions>
 
         <ListBox ItemsSource="{Binding AddSpellList}" Background="Transparent" Grid.Row="0" x:Name="testList" SelectedItem="{Binding SelectedSpell, Mode=TwoWay}">
@@ -30,10 +30,12 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBlock Grid.Row="1" Grid.Column="0" 
+        <v:SpellDescriptor x:Name="spellDescriptor" DataContext="{Binding SelectedSpell}" Grid.Row="1" Grid.Column="0"></v:SpellDescriptor>
+        <!--<TextBlock Grid.Row="1" Grid.Column="0" 
                    Text="{Binding SelectedSpell.Description}"
                    TextWrapping="Wrap"
                    HorizontalAlignment="Center">
         </TextBlock>
+        -->
     </Grid>
 </Window>

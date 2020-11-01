@@ -9,7 +9,6 @@ namespace SpellBouc.ViewModel.Commands
     public class WAddTabCommand : ICommand
     {
         public WTabViewModel TabVM { get; set; }
-        private readonly WSimpleCommandType _commandType;
 
         internal WAddTabCommand(WTabViewModel wizardSpellTabViewModel)
         {

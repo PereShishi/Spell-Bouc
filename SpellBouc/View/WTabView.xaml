@@ -80,11 +80,11 @@
         <!-- Onglets des tabs -->
         <DataTemplate x:Key="HeaderTemplate">
             <StackPanel Orientation="Horizontal" Background="Transparent">
-                <TextBlock Text="{Binding TotalSpellCount}"/>
-                <TextBlock Text="/"/>
+                <TextBlock Text="{Binding TotalSpellCount}" TextWrapping="Wrap"/>
+                <TextBlock Text="/" TextWrapping="Wrap"/>
                 <!--<TextBlock Text="{Binding SpellMaxPerDay}"/>-->
                 <TextBox></TextBox>
-                <TextBlock>
+                <TextBlock  TextWrapping="Wrap">
                     <TextBlock.Text>
                         <MultiBinding StringFormat=" Niveau {0}">
                             <Binding Path="Lvl"/>
@@ -134,12 +134,16 @@
             </TabControl>
             <Button Grid.Row="1" Content="Add Spell" Click="GenerateAddSpellPage" ></Button>
         </Grid>
+        
         <!-- Partie droite du livre: description du sort séléctionné -->
+        <!-- 
         <StackPanel Orientation="Vertical" Grid.Column="2" VerticalAlignment="Center">
             <TextBlock Text="{Binding SelectedTab.SelectedSpell.Description}"
                        TextWrapping="Wrap">
             </TextBlock>
         </StackPanel>
+        -->
+        <v:SpellDescriptor x:Name="spellDescriptor" DataContext="{Binding SelectedTab.SelectedSpell}" Grid.Column="2"></v:SpellDescriptor>
     </Grid>
    
 </UserControl>

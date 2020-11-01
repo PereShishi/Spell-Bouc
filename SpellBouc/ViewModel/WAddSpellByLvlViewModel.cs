@@ -8,9 +8,26 @@ namespace SpellBouc.ViewModel
 {
     public class WAddSpellByLvlViewModel: INotifyPropertyChanged
     {
-        // ObservableCollections
         public ObservableCollection<UIWizardPlayerSpell> AddSpellList { get; set; } = new ObservableCollection<UIWizardPlayerSpell>();
-        public UIWizardPlayerSpell SelectedSpell { get; set; }
+        private UIWizardPlayerSpell _selectedSpell;
+        public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
+
+        /* Sort sélectionné */
+        public UIWizardPlayerSpell SelectedSpell
+        {
+            get
+            {
+                return _selectedSpell;
+            }
+            set
+            {
+                if (_selectedSpell == value)
+                    return;
+                _selectedSpell = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedSpell)));
+            }
+
+        }
 
         private int PageLvl {get; set;}
 
@@ -27,8 +44,6 @@ namespace SpellBouc.ViewModel
             GenerateSPellList();
             SelectedSpell = (UIWizardPlayerSpell)AddSpellList[0];
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void GenerateSPellList()
         {
