@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using SpellBouc.UISpells;
 using SpellBouc.Logs;
 using System.Runtime.CompilerServices;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace SpellBouc.AccessLayer
 {
@@ -44,7 +46,7 @@ namespace SpellBouc.AccessLayer
                         // 5: Niveau mal formaté 
                         // 6: Domaine
                         // 7: Initie
-                        Composante = reader.GetString(8),
+                        Composante = FormatComp(reader.GetString(8)),
                         IncTime = reader.GetString(9),
                         Range = reader.GetString(10),
                         AreaEffect = reader.GetString(11),
@@ -304,18 +306,104 @@ namespace SpellBouc.AccessLayer
         }
 
         /*
-         *  Formate la description pour remplacer les balises "<br/>" par des "\n"
+         *  Formate la description pour remplacer les balises inutiles
          */
         private static string FormatDescr(string descr)
         {
             string formatedDescr = "";
             if (descr != null && descr != "")
             {
+                // Supprime toutes les balises:
                 formatedDescr = descr.Replace("<br/>", "\n");
-                formatedDescr= formatedDescr.Substring(0, formatedDescr.Length - 1);
+                formatedDescr = formatedDescr.Replace("\n\n", "\n");
+
+                formatedDescr = formatedDescr.Replace("<p>", " ");
+                formatedDescr = formatedDescr.Replace("</p>", " ");
+
+                formatedDescr = formatedDescr.Replace("<h5>", "");
+                formatedDescr = formatedDescr.Replace("</h5>", "");
+
+                formatedDescr = formatedDescr.Replace("</a>", "");
+                formatedDescr = formatedDescr.Replace("<a", "");
+
+                formatedDescr = formatedDescr.Replace("<li>", "");
+                formatedDescr = formatedDescr.Replace("</li>", "");
+
+                formatedDescr = formatedDescr.Replace("<ul>", "");
+                formatedDescr = formatedDescr.Replace("</ul>", "");
+
+                formatedDescr = formatedDescr.Replace("<tr>", "");
+                formatedDescr = formatedDescr.Replace("</tr>", "");
+
+                formatedDescr = formatedDescr.Replace("<th>", "");
+                formatedDescr = formatedDescr.Replace("</th>", "");
+
+                formatedDescr = formatedDescr.Replace("<td>", "");
+                formatedDescr = formatedDescr.Replace("</td>", "");
+
+                formatedDescr = formatedDescr.Replace("</span>", "");
+
+                formatedDescr = formatedDescr.Replace("<i>", "");
+                formatedDescr = formatedDescr.Replace("</i>", "");
+
+                formatedDescr = formatedDescr.Replace("<em>", "");
+                formatedDescr = formatedDescr.Replace("</em>", "");
+
+                formatedDescr = formatedDescr.Replace("<u>", "");
+                formatedDescr = formatedDescr.Replace("</u>", "");
+
+                // Supprime les href
+                int occCount = Regex.Matches(formatedDescr, "href=").Count;
+
+                for (int i = 0; i < occCount; i++)
+                {
+                    int pFrom = formatedDescr.IndexOf("href=");
+                    if(pFrom == -1)
+                    {
+                        break;
+                    }
+                    int pTo = formatedDescr.IndexOf(">", pFrom);
+
+
+                    string substrToDelete = formatedDescr.Substring(pFrom, pTo - pFrom + 1);
+                    formatedDescr = formatedDescr.Replace(substrToDelete, "");
+                }
+
+                // Supprime les spans
+                occCount = Regex.Matches(formatedDescr, "<span").Count;
+
+                for (int i = 0; i < occCount; i++)
+                {
+                    int pFrom = formatedDescr.IndexOf("<span");
+                    if (pFrom == -1)
+                    {
+                        break;
+                    }
+                    int pTo = formatedDescr.IndexOf(">", pFrom);
+
+
+                    string substrToDelete = formatedDescr.Substring(pFrom, pTo - pFrom + 1);
+                    formatedDescr = formatedDescr.Replace(substrToDelete, "");
+                }
+
+            }
+            return formatedDescr;
+        }
+
+        /*
+         *  Formate la composante du sorts pour retirer les caractères superflux 
+         */
+        private static string FormatComp(string comp)
+        {
+            string formatedDescr = "";
+            if (comp != null && comp != "")
+            {
+                // Supprime toutes les balises:
+                formatedDescr = comp.Replace("<abbr title=", "");
+                formatedDescr = formatedDescr.Replace("/", "");
+                formatedDescr = formatedDescr.Replace("(E", "");
             }
 
-            //var test2 = 15;
             return formatedDescr;
         }
     }

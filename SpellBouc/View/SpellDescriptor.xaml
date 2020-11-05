@@ -21,16 +21,16 @@
                 <Label></Label>
                 <Label></Label>
 
-                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="22" FontFamily="Poor Richard" ></TextBlock>
+                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="22" FontFamily="Poor Richard"></TextBlock>
 
-                <TextBlock  TextWrapping="Wrap"  VerticalAlignment="Top" HorizontalAlignment="Right" LineStackingStrategy="BlockLineHeight" LineHeight="10">
+                <TextBlock  TextWrapping="Wrap"  VerticalAlignment="Top" HorizontalAlignment="Right" LineStackingStrategy="BlockLineHeight" LineHeight="12">
                    <Run Text="{Binding Comp}"/>
                      <LineBreak/>
                      <LineBreak/>
                      <LineBreak/>
                 </TextBlock>
 
-                <TextBlock TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" LineHeight="20">
+                <TextBlock TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" LineHeight="12">
                     <Run Text="Ecole:" FontWeight="Bold"/>
                     <Run Text="{Binding School}"/>
                     <LineBreak/>
@@ -62,25 +62,9 @@
             <!-- Source en bas à droite de la page -->
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Label Content="Source:"></Label>
+                <Label Content="Source:"></Label>
                 <TextBlock Text="{Binding Source}" TextWrapping="Wrap" VerticalAlignment="Center"></TextBlock>
             </StackPanel>
         </Grid>
     </ScrollViewer>
-    <!--
-        public string Name { get; set; }
-        public int Lvl { get; set; }
-        public string School { get; set; }
-        public string Source { get; set; }
-        public string Composante { get; set; }
-        public string IncTime { get; set; }
-        public string Range { get; set; }
-        public string AreaEffect { get; set; }
-        public string Duration { get; set; }
-        public string SaveDice { get; set; }
-        public bool MagicResist { get; set; }
-        public string Description { get; set; }
-        public string Comp { get; set; }
-        public bool IsAddable { get; set; }
-
-    -->
 </UserControl>
