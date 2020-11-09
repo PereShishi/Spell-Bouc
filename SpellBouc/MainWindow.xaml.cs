@@ -45,55 +45,13 @@ namespace SpellBouc
         /* Bascule sur un livre de sort du Mage */
         private void ChoseWizardSpellBook(object sender, RoutedEventArgs e)
         {
-            WWindowView wizardWindowView = new WWindowView();
-            wizardWindowView.Top = this.Top;
-            wizardWindowView.Left = this.Left;
+            WWindowView wizardWindowView = new WWindowView
+            {
+                Top = this.Top,
+                Left = this.Left
+            };
             SystemCommands.CloseWindow(this);
             wizardWindowView.Show();
         }
-
-
-        //private void TestFunction(object sender, RoutedEventArgs e)
-        //{
-        //    var wizardSpellBook = new WizardSpellBook();
-
-        //    var test = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
-        //    var test2 = Access.GetUIWizardSpellsFromDB();
-
-        //    return;
-        //}
-
-        //private void Test2Function(object sender, RoutedEventArgs e)
-        //{
-        //    var wizardSpellBook = new WizardSpellBook();
-        //    var inputID = Int32.Parse(textBox1.Text);
-
-        //    wizardSpellBook.AddSpellInSpellBook(inputID);
-        //    var test = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
-
-        //    wizardSpellBook.IncrementWizardPlayerSpell(inputID);
-        //    var test2 = Access.GetUIWizardSpellsFromDB();
-
-        //    wizardSpellBook.UpdateMaxLvlSpell();
-
-        //    test = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
-        //    test2 = Access.GetUIWizardSpellsFromDB();
-
-
-        //    return;
-        //}
-
-        //private void Test3Function(object sender, RoutedEventArgs e)
-        //{
-        //    var wizardSpellBook = new WizardSpellBook();
-        //    var inputID = Int32.Parse(textBox1.Text);
-
-        //    wizardSpellBook.RemoveSpellInSpellBook(inputID);
-
-        //    var test = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
-        //    var test2 = Access.GetUIWizardSpellsFromDB();
-
-        //    return;
-        //}
     }
 }

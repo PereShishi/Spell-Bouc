@@ -3,16 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:v="clr-namespace:SpellBouc.View"
-        xmlns:vm="clr-namespace:SpellBouc.ViewModel"
+        xmlns:v="clr-namespace:SpellBouc.View" 
+        xmlns:vm="clr-namespace:SpellBouc.ViewModel" 
+        xmlns:com="clr-namespace:SpellBouc.ViewModel.Commands"
         mc:Ignorable="d"
         >
+
     <UserControl.DataContext>
         <vm:WTabViewModel x:Name="currentTabVM"/>
     </UserControl.DataContext>
-    
-    <UserControl.Resources>
 
+    <UserControl.Resources>
+        <!-- Convertisseur de visibilté en bool pour pouvoir le builder -->
+        <com:VisibilityConverter x:Key="VisibilityConverter" />
+        
         <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF" />
         <SolidColorBrush x:Key="SolidBorderBrush" Color="#888" />
         <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
@@ -26,9 +30,10 @@
                     <ControlTemplate TargetType="{x:Type TabControl}">
                         <Grid KeyboardNavigation.TabNavigation="Local">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
+
                             <!-- This inserts the button -> -->
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -47,8 +52,8 @@
                                   Panel.ZIndex="1" 
                                   Margin="0,0,0,-1" 
                                   IsItemsHost="True"
-                                  KeyboardNavigation.TabIndex="1"
-                                  Background="Transparent" />
+                                  KeyboardNavigation.TabIndex="1"        
+                                  Background="Transparent"/>
                             </Grid>
                             <!-- <- This inserts the button -->
                             <Border Name="Border" 
@@ -79,7 +84,7 @@
         
         <!-- Onglets des tabs -->
         <DataTemplate x:Key="HeaderTemplate">
-            <StackPanel Orientation="Horizontal" Background="Transparent">
+            <TabPanel Background="Transparent">
                 <TextBlock Text="{Binding TotalSpellCount}" TextWrapping="Wrap"/>
                 <TextBlock Text="/" TextWrapping="Wrap"/>
                 <!--<TextBlock Text="{Binding SpellMaxPerDay}"/>-->
@@ -91,16 +96,18 @@
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
-            </StackPanel>
+            </TabPanel>
         </DataTemplate>
 
         <!-- Contenu des tabs -->
         <DataTemplate x:Key="ContentTemplate">
-            <ListBox ItemsSource="{Binding SpellList}" Background="Transparent" SelectedItem="{Binding SelectedSpell, Mode=TwoWay}" BorderBrush="Transparent">
+            <ListBox ItemsSource="{Binding SpellList}"  SelectedItem="{Binding SelectedSpell, Mode=TwoWay}" 
+                     HorizontalContentAlignment="Stretch"
+                     BorderBrush="Transparent" Background="Transparent">
                 <ListBox.ItemTemplate>
-                    <DataTemplate>
+                    <HierarchicalDataTemplate>
                         <v:WItemView x:Name="itemview"/>
-                    </DataTemplate>
+                    </HierarchicalDataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </DataTemplate>
@@ -122,7 +129,6 @@
                 <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
 
-
             <TabControl Grid.Row="0" 
                     Background="Transparent" BorderThickness="0"
                     SelectedItem="{Binding SelectedTab}"
@@ -136,14 +142,13 @@
         </Grid>
         
         <!-- Partie droite du livre: description du sort séléctionné -->
-        <!-- 
-        <StackPanel Orientation="Vertical" Grid.Column="2" VerticalAlignment="Center">
-            <TextBlock Text="{Binding SelectedTab.SelectedSpell.Description}"
-                       TextWrapping="Wrap">
-            </TextBlock>
-        </StackPanel>
-        -->
-        <v:SpellDescriptor x:Name="spellDescriptor" DataContext="{Binding SelectedTab.SelectedSpell}" Grid.Column="2"></v:SpellDescriptor>
+        <v:SpellDescriptor x:Name="spellDescriptor" 
+                           DataContext="{Binding SelectedTab.SelectedSpell}" 
+                           Grid.Column="2" 
+                           Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=v:WTabView}, 
+                                                Path=DataContext.SelectedTab.IsVisible, Converter={StaticResource VisibilityConverter}}">
+        </v:SpellDescriptor>
+        
     </Grid>
    
 </UserControl>

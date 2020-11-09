@@ -402,6 +402,7 @@ namespace SpellBouc.AccessLayer
                 formatedDescr = comp.Replace("<abbr title=", "");
                 formatedDescr = formatedDescr.Replace("/", "");
                 formatedDescr = formatedDescr.Replace("(E", "");
+                formatedDescr = formatedDescr.Replace("\n", "");
             }
 
             return formatedDescr;

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using SpellBouc.SpellBooks;
 using System.ComponentModel;
+using SQLitePCL;
 
 namespace SpellBouc.Model
 {
@@ -15,6 +16,7 @@ namespace SpellBouc.Model
         private ObservableCollection<UIWizardPlayerSpell> _spellList;
         private UIWizardPlayerSpell _selectedSpell;
         private int _totalSpellCount = 0;
+        private bool _isVisible = false;
         public ObservableCollection<UIWizardPlayerSpell> SpellList
         {
             get
@@ -60,7 +62,28 @@ namespace SpellBouc.Model
                 if (_selectedSpell == value)
                     return;
                 _selectedSpell = value;
+                if(_selectedSpell != null)
+                {
+                    IsVisible = true;
+                }
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedSpell)));
+            }
+
+        }
+
+        /* Sort sélectionné */
+        public bool IsVisible
+        {
+            get
+            {
+                return _isVisible;
+            }
+            set
+            {
+                if (_isVisible == value)
+                    return;
+                _isVisible = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(IsVisible)));
             }
 
         }

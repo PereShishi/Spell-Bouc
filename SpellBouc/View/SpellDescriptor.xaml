@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:SpellBouc.View"
+             xmlns:vm="clr-namespace:SpellBouc.ViewModel" 
+             xmlns:com="clr-namespace:SpellBouc.ViewModel.Commands"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -13,6 +15,7 @@
             <Setter Property="FontSize" Value="12" />
         </Style>
     </UserControl.Resources>
+    
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid>
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="0,0,10,0">
@@ -40,10 +43,10 @@
                     <Run Text="Temps d'incantation:" FontWeight="Bold" />
                     <Run Text="{Binding IncTime}"/>
                     <LineBreak/>
-                    <Run Text="Portée:" FontWeight="Bold"/>
+                    <Run Text="Portée:" FontWeight="Bold" />
                     <Run Text="{Binding Range}"/>
                     <LineBreak/>
-                    <Run Text="Effet:" FontWeight="Bold" BindingGroup="{Binding AreaEffect}"/>
+                    <Run Text="Effet:" FontWeight="Bold"/>
                     <Run Text="{Binding AreaEffect}"/>
                     <LineBreak/>
                     <Run Text="Durée:" FontWeight="Bold"/>
@@ -55,13 +58,13 @@
                     <Run Text="Résistance à la magie:" FontWeight="Bold"/>
                     <Run Text="{Binding MagicResist}"/>
                     <LineBreak/>
+                    <LineBreak/>
                 </TextBlock >
                 <!-- Label placés pour éviter l'entremelement de texte si la description est trop longue (scroll necessaire) -->
             </StackPanel>
 
             <!-- Source en bas à droite de la page -->
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                <Label Content="Source:"></Label>
                 <Label Content="Source:"></Label>
                 <TextBlock Text="{Binding Source}" TextWrapping="Wrap" VerticalAlignment="Center"></TextBlock>
             </StackPanel>
