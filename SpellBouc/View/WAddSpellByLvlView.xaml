@@ -31,11 +31,5 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <v:SpellDescriptor x:Name="spellDescriptor" DataContext="{Binding SelectedSpell}" Grid.Row="1" Grid.Column="0"></v:SpellDescriptor>
-        <!--<TextBlock Grid.Row="1" Grid.Column="0" 
-                   Text="{Binding SelectedSpell.Description}"
-                   TextWrapping="Wrap"
-                   HorizontalAlignment="Center">
-        </TextBlock>
-        -->
     </Grid>
 </Window>

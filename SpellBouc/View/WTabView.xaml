@@ -10,7 +10,7 @@
         >
 
     <UserControl.DataContext>
-        <vm:WTabViewModel x:Name="currentTabVM"/>
+        <vm:WTabViewModel x:Name="currentTabVM"></vm:WTabViewModel>
     </UserControl.DataContext>
 
     <UserControl.Resources>
@@ -50,7 +50,7 @@
                                 <TabPanel Name="HeaderPanel"
                                   Grid.Column="0"
                                   Panel.ZIndex="1" 
-                                  Margin="0,0,0,-1" 
+                                  Margin="0,0,0,1" 
                                   IsItemsHost="True"
                                   KeyboardNavigation.TabIndex="1"        
                                   Background="Transparent"/>
@@ -85,11 +85,10 @@
         <!-- Onglets des tabs -->
         <DataTemplate x:Key="HeaderTemplate">
             <TabPanel Background="Transparent">
-                <TextBlock Text="{Binding TotalSpellCount}" TextWrapping="Wrap"/>
-                <TextBlock Text="/" TextWrapping="Wrap"/>
-                <!--<TextBlock Text="{Binding SpellMaxPerDay}"/>-->
-                <TextBox></TextBox>
-                <TextBlock  TextWrapping="Wrap">
+                <TextBlock Text="{Binding TotalSpellCount}" TextWrapping="Wrap" FontSize="13" FontWeight="Bold"/>
+                <TextBlock Text="/" TextWrapping="Wrap" FontSize="13" FontWeight="Bold" />
+                <TextBlock Text="{Binding MaxSpellsPerDay}" FontSize="13" FontWeight="Bold"/>
+                <TextBlock  TextWrapping="Wrap" VerticalAlignment="Bottom">
                     <TextBlock.Text>
                         <MultiBinding StringFormat=" Niveau {0}">
                             <Binding Path="Lvl"/>

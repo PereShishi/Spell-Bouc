@@ -1,4 +1,5 @@
-﻿using SpellBouc.Logs;
+﻿using SpellBouc.AccessLayer;
+using SpellBouc.Logs;
 using SpellBouc.UIContainers;
 using SpellBouc.UISpells;
 using System.Collections.Generic;
@@ -30,9 +31,12 @@ namespace SpellBouc.SpellBooks
             // Récupère toutes les utilisations quotidiennes des sorts du joueurs, et les infos à afficher dans les UIs
             UIPlayerSpells = new UISpellContainer(UIContainerType.UIWizardSpell);
             FillMissingUIInfosFromPlayerSpells();
-            // Set le nombre d'onglets.
+            // Set le nombre d'onglets (niveau max des sorts du joueur).
             UpdateMaxLvlSpell();
+            // Set le nombre max de sorts par jour pour chaque niveau
+            SetMaxSpellNumberByLvl();
 
+            // Partie UI
             UICompleteClassSpells = new UISpellContainer(UIContainerType.UIWizardCompletSpell);
             // Initialise CompleteClassSpells & update les sorts qui sont ajoutables
             InitUICompleteClassSpells();
@@ -202,17 +206,38 @@ namespace SpellBouc.SpellBooks
         /* Récupère le nombre de sorts par niveau */
         internal override void UpdateSpellNumberByLvl()
         {
-            SpellNumberByLvl = new int[MaxLvlSpell + 1];
+            PlayerSpellsByLvl = new int[SpellMaxFromPlayer + 1];
             // Set le tableur:
-            for (int i = 0; i < MaxLvlSpell + 1; i++)
+            for (int i = 0; i < SpellMaxFromPlayer + 1; i++)
             {
-                SpellNumberByLvl[i] = 0;
+                PlayerSpellsByLvl[i] = 0;
             }
 
             // Compte  
             foreach (UIWizardPlayerSpell spell in UIPlayerSpells)
             {
-                SpellNumberByLvl[spell.Lvl] = SpellNumberByLvl[spell.Lvl] + spell.PlayerSpellCount;
+                PlayerSpellsByLvl[spell.Lvl] = PlayerSpellsByLvl[spell.Lvl] + spell.PlayerSpellCount;
+            }
+        }
+
+        /* Set le nombre max de sorts par jour pour chaque niveau */
+        internal override void SetMaxSpellNumberByLvl()
+        {
+            // Init ( valeur settée à 5 soit le niveau maximum que le spellbouc peut afficher pour l'instant) 
+            // A remplacer quand on pourra le faire dynamiquement 
+            MaxSpellsByLvl = new int[5];
+
+            // Récupère les valeurs et les set dans la propriété
+            MaxSpellsByLvl = Access.SetMaxNumberByLvl(MaxSpellsByLvl.Length, Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+        }
+
+        /* Set le nombre max de sorts par jour pour chaque niveau */
+        internal override void UpdateMaxSpellNumberByLvl(int[] maxSpellToUpdate)
+        {
+            ErrorCode status = Access.UpdateMaxNumberByLvl(maxSpellToUpdate, Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+            if(status == ErrorCode.SUCCESS)
+            {
+                MaxSpellsByLvl = maxSpellToUpdate;
             }
         }
 

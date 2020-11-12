@@ -17,6 +17,7 @@ namespace SpellBouc.Model
         private UIWizardPlayerSpell _selectedSpell;
         private int _totalSpellCount = 0;
         private bool _isVisible = false;
+
         public ObservableCollection<UIWizardPlayerSpell> SpellList
         {
             get
@@ -34,7 +35,7 @@ namespace SpellBouc.Model
             }
         }
 
-        /* Total de sorts affichés dans les headers */
+        /* Total de sorts réstant au joueur par niveau (affiché dans les headers) */
         public int TotalSpellCount
         {
             get
@@ -92,9 +93,11 @@ namespace SpellBouc.Model
         public UiWizardSpellTab(int lvl)
         {
             this.Lvl = lvl;
-            GetTabListFromWizardSpellBook(lvl);
-
+            SetSpellListFromWizardSpellBook();
+            UpdateTotalSpellCount();
+            MaxSpellsPerDay = Globals.AppWizardSpellBook.MaxSpellsByLvl[lvl];
         }
+
         /* Constructeur vide utilisé lorsqu'on créer une fenêtre vide */
         public UiWizardSpellTab()
         {
@@ -106,9 +109,9 @@ namespace SpellBouc.Model
             ObservableCollection<UiWizardSpellTab> WizardSpellTabList = new ObservableCollection<UiWizardSpellTab>();
 
             // Initialise les headers
-            for (int i = 0; i <= Globals.AppWizardSpellBook.MaxLvlSpell; i++)
+            for (int i = 0; i <= Globals.AppWizardSpellBook.SpellMaxFromPlayer; i++)
             {
-                WizardSpellTabList.Add(new UiWizardSpellTab { Lvl = i });
+                WizardSpellTabList.Add(new UiWizardSpellTab { Lvl = i , MaxSpellsPerDay  = Globals.AppWizardSpellBook.MaxSpellsByLvl[i] });
             }
 
             // Initialise les Contents
@@ -119,16 +122,6 @@ namespace SpellBouc.Model
             }
 
             return WizardSpellTabList;
-        }
-
-        /* Génère une tab de sort pour un lvl spécifique */
-        public static UiWizardSpellTab GetTabListFromWizardSpellBook(int lvl)
-        {
-            UiWizardSpellTab spellTabToAdd = new UiWizardSpellTab { Lvl = lvl };
-            spellTabToAdd.SetSpellListFromWizardSpellBook();
-            spellTabToAdd.UpdateTotalSpellCount();
-
-            return spellTabToAdd;
         }
 
         /* Génère la liste des item de la tab à partir d'un WizardSpellBook => appel du model Item */

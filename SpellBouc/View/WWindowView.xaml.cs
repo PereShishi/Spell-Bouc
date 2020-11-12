@@ -52,5 +52,11 @@ namespace SpellBouc.View
             this.Close();
 
         }
+
+        private void CreateMaxSpellPerDay(object sender, RoutedEventArgs e)
+        {
+            MaxSpellPerDayView window = new MaxSpellPerDayView();
+            window.Show();
+        }
     }
 }

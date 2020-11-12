@@ -55,6 +55,7 @@ namespace SpellBouc.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedTab)));
             }
         }
+
         public int SelectedIndex
         {
             get
@@ -217,6 +218,15 @@ namespace SpellBouc.ViewModel
             UiWizardSpellTab spellTabToAdd = new UiWizardSpellTab(lvl);
             WizardSpellTabList.Add(spellTabToAdd);
             SelectedIndex = lvl;
+        }
+
+        /* Update les sorts maxx par jour à partir du MaxSpellPerDayView */
+        internal void UpdateMaxSpellPerDay(int[] maxSpellByLvl)
+        {
+            foreach(UiWizardSpellTab tab in WizardSpellTabList)
+            {
+                tab.MaxSpellsPerDay = maxSpellByLvl[tab.Lvl];
+            }
         }
 
     }

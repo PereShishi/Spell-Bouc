@@ -6,6 +6,9 @@ using SpellBouc.Logs;
 using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.VisualBasic.CompilerServices;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace SpellBouc.AccessLayer
 {
@@ -210,7 +213,6 @@ namespace SpellBouc.AccessLayer
                 }
             }
 
-
             return wizardUIPlayerSpells;
         }
 
@@ -304,6 +306,95 @@ namespace SpellBouc.AccessLayer
                 return ErrorCode.ERROR;
             } 
         }
+
+        /*
+         * Récupère le nombre de sort max par jour à partir de la BDD du joueur
+         */
+        internal static int[] SetMaxNumberByLvl(int spellMax, string dbPath)
+        {
+            int[] MaxSpellNumberByLvl = new int[spellMax];
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + Globals.DB_PLAYER_WIZARD_SPELL_PATH))
+                {
+
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                    SELECT *
+                    FROM 'maxspells';
+                    ";
+
+                    int i = 0;
+                    // Stocke tous les paramètres des sorts dans 
+                    using var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if(i < spellMax )
+                        {
+                            MaxSpellNumberByLvl[i] = reader.GetInt32(1);
+                            i++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                 foreach(int lvl in MaxSpellNumberByLvl)
+                {
+                    MaxSpellNumberByLvl[lvl] = 0;
+                }
+            }
+
+            return MaxSpellNumberByLvl;
+            
+        }
+
+        /*
+         * Update le nombre de sort max par jour à partir de la BDD du joueur
+         */
+        internal static ErrorCode UpdateMaxNumberByLvl(int[] maxSpellToUpdate, string dB_PLAYER_WIZARD_SPELL_PATH)
+        {
+            try
+            {
+                using var connection = new SqliteConnection("Data Source=" + Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                INSERT OR REPLACE INTO 'maxspells'(lvl, spellMax) VALUES
+                (0, $lvl0),
+                (1, $lvl1),
+                (2, $lvl2),
+                (3, $lvl3),
+                (4, $lvl4);
+            ";
+
+                command.Parameters.AddWithValue("$lvl0", maxSpellToUpdate[0]);
+                command.Parameters.AddWithValue("$lvl1", maxSpellToUpdate[1]);
+                command.Parameters.AddWithValue("$lvl2", maxSpellToUpdate[2]);
+                command.Parameters.AddWithValue("$lvl3", maxSpellToUpdate[3]);
+                command.Parameters.AddWithValue("$lvl4", maxSpellToUpdate[4]);
+                command.ExecuteNonQuery();
+
+                return ErrorCode.SUCCESS;
+            }
+            catch 
+            {
+                return ErrorCode.ERROR;
+            }
+
+        }
+
+
+        /********************************************* FORMATAGE *********************************************/
 
         /*
          *  Formate la description pour remplacer les balises inutiles

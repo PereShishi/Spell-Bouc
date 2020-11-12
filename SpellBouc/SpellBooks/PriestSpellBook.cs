@@ -37,15 +37,15 @@ namespace SpellBouc.SpellBooks
         {
 
             // Set le tableur:
-            for (int i = 0; i < MaxLvlSpell + 1; i++)
+            for (int i = 0; i < SpellMaxFromPlayer + 1; i++)
             {
-                SpellNumberByLvl[i] = 0;
+                PlayerSpellsByLvl[i] = 0;
             }
 
             // Compte  
             foreach (Spell spell in PlayerSpells)
             {
-                SpellNumberByLvl[spell.Lvl]++;
+                PlayerSpellsByLvl[spell.Lvl]++;
             }
         }
     }

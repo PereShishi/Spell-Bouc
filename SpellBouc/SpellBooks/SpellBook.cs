@@ -17,9 +17,10 @@ namespace SpellBouc.SpellBooks
 
         internal virtual  UISpellContainer UICompleteClassSpells { get; set; }
 
-        internal int MaxLvlSpell { get; set; }
+        internal int SpellMaxFromPlayer { get; set; }
 
-        internal int[] SpellNumberByLvl { get; set; }
+        internal int[] PlayerSpellsByLvl { get; set; }
+        internal int[] MaxSpellsByLvl { get; set; }
 
         internal virtual void AddSpellInSpellBook(string name) { }
 
@@ -37,6 +38,10 @@ namespace SpellBouc.SpellBooks
 
         internal virtual void UpdateSpellNumberByLvl() {}
 
+        internal virtual void SetMaxSpellNumberByLvl() { }
+
+        internal virtual void UpdateMaxSpellNumberByLvl(int[] maxSpellToUpdate) { }
+
 
         /* Récupère le niveau le plus haut du sort du joueur */
         internal void UpdateMaxLvlSpell()
@@ -46,7 +51,7 @@ namespace SpellBouc.SpellBooks
             {
                 if (spell.Lvl > maxSpell) maxSpell = spell.Lvl;
             }
-            MaxLvlSpell = maxSpell;
+            SpellMaxFromPlayer = maxSpell;
         }
 
         /* Créer une liste de UISpells à partir de la liste complète des sorts de la classe du joueur */
