@@ -34,6 +34,23 @@ namespace SpellBouc.Model
 
             }
         }
+        private int _maxSpellsPerDay;
+        /* Max de sorts par niveau (affiché dans les headers) */
+        public int MaxSpellsPerDay
+        {
+            get
+            {
+                return _maxSpellsPerDay;
+            }
+            set
+            {
+                if (_maxSpellsPerDay == value)
+                    return;
+                _maxSpellsPerDay = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(MaxSpellsPerDay)));
+            }
+        }
+
 
         /* Total de sorts réstant au joueur par niveau (affiché dans les headers) */
         public int TotalSpellCount

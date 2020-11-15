@@ -12,7 +12,7 @@
     <Grid>
         <StackPanel Orientation="Horizontal">
             <StackPanel Orientation="Vertical">
-                <Label Content="Niveau 0" BorderBrush="Aqua"></Label>
+                <Label Content="Niveau 0"></Label>
                 <TextBox Text="0" Name="lvl0maxSpell"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Vertical">

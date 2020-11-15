@@ -31,7 +31,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height ="0.16*"/>
             <RowDefinition Height ="*"/>
-            <RowDefinition Height ="0.26*"/>
+            <RowDefinition Height ="0.16*"/>
         </Grid.RowDefinitions>
 
         <!-- Boutons Close et Minimize -->
@@ -44,16 +44,18 @@
         </StackPanel>
         <v:WTabView Grid.Column="1" Grid.Row="1" x:Name="currentWizardSpellTab" Background="Transparent" Margin="0,0,20,0"/>
 
-        <!-- Marque Page -->
-        <Grid Grid.Row="0" Grid.Column="1">
+        <Grid Grid.Column="0" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2.5*"/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1.3*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
-            <Button Grid.Column="1" Margin="0,10,0,0" Click="CreateMaxSpellPerDay"></Button>
+            <!-- Marque Page -->
+            <Button Grid.Column="0" Grid.Row="1"  Margin="0,10,0,0" Click="CreateMaxSpellPerDay"  VerticalAlignment="Top" 
+                    Background="Transparent" BorderBrush="Transparent">
+                <StackPanel>
+                    <Image Source="../img/spelltab_0.png" />
+                </StackPanel>
+            </Button>
         </Grid>
-      
     </Grid>
 </Window>
