@@ -6,7 +6,7 @@
              xmlns:v="clr-namespace:SpellBouc.View"
              xmlns:vm="clr-namespace:SpellBouc.ViewModel"
              mc:Ignorable="d">
-    
+
     <Grid Name="wizardSpells" DataContext="{Binding}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -16,40 +16,42 @@
         <DockPanel HorizontalAlignment="Left">
             <Label Grid.Column="0"  
                    Content="{Binding PlayerSpellCount}" 
-                   Margin="0,0,5,0" BorderBrush="Gray" BorderThickness="1" >
+                   Margin="0,0,5,0" BorderBrush="Gray" BorderThickness="2" >
             </Label>
 
-            <Button Grid.Column="0"
-                    Content=" + " Margin="0,0,5,0" Width="20"
+            <Button Style="{StaticResource RoundCornerButton}"
+                    Grid.Column="0"
+                    Content="+" Margin="0,0,5,0" Width="20" FontWeight="ExtraBold" FontSize="18" FontFamily="Poor Richard" Foreground="#5fadcb"
                     Command ="{Binding RelativeSource={RelativeSource FindAncestor, 
                             AncestorType={x:Type v:WTabView}}, Path=DataContext.IncrementSpellCountCommand}"
                     CommandParameter="{Binding Id}">
             </Button>
 
-            <Button  Grid.Column="0"
-                    Content=" - " Margin="0,0,5,0" Width="20"
+            <Button Style="{StaticResource RoundCornerButton}"
+                    Grid.Column="0"
+                    Content="-" Margin="0,0,5,0" Width="20" FontWeight="ExtraBold" FontSize="18" FontFamily="Poor Richard" Foreground="#5fadcb"
                     Command ="{Binding RelativeSource={RelativeSource FindAncestor, 
                             AncestorType={x:Type v:WTabView}}, Path=DataContext.DecrementSpellCountCommand}"
                     CommandParameter="{Binding Id}">
             </Button>
 
             <Label  Grid.Column="0" 
-                        Margin="0,0,5,0" BorderBrush="Gray" BorderThickness="1"
+                        Margin="0,0,5,0" BorderBrush="Gray" BorderThickness="0" FontSize="16" FontFamily="Poor Richard"
                         Content="{Binding Name}" >
             </Label>
         </DockPanel>
-        
+
         <DockPanel Grid.Column="1" HorizontalAlignment="Right">
 
             <Label Content="{Binding School}"  
-                   Margin="0,0,5,0" BorderBrush="Gray" BorderThickness="1">
+                   Margin="0,0,5,0" BorderBrush="Gray" BorderThickness="2" FontSize="15" FontFamily="Poor Richard">
             </Label>
 
-            <Button Content=" X " Margin="0,0,5,0" Width="20"
+            <Button Style="{StaticResource RoundCornerButton}" Content=" X " Margin="0,0,5,0" Width="20" 
+                    FontWeight="ExtraBold" FontSize="13" FontFamily="Poor Richard" Foreground="IndianRed"
                     Click="RemoveSpell" Tag="{Binding Id}">
             </Button>
 
         </DockPanel>
     </Grid>
-
 </UserControl>

@@ -37,24 +37,30 @@
         <!-- Boutons Close et Minimize -->
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" VerticalAlignment = "Bottom" HorizontalAlignment="Right">
             <StackPanel Orientation="Horizontal">
-                <Button Click="RefreshButton" Content="Refresh"/>
-                <Button Command="{x:Static SystemCommands.MinimizeWindowCommand}" Content=" - " />
-                <Button Command="{x:Static SystemCommands.CloseWindowCommand}" Content=" X " />
+                <Button Style="{StaticResource RoundCornerButton}" Click="RefreshButton" Content="⟲"
+                        Foreground="#5fadcb" FontWeight="Bold" FontSize="16" FontFamily="Poor Richard"/>
+                <Button Style="{StaticResource RoundCornerButton}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" Content=" - " 
+                        Foreground="#5fadcb" FontWeight="Bold" FontSize="16" FontFamily="Poor Richard"/>
+                <Button Style="{StaticResource RoundCornerButton}" Command="{x:Static SystemCommands.CloseWindowCommand}" Content=" X " 
+                        Foreground="#5fadcb" FontWeight="Bold" FontSize="16" FontFamily="Poor Richard"/>
             </StackPanel>
         </StackPanel>
+
+        <!-- TabView -->
         <v:WTabView Grid.Column="1" Grid.Row="1" x:Name="currentWizardSpellTab" Background="Transparent" Margin="0,0,20,0"/>
 
+        <!-- Marque Page -->
         <Grid Grid.Column="0" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.3*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <!-- Marque Page -->
-            <Button Grid.Column="0" Grid.Row="1"  Margin="0,10,0,0" Click="CreateMaxSpellPerDay"  VerticalAlignment="Top" 
-                    Background="Transparent" BorderBrush="Transparent">
+
+            <Button Style="{StaticResource BookMarkerButton}" Grid.Column="0" Grid.Row="1"  Margin="0,10,0,0" Click="CreateMaxSpellPerDay"  VerticalAlignment="Top">
                 <StackPanel>
                     <Image Source="../img/spelltab_0.png" />
                 </StackPanel>
+
             </Button>
         </Grid>
     </Grid>

@@ -4,6 +4,15 @@
              xmlns:local="clr-namespace:SpellBouc"
              xmlns:v="clr-namespace:SpellBouc.View"
              StartupUri="MainWindow.xaml">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary  Source="View/Templates.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
 </Application>
     
 
