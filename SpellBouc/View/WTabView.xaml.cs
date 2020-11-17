@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SpellBouc.View
 {
@@ -21,6 +23,15 @@ namespace SpellBouc.View
             WAddSpellByLvlView addSpellByLvlView = new WAddSpellByLvlView(currentLvl);
 
             addSpellByLvlView.Show();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                Window parentWindow = Window.GetWindow(this);
+                parentWindow.DragMove();
+            }
         }
     }
 

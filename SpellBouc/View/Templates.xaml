@@ -54,9 +54,6 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="BorderBrush" TargetName="border" Value="#5fadcb"/>
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" TargetName="grid" Value="0.25"/>
-                        </Trigger>
                     </ControlTemplate.Triggers>
                     
                 </ControlTemplate>
@@ -132,8 +129,8 @@
                     <Grid>
                         <Border 
                                  Name="Border"
-                                 Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-                                 BorderBrush="gray" 
+                                 Background="LightGray"
+                                 BorderBrush="black" 
                                  BorderThickness="1,1,1,0" 
                                  CornerRadius="3,3,0,0">
                             <ContentPresenter x:Name="ContentSite"

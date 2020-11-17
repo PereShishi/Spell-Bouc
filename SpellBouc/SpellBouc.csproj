@@ -26,6 +26,7 @@
     <Resource Include="img\spellbook_1.png" />
     <Resource Include="img\spelkmark_0.png" />
     <Resource Include="img\spelltab_0.png" />
+    <Resource Include="img\spellscroll_0.png" />
   </ItemGroup>
 
 </Project>
