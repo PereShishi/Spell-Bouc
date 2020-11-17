@@ -21,29 +21,50 @@
     </Window.CommandBindings>
     
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0.1*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0.25*"/>
-        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
             <RowDefinition Height ="0.2*"/>
             <RowDefinition Height ="0.1*"/>
             <RowDefinition Height ="*"/>
             <RowDefinition Height ="0.3*"/>
         </Grid.RowDefinitions>
-
-
-        <!-- Boutons Close et Minimize -->
-        <StackPanel Margin="0,0,30,0" Grid.Column="3" Grid.Row="0" VerticalAlignment = "Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Style="{StaticResource RoundCornerButton}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" Content=" - " 
-                    Foreground="#5fadcb" FontWeight="Bold" FontSize="30" FontFamily="Poor Richard"/>
-            <Button Style="{StaticResource RoundCornerButton}" Command="{x:Static SystemCommands.CloseWindowCommand}" Content=" X " 
-                    Foreground="#5fadcb" FontWeight="Bold" FontSize="30" FontFamily="Poor Richard"/>
-        </StackPanel>
         
+        <!-- Grille du header du parchement -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Titre -->
+            <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                       TextWrapping="Wrap" FontWeight="Bold" FontSize="60" FontFamily="Chiller" Foreground="DarkRed">
+                    <Run Text="Niveau" />
+                    <Run Text="{Binding PageLvl}"/>
+            </TextBlock>
+
+            <!-- Boutons Close et Minimize -->
+            <StackPanel Grid.Column="3" VerticalAlignment = "Bottom" HorizontalAlignment="Left" Orientation="Horizontal">
+                <Button Style="{StaticResource RoundCornerButton}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" Content=" - " 
+                    Foreground="DarkRed" FontWeight="Bold" FontSize="30" FontFamily="Poor Richard"/>
+                <Button Style="{StaticResource RoundCornerButton}" Command="{x:Static SystemCommands.CloseWindowCommand}" Content=" X " 
+                    Foreground="DarkRed" FontWeight="Bold" FontSize="30" FontFamily="Poor Richard"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Grille du contenu du parchemin -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.27*"/>
+            </Grid.ColumnDefinitions>
+
         <ListBox ItemsSource="{Binding AddSpellList}" 
                  Background="Transparent" 
                  Grid.Row="2" Grid.Column="1"
@@ -66,7 +87,7 @@
 
                         <DockPanel  HorizontalAlignment="Right">
                             <Label Content="{Binding School}" Margin="0,0,0,0" 
-                                   BorderBrush="Gray" BorderThickness="1" FontFamily="Poor Richard" FontSize="16"></Label>
+                                   BorderBrush="Gray" BorderThickness="2" FontFamily="Poor Richard" FontSize="16"></Label>
                         </DockPanel>
                     </Grid>
                 </HierarchicalDataTemplate>
@@ -75,5 +96,6 @@
         <v:SpellDescriptor x:Name="spellDescriptor" 
                            DataContext="{Binding SelectedSpell}" 
                            Grid.Row="2" Grid.Column="3"></v:SpellDescriptor>
+        </Grid>
     </Grid>
 </Window>

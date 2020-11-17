@@ -29,7 +29,7 @@ namespace SpellBouc.ViewModel
 
         }
 
-        private int PageLvl {get; set;}
+        public int PageLvl {get; set;}
 
         public WAddSpellByLvlViewModel()
         {
