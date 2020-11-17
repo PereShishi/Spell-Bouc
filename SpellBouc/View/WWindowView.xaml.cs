@@ -58,5 +58,11 @@ namespace SpellBouc.View
             MaxSpellPerDayView window = new MaxSpellPerDayView();
             window.Show();
         }
+
+        private void CreateAoSpellBook(object sender, RoutedEventArgs e)
+        {
+            AoSpellBookView aoSpellBook = new AoSpellBookView(ContainerType.WizardCompleteSpells);
+            aoSpellBook.Show();
+        }
     }
 }

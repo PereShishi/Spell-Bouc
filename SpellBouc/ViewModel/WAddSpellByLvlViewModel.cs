@@ -48,7 +48,6 @@ namespace SpellBouc.ViewModel
         private void GenerateSPellList()
         {
             AddSpellList = Globals.AppWizardSpellBook.GetUiSpellListByLvl(PageLvl);
-            Console.WriteLine("break");
         }
     }
 

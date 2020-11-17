@@ -43,17 +43,6 @@ namespace SpellBouc.View
             }
         }
 
-        /* Fonction qui appele le VM WTabViewModel d'où a été crée la page, pour lui faire supprimer un sort */
-        private void RemoveSpell(object sender, RoutedEventArgs e)
-        {
-            int id = (int)((Button)sender).Tag;
-            WWindowView mainWWindowView = Application.Current.Windows.OfType<WWindowView>().FirstOrDefault();
-            if (mainWWindowView != null)
-            {
-                mainWWindowView.currentWizardSpellTab.currentTabVM.RemoveSpell(id);
-            }
-        }
-
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -75,28 +64,6 @@ namespace SpellBouc.View
         private void CommandBinding_Executed_3(object sender, ExecutedRoutedEventArgs e)
         {
             SystemCommands.MinimizeWindow(this);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RefreshButton(object sender, RoutedEventArgs e)
-        {
-            WWindowView res = new WWindowView();
-            res.Top = this.Top;
-            res.Left = this.Left;
-            Application.Current.MainWindow = res;
-            res.Show();
-            this.Close();
-
-        }
-
-        private void CreateMaxSpellPerDay(object sender, RoutedEventArgs e)
-        {
-            MaxSpellPerDayView window = new MaxSpellPerDayView();
-            window.Show();
         }
     }
 }

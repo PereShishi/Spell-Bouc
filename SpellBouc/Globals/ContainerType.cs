@@ -10,6 +10,8 @@ namespace SpellBouc
         WizardPlayerSpells,
         WizardCompleteSpells,
         PriestPlayerSpells,
-        PriestCompleteSpells
+        PriestCompleteSpells,
+        DruidPlayerSpells,
+        DruidPCompleteSpells
     }
 }
