@@ -15,7 +15,7 @@
         </Style>
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Background="Transparent" AllowDrop="True" Focusable="False" MouseDown="test">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Background="Transparent" AllowDrop="True" Focusable="False">
         <Grid>
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="0,0,10,0">
                 <Label></Label>
