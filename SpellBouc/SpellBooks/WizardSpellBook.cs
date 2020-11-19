@@ -235,7 +235,7 @@ namespace SpellBouc.SpellBooks
         internal override void UpdateMaxSpellNumberByLvl(int[] maxSpellToUpdate)
         {
             ErrorCode status = Access.UpdateMaxNumberByLvl(maxSpellToUpdate, Globals.DB_PLAYER_WIZARD_SPELL_PATH);
-            if(status == ErrorCode.SUCCESS)
+            if (status == ErrorCode.SUCCESS)
             {
                 MaxSpellsByLvl = maxSpellToUpdate;
             }
@@ -258,20 +258,6 @@ namespace SpellBouc.SpellBooks
             var spellToIncrement = CompleteClassSpells.GetSpell(id);
             UIPlayerSpells.DecrementWizardSpellPlayerCount(spellToIncrement);
             UpdateSpellNumberByLvl();
-        }
-
-        /* Retourne une liste de ObservableCollection<UIWizardPlayerSpell> qui sera affichée les pages d'ajout de sort */
-        internal ObservableCollection<UIWizardPlayerSpell> GetUiSpellListByLvl(int pageLvl)
-        {
-            ObservableCollection<UIWizardPlayerSpell> returnList = new ObservableCollection<UIWizardPlayerSpell>();
-            foreach (UIWizardPlayerSpell wUiSpell in UICompleteClassSpells)
-            {
-                if (wUiSpell.Lvl == pageLvl)
-                {
-                    returnList.Add(wUiSpell);
-                }
-            }
-            return returnList;
         }
     }
 }

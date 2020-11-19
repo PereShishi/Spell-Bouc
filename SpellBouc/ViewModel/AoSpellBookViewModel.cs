@@ -30,14 +30,12 @@ namespace SpellBouc.ViewModel
 
         }
 
-        public int PageLvl { get; set; }
-
         public AoSpellBookViewModel(ContainerType type = ContainerType.WizardCompleteSpells)
         {
             switch (type)
             {
                 case ContainerType.WizardCompleteSpells:
-                    // TODO : SpellList = Globals.AppWizardSpellBook.();
+                    SpellList = Globals.AppWizardSpellBook.GetCompleteUiSpellList();
                     SelectedSpell = (UiSpell)SpellList[0];
                     break;
                 case ContainerType.PriestCompleteSpells:

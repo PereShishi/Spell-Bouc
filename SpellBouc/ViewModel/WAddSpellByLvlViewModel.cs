@@ -8,7 +8,7 @@ namespace SpellBouc.ViewModel
 {
     public class WAddSpellByLvlViewModel: INotifyPropertyChanged
     {
-        public ObservableCollection<UIWizardPlayerSpell> AddSpellList { get; set; } = new ObservableCollection<UIWizardPlayerSpell>();
+        public ObservableCollection<UiSpell> AddSpellList { get; set; } = new ObservableCollection<UiSpell>();
         private UIWizardPlayerSpell _selectedSpell;
         public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
 

@@ -27,12 +27,11 @@ namespace SpellBouc.UIContainers
                 /* Dans le cas d'un UIWizardSpell UiSpells devient une List<UIWizardPlayerSpell> */
                 case UIContainerType.UIWizardSpell:
                     UiSpells = Access.GetUIWizardSpellsFromDB().Select(x => (dynamic)x).ToList();
-                    //IEnumerable<UIWizardSpell> query1 = (IEnumerable<UIWizardSpell>)UiSpells.OrderBy(spell => spell.Id);
                     break;
 
-                /* Dans le cas d'un UIWizardCompletSpell UiSpells devient une List<UIWizardPlayerSpell> (empty qui sera remplie ulterieurement)*/
+                /* Dans le cas d'un UIWizardCompletSpell UiSpells devient une List<UiSpell> (empty qui sera remplie ulterieurement)*/
                 case UIContainerType.UIWizardCompletSpell:
-                    UiSpells = new List<UIWizardPlayerSpell>().Select(x => (dynamic)x).ToList();
+                    UiSpells = new List<UiSpell>().Select(x => (dynamic)x).ToList();
                     break;
 
                 /* Dans le cas d'un UIPriestSpell UiSpells devient une List<UIPriestPlayerSpell> */

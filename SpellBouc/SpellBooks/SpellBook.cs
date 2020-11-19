@@ -42,7 +42,6 @@ namespace SpellBouc.SpellBooks
 
         internal virtual void UpdateMaxSpellNumberByLvl(int[] maxSpellToUpdate) { }
 
-
         /* Récupère le niveau le plus haut du sort du joueur */
         internal void UpdateMaxLvlSpell()
         {
@@ -83,6 +82,33 @@ namespace SpellBouc.SpellBooks
                     }
                 }
             }
+        }
+
+        /* Retourne une liste de ObservableCollection<UIWizardPlayerSpell> qui sera affichée les pages d'ajout de sort */
+        internal ObservableCollection<UiSpell> GetUiSpellListByLvl(int pageLvl)
+        {
+            ObservableCollection<UiSpell> returnList = new ObservableCollection<UiSpell>();
+            foreach (UiSpell wUiSpell in UICompleteClassSpells)
+            {
+                if (wUiSpell.Lvl == pageLvl)
+                {
+                    returnList.Add(wUiSpell);
+                }
+            }
+            return returnList;
+        }
+
+        /* Retourne une liste de ObservableCollection<UIWizardPlayerSpell> qui sera affichée dans le livre de sort d'AO */
+        internal ObservableCollection<UiSpell> GetCompleteUiSpellList()
+        {
+            ObservableCollection<UiSpell> returnList = new ObservableCollection<UiSpell>();
+            foreach (UiSpell wUiSpell in UICompleteClassSpells)
+            {
+
+                returnList.Add(wUiSpell);
+
+            }
+            return returnList;
         }
     }
 }
