@@ -10,7 +10,6 @@ namespace SpellBouc.UIContainers
 {
     class UISpellContainer: IEnumerable
     { 
-        internal string Type { get; set; }
 
         private List<dynamic> UiSpells { get; set; }
 
@@ -33,15 +32,13 @@ namespace SpellBouc.UIContainers
                 case UIContainerType.UIWizardCompletSpell:
                     UiSpells = new List<UiSpell>().Select(x => (dynamic)x).ToList();
                     break;
-
-                /* Dans le cas d'un UIPriestSpell UiSpells devient une List<UIPriestPlayerSpell> */
-                case UIContainerType.UIPriestSpell:
-                    // TODO: Implementer les sorts de prêtre.
-                    break;
-
-                default:
-                    break;
             }
+        }
+
+        /* Constructeur par défaut avec une liste vide */ 
+        internal UISpellContainer()
+        {
+            UiSpells = new List<UiSpell>().Select(x => (dynamic)x).ToList();
         }
 
         /*
@@ -49,34 +46,37 @@ namespace SpellBouc.UIContainers
          */
         internal ErrorCode AddUISpellInBookAndBD(Spell spell, UIContainerType uiContainerType)
         {
-            ErrorCode status;
-            
+            ErrorCode status = ErrorCode.ERROR;
+            UiSpell uiSpell = new UiSpell();
             switch (uiContainerType)
             {
                 // Mise à jour sort de Mage
                 case UIContainerType.UIWizardSpell:
-                    UiSpell uiSpell = CreateUISpellFromSpell(spell, uiContainerType);
-                    status = Access.AddSpellInUiDB(spell.Id);
-                    if (status != ErrorCode.ERROR)
-                    {
-                        AddUiSpell(uiSpell);
-                    }
-                    else
-                    {
-                        Log.GenerateLog(status, "Erreur lors de l'ajout des UIs dans la fonction CreateUISpellFromSpell");
-                        status = ErrorCode.ERROR;
-                    }
+                    uiSpell = CreateUISpellFromSpell(spell, uiContainerType);
+                    status = Access.AddWizardSpellInUiDB(spell.Id);
                     break;
 
-                case UIContainerType.UIPriestSpell:
-                    status = ErrorCode.ERROR;
-                    //TODO: implémenter les UIPrêtre
+                case UIContainerType.UIPriestSpells:
+                    uiSpell = CreateUISpellFromSpell(spell, uiContainerType);
+                    break;
+
+                case UIContainerType.UIDruidSpells:
+                    uiSpell = CreateUISpellFromSpell(spell, uiContainerType);
                     break;
 
                 // Default case: ne peut pas rentrer dans cette étape théoriquement
                 default:
                     status = ErrorCode.ERROR;
                     break;
+            }
+            if (status != ErrorCode.ERROR)
+            {
+                AddUiSpell(uiSpell);
+            }
+            else
+            {
+                Log.GenerateLog(status, "Erreur lors de l'ajout des UIs dans la fonction CreateUISpellFromSpell");
+                status = ErrorCode.ERROR;
             }
 
             return status;
@@ -87,35 +87,38 @@ namespace SpellBouc.UIContainers
          */
         internal ErrorCode RemoveUISpellInBookAndBD(Spell spell, UIContainerType uiContainerType)
         {
-            ErrorCode status;
+            ErrorCode status = ErrorCode.ERROR;
 
             switch (uiContainerType)
             {
                 // Mise à jour sort de Mage
                 case UIContainerType.UIWizardSpell:
-                    status = Access.RemoveSpellInUiDB(spell.Id);
-                    if (status != ErrorCode.ERROR)
-                    {
-                        RemoveUiSpell(spell);
-                    }
-                    else
-                    {
-                        Log.GenerateLog(status, "Erreur lors de la supression des UIs dans la fonction CreateUISpellFromSpell");
-                        status = ErrorCode.ERROR;
-                    }
+                    status = Access.RemoveWizardSpellInUiDB(spell.Id);
                     break;
 
-                case UIContainerType.UIPriestSpell:
-                    status = ErrorCode.ERROR;
-                    //TODO: implémenter les UIPrêtre
+                case UIContainerType.UIPriestSpells:
+                    status = ErrorCode.SUCCESS;
+                    break;
+
+                case UIContainerType.UIDruidSpells:
+                    status = ErrorCode.SUCCESS;
                     break;
 
                 // Default case: ne peut pas rentrer dans cette étape théoriquement
                 default:
-                    status = ErrorCode.ERROR;
+                    
                     break;
             }
 
+            if (status == ErrorCode.SUCCESS)
+            {
+                RemoveUiSpell(spell);
+            }
+            else
+            {
+                Log.GenerateLog(status, "Erreur lors de la supression des UIs dans la fonction CreateUISpellFromSpell");
+            }
+            
             return status;
         }
 
@@ -164,7 +167,11 @@ namespace SpellBouc.UIContainers
                         Duration = spell.Duration,
                         SaveDice = spell.SaveDice,
                         MagicResist = spell.MagicResist,
-                        Comp = spell.Comp
+                        Comp = spell.Comp,
+                        Alignement = spell.Alignement,
+                        Domaine = spell.Domaine,
+                        EffetType = spell.EffetType
+                        
                     };
                     return returnedSpell;
             }

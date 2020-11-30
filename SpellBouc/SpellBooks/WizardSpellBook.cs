@@ -36,7 +36,7 @@ namespace SpellBouc.SpellBooks
             // Set le nombre max de sorts par jour pour chaque niveau
             SetMaxSpellNumberByLvl();
 
-            // Partie UI
+            // Partie CompleteClassSpells
             UICompleteClassSpells = new UISpellContainer(UIContainerType.UIWizardCompletSpell);
             // Initialise CompleteClassSpells & update les sorts qui sont ajoutables
             InitUICompleteClassSpells();
@@ -181,19 +181,19 @@ namespace SpellBouc.SpellBooks
                 {
                     if (playerSpell.Id == uiWizardPlayerSpell.Id)
                     {
-                        uiWizardPlayerSpell.Lvl = playerSpell.Lvl;
-                        uiWizardPlayerSpell.Name = playerSpell.Name;
-                        uiWizardPlayerSpell.School = playerSpell.Type;
+                        uiWizardPlayerSpell.Lvl         = playerSpell.Lvl;
+                        uiWizardPlayerSpell.Name        = playerSpell.Name;
+                        uiWizardPlayerSpell.School      = playerSpell.Type;
                         uiWizardPlayerSpell.Description = playerSpell.Description;
-                        uiWizardPlayerSpell.Source = playerSpell.Source;
-                        uiWizardPlayerSpell.Composante = playerSpell.Composante;
-                        uiWizardPlayerSpell.IncTime = playerSpell.IncTime;
-                        uiWizardPlayerSpell.Range = playerSpell.Range;
-                        uiWizardPlayerSpell.AreaEffect = playerSpell.AreaEffect;
-                        uiWizardPlayerSpell.Duration = playerSpell.Duration;
-                        uiWizardPlayerSpell.SaveDice = playerSpell.SaveDice;
+                        uiWizardPlayerSpell.Source      = playerSpell.Source;
+                        uiWizardPlayerSpell.Composante  = playerSpell.Composante;
+                        uiWizardPlayerSpell.IncTime     = playerSpell.IncTime;
+                        uiWizardPlayerSpell.Range       = playerSpell.Range;
+                        uiWizardPlayerSpell.AreaEffect  = playerSpell.AreaEffect;
+                        uiWizardPlayerSpell.Duration    = playerSpell.Duration;
+                        uiWizardPlayerSpell.SaveDice    = playerSpell.SaveDice;
                         uiWizardPlayerSpell.MagicResist = playerSpell.MagicResist;
-                        uiWizardPlayerSpell.Comp = playerSpell.Comp;
+                        uiWizardPlayerSpell.Comp        = playerSpell.Comp;
 
                         tempUIPlayerSpells.Add(uiWizardPlayerSpell);
                     }
@@ -203,7 +203,7 @@ namespace SpellBouc.SpellBooks
             UIPlayerSpells.AddRange(tempUIPlayerSpells.Select(x => (dynamic)x).ToList());
         }
 
-        /* Récupère le nombre de sorts par niveau */
+        /* Récupère le nombre de sorts par jour par niveau restants */
         internal override void UpdateSpellNumberByLvl()
         {
             PlayerSpellsByLvl = new int[SpellMaxFromPlayer + 1];
@@ -228,7 +228,7 @@ namespace SpellBouc.SpellBooks
             MaxSpellsByLvl = new int[5];
 
             // Récupère les valeurs et les set dans la propriété
-            MaxSpellsByLvl = Access.SetMaxNumberByLvl(MaxSpellsByLvl.Length, Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+            MaxSpellsByLvl = Access.GetMaxNumberByLvl(MaxSpellsByLvl.Length, Globals.DB_PLAYER_WIZARD_SPELL_PATH);
         }
 
         /* Set le nombre max de sorts par jour pour chaque niveau */

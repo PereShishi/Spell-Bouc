@@ -21,5 +21,11 @@ namespace SpellBouc
         public bool MagicResist { get; set; }
         public string Description { get; set; }
         public string Comp { get; set; }
+
+        // Spécifique aux sorts divins
+        public string Alignement { get; set; }
+        public string EffetType { get; set; }
+        public string Domaine { get; set; }
+
     }
 }

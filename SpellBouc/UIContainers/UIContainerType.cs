@@ -5,6 +5,9 @@
     {
         UIWizardSpell,
         UIWizardCompletSpell,
-        UIPriestSpell
+        UIPriestSpells,
+        UIPriestCompletSpell,
+        UIDruidSpells,
+        UIDruidDruidCompletSpell
     }
 }

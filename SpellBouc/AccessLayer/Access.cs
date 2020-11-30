@@ -16,7 +16,7 @@ namespace SpellBouc.AccessLayer
     {
 
         /*
-         * Requête qui récupère tous les sorts de magicien dans un BDD et les retourne dans une liste.
+         * Requête qui récupère tous les sorts de magicien dans une BDD et les retourne dans une liste.
          */
         internal static List<Spell> GetWizardSpellsFromDB(String dbPath)
         {
@@ -41,23 +41,75 @@ namespace SpellBouc.AccessLayer
                     {
 
                         // Récupére données des lignes de la BDD
-                        Id = reader.GetInt32(0),
-                        Name = reader.GetString(1),
-                        Lvl = reader.GetInt32(2),
-                        Type = reader.GetString(3),
-                        Source = reader.GetString(4),
+                        Id          = reader.GetInt32(0),
+                        Name        = reader.GetString(1),
+                        Lvl         = reader.GetInt32(2),
+                        Type        = reader.GetString(3),
+                        Source      = reader.GetString(4),
                         // 5: Niveau mal formaté 
                         // 6: Domaine
                         // 7: Initie
-                        Composante = FormatComp(reader.GetString(8)),
-                        IncTime = reader.GetString(9),
-                        Range = reader.GetString(10),
-                        AreaEffect = reader.GetString(11),
-                        Duration = reader.GetString(12),
-                        SaveDice = reader.GetString(13),
+                        Composante  = FormatComp(reader.GetString(8)),
+                        IncTime     = reader.GetString(9),
+                        Range       = reader.GetString(10),
+                        AreaEffect  = reader.GetString(11),
+                        Duration    = reader.GetString(12),
+                        SaveDice    = reader.GetString(13),
                         MagicResist = GetMagicRes(reader),
                         Description = FormatDescr(reader.GetString(15)),
-                        Comp = reader.GetString(16)
+                        Comp        = reader.GetString(16)
+                    };
+
+                    spellList.Add(spell);
+                }
+            }
+
+            return spellList;
+        }
+
+        /*
+         * Requête qui récupère tous les sorts divins dans une BDD et les retourne dans une liste.
+         */
+        internal static List<Spell> GetDivineSpellsFromDB(String dbPath)
+        {
+            List<Spell> spellList = new List<Spell>();
+
+            using (var connection = new SqliteConnection("Data Source=" + dbPath))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    SELECT *
+                    FROM 'sorts';
+                ";
+
+                // Stocke tous les paramètres des sorts dans 
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    var spell = new Spell
+                    {
+
+                        // Récupére données des lignes de la BDD
+                        Id          = reader.GetInt32(0),
+                        Name        = reader.GetString(1),
+                        Lvl         = reader.GetInt32(2),
+                        Type        = reader.GetString(3),
+                        Alignement  = reader.GetString(4),
+                        EffetType   = reader.GetString(5),
+                        Source      = reader.GetString(6),
+                        Domaine     = reader.GetString(7),
+                        Composante  = FormatComp(reader.GetString(8)),
+                        IncTime     = reader.GetString(9),
+                        Range       = reader.GetString(10),
+                        AreaEffect  = reader.GetString(11),
+                        Duration    = reader.GetString(12),
+                        SaveDice    = reader.GetString(13),
+                        MagicResist = GetMagicRes(reader),
+                        Description = FormatDescr(reader.GetString(15)),
+                        Comp        = ""
                     };
 
                     spellList.Add(spell);
@@ -117,13 +169,63 @@ namespace SpellBouc.AccessLayer
         }
 
         /*
-         * Requête qui supprime un sort de magicien dans la BDD su joueur.
+         * Requête qui ajoute un sort divin dans la BDD su joueur.
          */
-        internal static ErrorCode RemoveWizardSpellInPlayerDB(int id)
+        internal static ErrorCode AddDivineSpellInPlayerDB(Spell inputSpell, String dbPath)
         {
             try
             {
-                using var connection = new SqliteConnection("Data Source=" + Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+
+                using var connection = new SqliteConnection("Data Source=" + dbPath);
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                        INSERT OR REPLACE INTO 'sorts'
+                        (id, nom, niveau_divin, typesort, type, effet_type, source, domaine, domaine, composantes, temps_incantation, portee,
+                        zone_effet, duree, jet_sauvegarde, resistance_magie, description, comp_sort, html
+                        )
+
+                        VALUES($id, $nom, $niveau_divin, $typesort, $type, $effet_type, $source, $domaine, $composantes, $temps_incantation, $portee,
+                        $zone_effet, $duree, $jet_sauvegarde, $resistance_magie, $description, ''
+                        );
+                    ";
+                command.Parameters.AddWithValue("$id",                  inputSpell.Id);
+                command.Parameters.AddWithValue("$nom",                 inputSpell.Name);
+                command.Parameters.AddWithValue("$niveau_divin",        inputSpell.Lvl);
+                command.Parameters.AddWithValue("$typesort",            inputSpell.Type);
+                command.Parameters.AddWithValue("$type",                inputSpell.Alignement);
+                command.Parameters.AddWithValue("$effet_type",          inputSpell.EffetType);
+                command.Parameters.AddWithValue("$domaine",             inputSpell.Domaine);
+                command.Parameters.AddWithValue("$source",              inputSpell.Source);
+                command.Parameters.AddWithValue("$composantes",         inputSpell.Composante);
+                command.Parameters.AddWithValue("$temps_incantation",   inputSpell.IncTime);
+                command.Parameters.AddWithValue("$portee",              inputSpell.Range);
+                command.Parameters.AddWithValue("$zone_effet",          inputSpell.AreaEffect);
+                command.Parameters.AddWithValue("$duree",               inputSpell.Duration);
+                command.Parameters.AddWithValue("$jet_sauvegarde",      inputSpell.SaveDice);
+                command.Parameters.AddWithValue("$resistance_magie",    SetMagicRes(inputSpell.MagicResist));
+                command.Parameters.AddWithValue("$description",         inputSpell.Description);
+
+                command.ExecuteNonQuery();
+
+                return ErrorCode.SUCCESS;
+            }
+            catch
+            {
+                return ErrorCode.ERROR;
+            }
+        }
+
+        /*
+         * Requête qui supprime un sort de magicien dans la BDD su joueur.
+         */
+        internal static ErrorCode RemoveSpellInPlayerDB(int id, string db)
+        {
+            try
+            {
+                using var connection = new SqliteConnection("Data Source=" + db);
                 connection.Open();
 
                 var command = connection.CreateCommand();
@@ -250,7 +352,7 @@ namespace SpellBouc.AccessLayer
         /*
          *  Ajoute un spell dans le spell_count de l'UI
          */  
-        internal static ErrorCode AddSpellInUiDB(int inputID)
+        internal static ErrorCode AddWizardSpellInUiDB(int inputID)
         {
             try 
             {
@@ -283,7 +385,7 @@ namespace SpellBouc.AccessLayer
         /*
          *  Supprime un spell dans le spell_count de l'UI
          */
-        internal static ErrorCode RemoveSpellInUiDB(int inputID)
+        internal static ErrorCode RemoveWizardSpellInUiDB(int inputID)
         {
             try
             {
@@ -294,7 +396,7 @@ namespace SpellBouc.AccessLayer
                 command.CommandText =
                 @"
                         DELETE FROM 'player_spell_count' WHERE id == $id;
-                    ";
+                ";
 
                 command.Parameters.AddWithValue("$id", inputID);
                 command.ExecuteNonQuery();
@@ -310,12 +412,12 @@ namespace SpellBouc.AccessLayer
         /*
          * Récupère le nombre de sort max par jour à partir de la BDD du joueur
          */
-        internal static int[] SetMaxNumberByLvl(int spellMax, string dbPath)
+        internal static int[] GetMaxNumberByLvl(int spellMax, string dbPath)
         {
-            int[] MaxSpellNumberByLvl = new int[spellMax];
+            int[] maxSpellNumberByLvl = new int[spellMax];
             try
             {
-                using (var connection = new SqliteConnection("Data Source=" + Globals.DB_PLAYER_WIZARD_SPELL_PATH))
+                using (var connection = new SqliteConnection("Data Source=" + dbPath))
                 {
 
                     connection.Open();
@@ -334,7 +436,7 @@ namespace SpellBouc.AccessLayer
                     {
                         if(i < spellMax )
                         {
-                            MaxSpellNumberByLvl[i] = reader.GetInt32(1);
+                            maxSpellNumberByLvl[i] = reader.GetInt32(1);
                             i++;
                         }
                         else
@@ -346,24 +448,99 @@ namespace SpellBouc.AccessLayer
             }
             catch
             {
-                 foreach(int lvl in MaxSpellNumberByLvl)
+                 foreach(int lvl in maxSpellNumberByLvl)
                 {
-                    MaxSpellNumberByLvl[lvl] = 0;
+                    maxSpellNumberByLvl[lvl] = 0;
                 }
             }
 
-            return MaxSpellNumberByLvl;
+            return maxSpellNumberByLvl;
             
+        }
+
+        /*
+         * Récupère le nombre de sort par jour par niveau du lanceur de sort divin à partir de la BDD du joueur
+         */
+        internal static int[] GetSpellPerDayPerLvl(int spellMax, string dbPath)
+        {
+            int[] spellPerDayPerLvl = new int[spellMax];
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + dbPath))
+                {
+
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                    SELECT *
+                    FROM 'spell_per_day';
+                    ";
+
+                    int i = 0;
+                    // Stocke tous les paramètres des sorts dans 
+                    using var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (i < spellMax)
+                        {
+                            spellPerDayPerLvl[i] = reader.GetInt32(1);
+                            i++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                foreach (int lvl in spellPerDayPerLvl)
+                {
+                    spellPerDayPerLvl[lvl] = 0;
+                }
+            }
+
+            return spellPerDayPerLvl;
+
+        }
+
+        /*
+         * Incrémente le nombres de sorts du lanceur de sort divain
+         */
+        internal static void UpdateDivineSpellPlayerCount(int lvl, int spellValue, string dbPath)
+        {
+
+            using (var connection = new SqliteConnection("Data Source=" + dbPath))
+            {
+
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                INSERT OR REPLACE INTO 'spell_per_day'
+                ($lvl, $spellNumber)
+                ";
+
+                // Stocke tous les paramètres des sorts dans 
+                command.Parameters.AddWithValue("$lvl"        , lvl);
+                command.Parameters.AddWithValue("$spellNumber", spellValue);
+
+                using var reader = command.ExecuteReader();
+            }      
         }
 
         /*
          * Update le nombre de sort max par jour à partir de la BDD du joueur
          */
-        internal static ErrorCode UpdateMaxNumberByLvl(int[] maxSpellToUpdate, string dB_PLAYER_WIZARD_SPELL_PATH)
+        internal static ErrorCode UpdateMaxNumberByLvl(int[] maxSpellToUpdate, string db)
         {
             try
             {
-                using var connection = new SqliteConnection("Data Source=" + Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+                using var connection = new SqliteConnection("Data Source=" + db);
                 connection.Open();
 
                 var command = connection.CreateCommand();
@@ -494,6 +671,8 @@ namespace SpellBouc.AccessLayer
                 formatedDescr = formatedDescr.Replace("/", "");
                 formatedDescr = formatedDescr.Replace("(E", "");
                 formatedDescr = formatedDescr.Replace("\n", "");
+                formatedDescr = formatedDescr.Replace("\n", "");
+                formatedDescr = formatedDescr.Replace("\"", "");       
             }
 
             return formatedDescr;

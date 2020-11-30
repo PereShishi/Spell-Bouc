@@ -19,26 +19,43 @@ namespace SpellBouc
          * Constructeur qui construit le containeur de sort dépendament de son type
          * Chaque type appelera un appel différent de la BDD: 
          *      * Les PlayerSpells appellent l'entièreté de la BDD du jouer pour une classe spécifique 
-         *      * Les CompleteSpells appellent l'entièreté  de la BDD des sorts éxistants pour une classe spécifique 
+         *      * Les CompleteSpells appellent l'entièreté de la BDD des sorts éxistants pour une classe spécifique 
          */
         internal SpellContainer(ContainerType containerType)
         {
             switch (containerType)
             {
+                // Mage
                 case ContainerType.WizardPlayerSpells:
                     Spells = Access.GetWizardSpellsFromDB(Globals.DB_PLAYER_WIZARD_SPELL_PATH);
-                    IEnumerable<Spell> query1 = Spells.OrderBy(spell => spell.Id);
+                    IEnumerable<Spell> queryw1 = Spells.OrderBy(spell => spell.Id);
                     break;
 
                 case ContainerType.WizardCompleteSpells:
                     Spells = Access.GetWizardSpellsFromDB(Globals.DB_WIZARD_SPELL_PATH);
-                    IEnumerable<Spell> query2 = Spells.OrderBy(spell => spell.Id);
+                    IEnumerable<Spell> queryw2 = Spells.OrderBy(spell => spell.Id);
                     break;
 
+                // Prêtre
                 case ContainerType.PriestPlayerSpells:
+                    Spells = Access.GetDivineSpellsFromDB(Globals.DB_PLAYER_PRIEST_SPELL_PATH);
+                    IEnumerable<Spell> queryp1 = Spells.OrderBy(spell => spell.Id);
                     break;
 
                 case ContainerType.PriestCompleteSpells:
+                    Spells = Access.GetDivineSpellsFromDB(Globals.DB_PRIEST_SPELL_PATH);
+                    IEnumerable<Spell> queryp2 = Spells.OrderBy(spell => spell.Id);
+                    break;
+
+                // Druide
+                case ContainerType.DruidPlayerSpells:
+                    Spells = Access.GetDivineSpellsFromDB(Globals.DB_PLAYER_DRUID_SPELL_PATH);
+                    IEnumerable<Spell> queryd1 = Spells.OrderBy(spell => spell.Id);
+                    break;
+
+                case ContainerType.DruidPCompleteSpells:
+                    Spells = Access.GetDivineSpellsFromDB(Globals.DB_DRUID_SPELL_PATH);
+                    IEnumerable<Spell> queryd2 = Spells.OrderBy(spell => spell.Id);
                     break;
 
                 default:
@@ -152,14 +169,14 @@ namespace SpellBouc
                 // Mise à jour sort de Mage
                 case ContainerType.WizardPlayerSpells:
                     status = Access.AddWizardSpellInPlayerDB(spell);
-                    if (status != ErrorCode.ERROR)
-                    {
-                        AddSpell(spell);
-                    }
-                    else
-                    {
-                        status = ErrorCode.ERROR;
-                    }
+                    break;
+
+                case ContainerType.PriestPlayerSpells:
+                    status = Access.AddDivineSpellInPlayerDB(spell, Globals.DB_PLAYER_PRIEST_SPELL_PATH);
+                    break;
+
+                case ContainerType.DruidPlayerSpells:
+                    status = Access.AddDivineSpellInPlayerDB(spell, Globals.DB_PLAYER_DRUID_SPELL_PATH);
                     break;
 
                 // Default case: ne peut pas rentrer dans cette étape théoriquement
@@ -168,6 +185,11 @@ namespace SpellBouc
                     break;
             }
 
+            if (status == ErrorCode.SUCCESS)
+            {
+                AddSpell(spell);
+            }
+  
             return status;
         }
 
@@ -176,30 +198,31 @@ namespace SpellBouc
          */
         internal ErrorCode RemoveSpellInBookAndBD(Spell spell, ContainerType containerType)
         {
-            ErrorCode status;
+            ErrorCode status = ErrorCode.ERROR;
             switch (containerType)
             {
                 // Mise à jour sort de Mage
                 case ContainerType.WizardPlayerSpells:
-                    status = Access.RemoveWizardSpellInPlayerDB(spell.Id);
+                    status = Access.RemoveSpellInPlayerDB(spell.Id, Globals.DB_PLAYER_WIZARD_SPELL_PATH);
+                    break;
 
-                    if (status != ErrorCode.ERROR)
-                    {
+                case ContainerType.PriestPlayerSpells:
+                    status = Access.RemoveSpellInPlayerDB(spell.Id, Globals.DB_PLAYER_PRIEST_SPELL_PATH);
+                    break;
 
-                        RemoveSpell(spell);
-                        return ErrorCode.SUCCESS;
-                         
-                    }
-                    else
-                    {
-                        status = ErrorCode.ERROR;
-                    }
+                case ContainerType.DruidPlayerSpells:
+                    status = Access.RemoveSpellInPlayerDB(spell.Id, Globals.DB_PLAYER_DRUID_SPELL_PATH);
                     break;
 
                 // Default case: ne peut pas rentrer dans cette étape théoriquement
                 default:
                     status = ErrorCode.ERROR;
                     break;
+            }
+
+            if (status == ErrorCode.SUCCESS)
+            {
+                RemoveSpell(spell);        
             }
 
             return status;

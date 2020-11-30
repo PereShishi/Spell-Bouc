@@ -22,6 +22,11 @@ namespace SpellBouc.UISpells
         public string Comp { get; set; }
         public bool IsAddable { get; set; }
 
+        // Spécifique aux sorts divins
+        public string Alignement { get; set; }
+        public string EffetType { get; set; }
+        public string Domaine { get; set; }
+
         public UiSpell()
         {
             this.IsAddable = true;

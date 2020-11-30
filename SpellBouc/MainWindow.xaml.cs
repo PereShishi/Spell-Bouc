@@ -53,5 +53,27 @@ namespace SpellBouc
             SystemCommands.CloseWindow(this);
             wizardWindowView.Show();
         }
+
+        private void ChosePriestSpellBook(object sender, RoutedEventArgs e)
+        {
+            DWindowView divineWindowView = new DWindowView(ContainerType.PriestPlayerSpells)
+            {
+                Top = this.Top,
+                Left = this.Left
+            };
+            SystemCommands.CloseWindow(this);
+            divineWindowView.Show();
+        }
+
+        private void ChoseDruidSpellBook(object sender, RoutedEventArgs e)
+        {
+            DWindowView divineWindowView = new DWindowView(ContainerType.DruidPlayerSpells)
+            {
+                Top = this.Top,
+                Left = this.Left
+            };
+            SystemCommands.CloseWindow(this);
+            divineWindowView.Show();
+        }
     }
 }

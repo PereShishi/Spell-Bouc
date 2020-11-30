@@ -51,8 +51,8 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Name="PriestButton" Content="Prêtre" Grid.Row="0"></Button>
-            <Button Name="DruidButton" Content="Druide" Grid.Row="1"></Button>
+            <Button Name="PriestButton" Content="Prêtre" Grid.Row="0" Click="ChosePriestSpellBook"></Button>
+            <Button Name="DruidButton" Content="Druide" Grid.Row="1" Click="ChoseDruidSpellBook"></Button>
         </Grid>
     </Grid>
 </Window>
