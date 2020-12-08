@@ -51,12 +51,34 @@ namespace SpellBouc.View
                 lvl3,
                 lvl4
             };
-
-            Globals.AppWizardSpellBook.UpdateMaxSpellNumberByLvl(maxSpellByLvl);
-            WWindowView mainWWindowView = Application.Current.Windows.OfType<WWindowView>().FirstOrDefault();
-            if (mainWWindowView != null)
+            DWindowView mainDWindowView;
+            switch (Globals.SelectedSpellBook)
             {
-                mainWWindowView.currentWizardSpellTab.currentTabVM.UpdateMaxSpellPerDay(maxSpellByLvl);
+                case ContainerType.WizardPlayerSpells:
+                    Globals.AppWizardSpellBook.UpdateMaxSpellNumberByLvl(maxSpellByLvl);
+                    WWindowView mainWWindowView = Application.Current.Windows.OfType<WWindowView>().FirstOrDefault();
+                    if (mainWWindowView != null)
+                    {
+                        mainWWindowView.currentWizardSpellTab.currentTabVM.UpdateMaxSpellPerDay(maxSpellByLvl);
+                    }
+                    break;
+
+                case ContainerType.PriestPlayerSpells:
+                    Globals.AppPriestSpellBook.UpdateMaxSpellNumberByLvl(maxSpellByLvl);
+                    mainDWindowView = Application.Current.Windows.OfType<DWindowView>().FirstOrDefault();
+                    if (mainDWindowView != null)
+                    {
+                        mainDWindowView.currentDivineSpellTab.currentTabVM.UpdateMaxSpellPerDay(maxSpellByLvl);
+                    }
+                    break;
+                case ContainerType.DruidPlayerSpells:
+                    Globals.AppDruidSpellBook.UpdateMaxSpellNumberByLvl(maxSpellByLvl);
+                    mainDWindowView = Application.Current.Windows.OfType<DWindowView>().FirstOrDefault();
+                    if (mainDWindowView != null)
+                    {
+                        mainDWindowView.currentDivineSpellTab.currentTabVM.UpdateMaxSpellPerDay(maxSpellByLvl);
+                    }
+                    break;
             }
         }
     }

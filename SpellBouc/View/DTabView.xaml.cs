@@ -17,11 +17,10 @@ namespace SpellBouc.View
             divineTab.SelectedIndex = 0;
         }
         
-        // TODO: Aremplacer par quelque chose de générique
         private void GenerateAddSpellPage(object sender, System.Windows.RoutedEventArgs e)
         {
             int currentLvl = this.divineTab.SelectedIndex;
-            WAddSpellByLvlView addSpellByLvlView = new WAddSpellByLvlView(currentLvl);
+            AddSpellByLvlView addSpellByLvlView = new AddSpellByLvlView(currentLvl);
 
             addSpellByLvlView.Show();
         }

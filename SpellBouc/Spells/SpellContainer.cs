@@ -53,7 +53,7 @@ namespace SpellBouc
                     IEnumerable<Spell> queryd1 = Spells.OrderBy(spell => spell.Id);
                     break;
 
-                case ContainerType.DruidPCompleteSpells:
+                case ContainerType.DruidCompleteSpells:
                     Spells = Access.GetDivineSpellsFromDB(Globals.DB_DRUID_SPELL_PATH);
                     IEnumerable<Spell> queryd2 = Spells.OrderBy(spell => spell.Id);
                     break;

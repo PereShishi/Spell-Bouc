@@ -12,6 +12,6 @@ namespace SpellBouc
         PriestPlayerSpells,
         PriestCompleteSpells,
         DruidPlayerSpells,
-        DruidPCompleteSpells
+        DruidCompleteSpells
     }
 }

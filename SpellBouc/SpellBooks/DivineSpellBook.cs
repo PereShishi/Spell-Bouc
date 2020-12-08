@@ -44,7 +44,7 @@ namespace SpellBouc.SpellBooks
                     break;
 
                 case ContainerType.DruidPlayerSpells:
-                    _completeSpellsType   = ContainerType.DruidPCompleteSpells;
+                    _completeSpellsType   = ContainerType.DruidCompleteSpells;
                     _uicompleteSpellsType = UIContainerType.UIDruidSpells;
                     break;
 
@@ -244,7 +244,7 @@ namespace SpellBouc.SpellBooks
                     PlayerSpellsByLvl = Access.GetSpellPerDayPerLvl(SpellMaxFromPlayer + 1, Globals.DB_PLAYER_PRIEST_SPELL_PATH);
                     break;
 
-                case ContainerType.DruidPCompleteSpells:
+                case ContainerType.DruidCompleteSpells:
                     // Récupère les valeurs et les set dans la propriété
                     PlayerSpellsByLvl = Access.GetSpellPerDayPerLvl(MaxSpellsByLvl.Length, Globals.DB_PLAYER_DRUID_SPELL_PATH);
                     break;
@@ -270,7 +270,7 @@ namespace SpellBouc.SpellBooks
                     MaxSpellsByLvl = Access.GetMaxNumberByLvl(MaxSpellsByLvl.Length, Globals.DB_PLAYER_PRIEST_SPELL_PATH);
                     break;
 
-                case ContainerType.DruidPCompleteSpells:
+                case ContainerType.DruidCompleteSpells:
                     // Récupère les valeurs et les set dans la propriété
                     MaxSpellsByLvl = Access.GetMaxNumberByLvl(MaxSpellsByLvl.Length, Globals.DB_PLAYER_DRUID_SPELL_PATH);
                     break;

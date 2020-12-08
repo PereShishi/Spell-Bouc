@@ -11,6 +11,21 @@ namespace SpellBouc.ViewModel
         public ObservableCollection<UiSpell> AddSpellList { get; set; } = new ObservableCollection<UiSpell>();
         private UIWizardPlayerSpell _selectedSpell;
         public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
+        public int PageLvl { get; set; }
+
+        public WAddSpellByLvlViewModel()
+        {
+            PageLvl = 0;
+            GenerateSPellList();
+            SelectedSpell = (UIWizardPlayerSpell)AddSpellList[0];
+        }
+
+        public WAddSpellByLvlViewModel(int lvl)
+        {
+            PageLvl = lvl;
+            GenerateSPellList();
+            SelectedSpell = (UIWizardPlayerSpell)AddSpellList[0];
+        }
 
         /* Sort sélectionné */
         public UIWizardPlayerSpell SelectedSpell
@@ -29,27 +44,9 @@ namespace SpellBouc.ViewModel
 
         }
 
-        public int PageLvl {get; set;}
-
-        public WAddSpellByLvlViewModel()
-        {
-            PageLvl = 0;
-            GenerateSPellList();
-            SelectedSpell = (UIWizardPlayerSpell)AddSpellList[0]; 
-        }
-
-        public WAddSpellByLvlViewModel(int lvl)
-        {
-            PageLvl = lvl;
-            GenerateSPellList();
-            SelectedSpell = (UIWizardPlayerSpell)AddSpellList[0];
-        }
-
         private void GenerateSPellList()
         {
             AddSpellList = Globals.AppWizardSpellBook.GetUiSpellListByLvl(PageLvl);
         }
     }
-
-
 }

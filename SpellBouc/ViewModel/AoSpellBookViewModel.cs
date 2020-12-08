@@ -37,7 +37,7 @@ namespace SpellBouc.ViewModel
                     break;
                 case ContainerType.PriestCompleteSpells:
                     break;
-                case ContainerType.DruidPCompleteSpells:
+                case ContainerType.DruidCompleteSpells:
                     break;
                 default:
                     break;

@@ -20,7 +20,7 @@ namespace SpellBouc.View
         private void GenerateAddSpellPage(object sender, System.Windows.RoutedEventArgs e)
         {
             int currentLvl = this.wizardTab.SelectedIndex;
-            WAddSpellByLvlView addSpellByLvlView = new WAddSpellByLvlView(currentLvl);
+            AddSpellByLvlView addSpellByLvlView = new AddSpellByLvlView(currentLvl);
 
             addSpellByLvlView.Show();
         }
