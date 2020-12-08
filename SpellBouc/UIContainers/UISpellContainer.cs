@@ -1,6 +1,7 @@
 ﻿using SpellBouc.AccessLayer;
 using SpellBouc.Logs;
-using SpellBouc.UISpells;
+using SpellBouc.Model.Common;
+using SpellBouc.Model.Wizard;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

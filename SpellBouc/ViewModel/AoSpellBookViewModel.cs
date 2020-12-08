@@ -1,9 +1,6 @@
-﻿using SpellBouc.UISpells;
-using System;
-using System.Collections.Generic;
+﻿using SpellBouc.Model.Common;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
 
 namespace SpellBouc.ViewModel
 {

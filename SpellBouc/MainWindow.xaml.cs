@@ -45,6 +45,7 @@ namespace SpellBouc
         /* Bascule sur un livre de sort du Mage */
         private void ChoseWizardSpellBook(object sender, RoutedEventArgs e)
         {
+            Globals.SelectedSpellBook = ContainerType.WizardPlayerSpells;
             WWindowView wizardWindowView = new WWindowView
             {
                 Top = this.Top,
@@ -56,7 +57,8 @@ namespace SpellBouc
 
         private void ChosePriestSpellBook(object sender, RoutedEventArgs e)
         {
-            DWindowView divineWindowView = new DWindowView(ContainerType.PriestPlayerSpells)
+            Globals.SelectedSpellBook = ContainerType.PriestPlayerSpells;
+            DWindowView divineWindowView = new DWindowView()
             {
                 Top = this.Top,
                 Left = this.Left
@@ -67,7 +69,8 @@ namespace SpellBouc
 
         private void ChoseDruidSpellBook(object sender, RoutedEventArgs e)
         {
-            DWindowView divineWindowView = new DWindowView(ContainerType.DruidPlayerSpells)
+            Globals.SelectedSpellBook = ContainerType.DruidPlayerSpells;
+            DWindowView divineWindowView = new DWindowView()
             {
                 Top = this.Top,
                 Left = this.Left

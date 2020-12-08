@@ -47,7 +47,7 @@
         </StackPanel>
 
         <!-- TabView -->
-        <v:WTabView Grid.Column="1" Grid.Row="1" x:Name="currentWizardSpellTab" Background="Transparent" Margin="0,0,20,0"/>
+        <v:DTabView Grid.Column="1" Grid.Row="1" x:Name="currentDivineSpellTab" Background="Transparent" Margin="0,0,20,0"/>
 
         <!-- Marque Page -->
         <Grid Grid.Column="0" Grid.Row="1">

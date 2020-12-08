@@ -1,8 +1,6 @@
-﻿using SpellBouc.UIContainers;
-using SpellBouc.UISpells;
+﻿using SpellBouc.Model.Common;
+using SpellBouc.UIContainers;
 using System.Collections.ObjectModel;
-using System.DirectoryServices;
-using System.Windows.Controls;
 
 namespace SpellBouc.SpellBooks
 {

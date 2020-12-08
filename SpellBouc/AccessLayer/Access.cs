@@ -1,14 +1,9 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
-using SpellBouc.UISpells;
 using SpellBouc.Logs;
-using System.Runtime.CompilerServices;
-using System.Linq;
 using System.Text.RegularExpressions;
-using Microsoft.VisualBasic.CompilerServices;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.InteropServices.WindowsRuntime;
+using SpellBouc.Model.Wizard;
 
 namespace SpellBouc.AccessLayer
 {

@@ -29,4 +29,16 @@
     <Resource Include="img\spellscroll_0.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="View\DTabView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\DTabView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

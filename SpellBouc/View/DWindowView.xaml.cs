@@ -9,20 +9,10 @@ namespace SpellBouc.View
     /// </summary>
     public partial class DWindowView : Window
     {
-        private ContainerType _type;
-
         public DWindowView()
         {
-            InitializeComponent();
-            _type = ContainerType.PriestPlayerSpells;
-        }
-
-        public DWindowView(ContainerType type)
-        {
-            if (type != ContainerType.DruidPlayerSpells && type != ContainerType.PriestPlayerSpells)
+            if (Globals.SelectedSpellBook != ContainerType.DruidPlayerSpells && Globals.SelectedSpellBook != ContainerType.PriestPlayerSpells)
                 return;
-
-            _type = type;
             InitializeComponent();
         }
 
@@ -56,13 +46,14 @@ namespace SpellBouc.View
 
         private void RefreshButton(object sender, RoutedEventArgs e)
         {
-            DWindowView res = new DWindowView(_type);
-            res.Top = this.Top;
-            res.Left = this.Left;
+            DWindowView res = new DWindowView
+            {
+                Top = this.Top,
+                Left = this.Left
+            };
             Application.Current.MainWindow = res;
             res.Show();
             this.Close();
-
         }
 
         private void CreateMaxSpellPerDay(object sender, RoutedEventArgs e)

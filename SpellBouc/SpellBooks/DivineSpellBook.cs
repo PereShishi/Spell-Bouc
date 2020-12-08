@@ -1,9 +1,9 @@
 ﻿using SpellBouc.AccessLayer;
 using SpellBouc.Logs;
+using SpellBouc.Model.Common;
 using SpellBouc.UIContainers;
-using SpellBouc.UISpells;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+
 using System.Linq;
 
 namespace SpellBouc.SpellBooks

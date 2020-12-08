@@ -1,5 +1,5 @@
-﻿using SpellBouc.UISpells;
-using System;
+﻿using SpellBouc.Model.Common;
+using SpellBouc.Model.Wizard;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 

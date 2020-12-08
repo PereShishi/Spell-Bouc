@@ -26,5 +26,8 @@ namespace SpellBouc
         // Livres de sorts divins
         public static DivineSpellBook AppPriestSpellBook { get; set; } = new DivineSpellBook(ContainerType.PriestPlayerSpells);
         public static DivineSpellBook AppDruidSpellBook { get; set; } = new DivineSpellBook(ContainerType.DruidPlayerSpells);
+
+        // Type de livre séléctionné 
+        public static ContainerType SelectedSpellBook;
     }
 }

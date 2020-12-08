@@ -1,6 +1,7 @@
-﻿using System.ComponentModel;
+﻿using SpellBouc.Model.Common;
+using System.ComponentModel;
 
-namespace SpellBouc.UISpells
+namespace SpellBouc.Model.Wizard
 {
     /* Classe qui store toutes les informations à afficher dans les UI: Elles contiennent les sorts de mage du joueur et leur nombre d'utilisation */
     public class UIWizardPlayerSpell : UiSpell,INotifyPropertyChanged

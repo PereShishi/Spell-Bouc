@@ -1,13 +1,7 @@
-﻿using SpellBouc.Model;
-using SpellBouc.UISpells;
-using SpellBouc.View;
+﻿using SpellBouc.Model.Wizard;
 using SpellBouc.ViewModel.Commands;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Input;
 
 namespace SpellBouc.ViewModel
 {
@@ -94,7 +88,7 @@ namespace SpellBouc.ViewModel
             WizardSpellTabList = UiWizardSpellTab.GetTabListFromWizardSpellBook();
         }
 
-        /* Au click du boutton + on incrément le nombre d'utilisation journalière d'un sort spécifique */
+        /* Au click du boutton + on incrémente le nombre d'utilisation journalière d'un sort spécifique */
         public void IncrementSpellCount(int id)
         { 
             Globals.AppWizardSpellBook.IncrementWizardPlayerSpell(id);
@@ -177,7 +171,7 @@ namespace SpellBouc.ViewModel
             }
         }
 
-        /* Au click du boutton de supression on ajoute le sort spécifié au spell book */
+        /* Au click du boutton de supression on supprime le sort spécifié au spell book */
         public void RemoveSpell(int id)
         {
             Globals.AppWizardSpellBook.RemoveSpellInSpellBook(id);
