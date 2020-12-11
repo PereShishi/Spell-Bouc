@@ -30,13 +30,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="View\DTabView.xaml.cs">
+    <Compile Update="View\Divine\DTabView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Divine\DItemView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="View\DTabView.xaml">
+    <Page Update="View\Divine\DTabView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Divine\DItemView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

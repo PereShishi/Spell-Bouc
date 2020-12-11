@@ -1,0 +1,89 @@
+﻿<UserControl  x:Class="SpellBouc.View.WTabView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:v="clr-namespace:SpellBouc.View" 
+        xmlns:vm="clr-namespace:SpellBouc.ViewModel" 
+        xmlns:com="clr-namespace:SpellBouc.ViewModel.Commands"
+        mc:Ignorable="d"
+        >
+
+    <UserControl.DataContext>
+        <vm:WTabViewModel x:Name="currentTabVM"></vm:WTabViewModel>
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <!-- Convertisseur de visibilté en bool pour pouvoir le builder -->
+        <com:VisibilityConverter x:Key="VisibilityConverter" />
+        
+        <!-- Onglets des tabs -->
+        <DataTemplate x:Key="HeaderTemplate">
+            <TabPanel Background="Transparent">
+                <TextBlock Text="{Binding TotalSpellCount}" TextWrapping="Wrap" FontSize="13" FontWeight="Bold"/>
+                <TextBlock Text="/" TextWrapping="Wrap" FontSize="13" FontWeight="Bold" />
+                <TextBlock Text="{Binding MaxSpellsPerDay}" FontSize="13" FontWeight="Bold"/>
+                <TextBlock  TextWrapping="Wrap" VerticalAlignment="Bottom">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat=" Niveau {0}">
+                            <Binding Path="Lvl"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </TabPanel>
+        </DataTemplate>
+
+        <!-- Contenu des tabs -->
+        <DataTemplate x:Key="ContentTemplate">
+            <ListBox ItemsSource="{Binding SpellList}"  SelectedItem="{Binding SelectedSpell, Mode=TwoWay}" 
+                     HorizontalContentAlignment="Stretch"
+                     BorderBrush="Transparent" Background="Transparent">
+                <ListBox.ItemTemplate>
+                    <HierarchicalDataTemplate>
+                        <v:WItemView x:Name="itemview"/>
+                    </HierarchicalDataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <!-- TabControl des onglets de sorts  -->
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Partie Gauche du livre: Tableau des sorts et leurs écoles + bouttons d'ajout et de supression journalière -->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.1*"/>
+            </Grid.RowDefinitions>
+
+            <TabControl Grid.Row="0" 
+                    Background="Transparent" BorderThickness="0"
+                    SelectedItem="{Binding SelectedTab}"
+                    SelectedIndex="{Binding SelectedIndex}"
+                    Name="wizardTab" 
+                    ItemsSource="{Binding WizardSpellTabList}"
+                    ItemTemplate="{StaticResource HeaderTemplate}"
+                    ContentTemplate="{StaticResource ContentTemplate}">
+            </TabControl>
+            <Button Style="{StaticResource RoundCornerButton}" Grid.Row="1" Content="Ajouter un sort" Click="GenerateAddSpellPage" ></Button>
+        </Grid>
+        
+        <!-- Partie droite du livre: description du sort séléctionné -->
+        <v:SpellDescriptor x:Name="spellDescriptor" 
+                           DataContext="{Binding SelectedTab.SelectedSpell}" 
+                           Grid.Column="2" 
+                           Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=v:WTabView}, 
+                                                Path=DataContext.SelectedTab.IsVisible, Converter={StaticResource VisibilityConverter}}">
+        </v:SpellDescriptor>
+        
+    </Grid>
+   
+</UserControl>
+    

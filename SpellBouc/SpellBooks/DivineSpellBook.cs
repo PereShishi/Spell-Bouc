@@ -3,7 +3,6 @@ using SpellBouc.Logs;
 using SpellBouc.Model.Common;
 using SpellBouc.UIContainers;
 using System.Collections.Generic;
-
 using System.Linq;
 
 namespace SpellBouc.SpellBooks
@@ -24,9 +23,9 @@ namespace SpellBouc.SpellBooks
 
         private ContainerType _completeSpellsType = ContainerType.PriestCompleteSpells;
 
-        private UIContainerType _uiplayerSpellsType = UIContainerType.UIPriestSpells;
+        private UIContainerType _uiplayerSpellsType = UIContainerType.UIPriestSpell;
 
-        private UIContainerType _uicompleteSpellsType = UIContainerType.UIDruidSpells;
+        private UIContainerType _uicompleteSpellsType = UIContainerType.UIDruidSpell;
 
 
         /* Initialisation des membres */
@@ -40,12 +39,12 @@ namespace SpellBouc.SpellBooks
             {
                 case ContainerType.PriestPlayerSpells:
                     _completeSpellsType = ContainerType.PriestCompleteSpells;
-                    _uiplayerSpellsType = UIContainerType.UIPriestSpells;
+                    _uiplayerSpellsType = UIContainerType.UIPriestSpell;
                     break;
 
                 case ContainerType.DruidPlayerSpells:
                     _completeSpellsType   = ContainerType.DruidCompleteSpells;
-                    _uicompleteSpellsType = UIContainerType.UIDruidSpells;
+                    _uicompleteSpellsType = UIContainerType.UIDruidSpell;
                     break;
 
                 default:
@@ -202,36 +201,31 @@ namespace SpellBouc.SpellBooks
         /* Remplir les données manquantes de UIPlayerSpells après son instantiation */
         internal override void FillMissingUIInfosFromPlayerSpells()
         {
-            var tempUIPlayerSpells = new List<UiSpell>();
             foreach (Spell playerSpell in PlayerSpells)
             {
-                foreach (UiSpell uiPlayerSpell in UIPlayerSpells)
+                UiSpell uiPlayerSpell = new UiSpell
                 {
-                    if (playerSpell.Id == uiPlayerSpell.Id)
-                    {
-                        uiPlayerSpell.Lvl           = playerSpell.Lvl;
-                        uiPlayerSpell.Name          = playerSpell.Name;
-                        uiPlayerSpell.School        = playerSpell.Type;
-                        uiPlayerSpell.Description   = playerSpell.Description;
-                        uiPlayerSpell.Source        = playerSpell.Source;
-                        uiPlayerSpell.Composante    = playerSpell.Composante;
-                        uiPlayerSpell.IncTime       = playerSpell.IncTime;
-                        uiPlayerSpell.Range         = playerSpell.Range;
-                        uiPlayerSpell.AreaEffect    = playerSpell.AreaEffect;
-                        uiPlayerSpell.Duration      = playerSpell.Duration;
-                        uiPlayerSpell.SaveDice      = playerSpell.SaveDice;
-                        uiPlayerSpell.MagicResist   = playerSpell.MagicResist;
-                        uiPlayerSpell.Comp          = playerSpell.Comp;
-                        uiPlayerSpell.Alignement    = playerSpell.Alignement;
-                        uiPlayerSpell.EffetType     = playerSpell.EffetType;
-                        uiPlayerSpell.Domaine       = playerSpell.Domaine;
-                        
-                        tempUIPlayerSpells.Add(uiPlayerSpell);
-                    }
-                }
-            }
+                    Id          = playerSpell.Id,
+                    Lvl         = playerSpell.Lvl,
+                    Name        = playerSpell.Name,
+                    School      = playerSpell.Type,
+                    Description = playerSpell.Description,
+                    Source      = playerSpell.Source,
+                    Composante  = playerSpell.Composante,
+                    IncTime     = playerSpell.IncTime,
+                    Range       = playerSpell.Range,
+                    AreaEffect  = playerSpell.AreaEffect,
+                    Duration    = playerSpell.Duration,
+                    SaveDice    = playerSpell.SaveDice,
+                    MagicResist = playerSpell.MagicResist,
+                    Comp        = playerSpell.Comp,
+                    Alignement  = playerSpell.Alignement,
+                    EffetType   = playerSpell.EffetType,
+                    Domaine     = playerSpell.Domaine
+                };
 
-            UIPlayerSpells.AddRange(tempUIPlayerSpells.Select(x => (dynamic)x).ToList());
+                UIPlayerSpells.AddUiSpell(uiPlayerSpell);
+            }   
         }
 
         /* Récupère le nombre de sorts par jour par niveau restants */

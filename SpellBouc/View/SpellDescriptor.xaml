@@ -26,40 +26,59 @@
                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="22" FontFamily="Poor Richard"></TextBlock>
 
                 <TextBlock  TextWrapping="Wrap"  VerticalAlignment="Top" HorizontalAlignment="Right" LineStackingStrategy="BlockLineHeight" LineHeight="12">
-                   <Run Text="{Binding Comp}"/>
-                     <LineBreak/>
-                     <LineBreak/>
-                     <LineBreak/>
+                    <Run Text="{Binding Comp}"/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <LineBreak/>
                 </TextBlock>
 
-                <TextBlock TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" LineHeight="12">
-                    <Run Text="Ecole:" FontWeight="Bold"/>
-                    <Run Text="{Binding School}"/>
+
+
+                <TextBlock TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" LineHeight="12" DataContextChanged="testFunction">
+                    
+                    <Run Name ="schoolTitle" FontWeight="Bold"/><!--
+                    --><Run Text="{Binding School}"/><!--
+                    --><Run x:Name="schoolSpace" Text="test"/><!--
+                
+                    --><Run x:Name ="compTitle" FontWeight="Bold"/><!--
+                    --><Run Text="{Binding Composante}"/><!--
+                    --><Run x:Name="compSpace"/><!--             
+                
+                    --><Run x:Name ="incTitle" FontWeight="Bold" /><!--
+                    --><Run Text="{Binding IncTime}"/><!--
+                    --><Run x:Name="incSpace"/><!--   
+                
+                    --><Run x:Name ="rangeTitle" FontWeight="Bold" /><!--
+                    --><Run Text="{Binding Range}"/><!--
+                    --><Run x:Name="rangeSpace"/><!--
+                
+                    --><Run x:Name ="areaTitle" FontWeight="Bold"/><!--
+                    --><Run Text="{Binding AreaEffect}"/><!--
+                    --><Run x:Name="areaSpace"/><!--  
+                
+                    --><Run x:Name ="durationTitle" FontWeight="Bold"/><!--
+                    --><Run Text="{Binding Duration}"/><!--
+                    --><Run x:Name="durationSpace"/><!--  
+    
+                    --><Run x:Name ="saveDiceTitle" Text="Sauvegarde:" FontWeight="Bold"/><!--
+                    --><Run Text="{Binding SaveDice}"/><!--
+                    --><Run x:Name="saveDiceSpace"/><!--  
+ 
+                    --><Run x:Name ="typeTitle" FontWeight="Bold"/><!--
+                    --><Run Text="{Binding EffetType}"/><!--  
+                    --><Run x:Name="typeSpace"/><!--  
+                                
+                    --><Run Text="Résistance à la magie:" FontWeight="Bold"/><!--
+                    --><Run Text="{Binding MagicResist}"/>
                     <LineBreak/>
-                    <Run Text="Composantes:" FontWeight="Bold"/>
-                    <Run Text="{Binding Composante}"/>
                     <LineBreak/>
-                    <Run Text="Temps d'incantation:" FontWeight="Bold" />
-                    <Run Text="{Binding IncTime}"/>
-                    <LineBreak/>
-                    <Run Text="Portée:" FontWeight="Bold" />
-                    <Run Text="{Binding Range}"/>
-                    <LineBreak/>
-                    <Run Text="Zone d'effet:" FontWeight="Bold"/>
-                    <Run Text="{Binding AreaEffect}"/>
-                    <LineBreak/>
-                    <Run Text="Durée:" FontWeight="Bold"/>
-                    <Run Text="{Binding Duration}"/>
-                    <LineBreak/>
-                    <Run Text="Sauvegarde:" FontWeight="Bold"/>
-                    <Run Text="{Binding SaveDice}"/>
-                    <LineBreak/>
-                    <Run Text="Résistance à la magie:" FontWeight="Bold"/>
-                    <Run Text="{Binding MagicResist}"/>
-                    <LineBreak/>
-                    <LineBreak/>
-                </TextBlock >
-                <!-- Label placés pour éviter l'entremelement de texte si la description est trop longue (scroll necessaire) -->
+
+                </TextBlock>
+
+                
+
+
+
             </StackPanel>
 
             <!-- Source en bas à droite de la page -->

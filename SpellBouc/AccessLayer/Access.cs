@@ -138,20 +138,20 @@ namespace SpellBouc.AccessLayer
                         $zone_effet, $duree, $jet_sauvegarde, $resistance_magie, $description, $comp_sort, ''
                         );
                     ";
-                command.Parameters.AddWithValue("$id", inputSpell.Id);
-                command.Parameters.AddWithValue("$nom", inputSpell.Name);
-                command.Parameters.AddWithValue("$niveau_mage", inputSpell.Lvl);
-                command.Parameters.AddWithValue("$typesort", inputSpell.Type);
-                command.Parameters.AddWithValue("$source", inputSpell.Source);
-                command.Parameters.AddWithValue("$composantes", inputSpell.Composante);
-                command.Parameters.AddWithValue("$temps_incantation", inputSpell.IncTime);
-                command.Parameters.AddWithValue("$portee", inputSpell.Range);
-                command.Parameters.AddWithValue("$zone_effet", inputSpell.AreaEffect);
-                command.Parameters.AddWithValue("$duree", inputSpell.Duration);
-                command.Parameters.AddWithValue("$jet_sauvegarde", inputSpell.SaveDice);
-                command.Parameters.AddWithValue("$resistance_magie", SetMagicRes(inputSpell.MagicResist));
-                command.Parameters.AddWithValue("$description", inputSpell.Description);
-                command.Parameters.AddWithValue("$comp_sort", inputSpell.Comp);
+                command.Parameters.AddWithValue("$id",                  inputSpell.Id);
+                command.Parameters.AddWithValue("$nom",                 inputSpell.Name);
+                command.Parameters.AddWithValue("$niveau_mage",         inputSpell.Lvl);
+                command.Parameters.AddWithValue("$typesort",            inputSpell.Type);
+                command.Parameters.AddWithValue("$source",              inputSpell.Source);
+                command.Parameters.AddWithValue("$composantes",         inputSpell.Composante);
+                command.Parameters.AddWithValue("$temps_incantation",   inputSpell.IncTime);
+                command.Parameters.AddWithValue("$portee",              inputSpell.Range);
+                command.Parameters.AddWithValue("$zone_effet",          inputSpell.AreaEffect);
+                command.Parameters.AddWithValue("$duree",               inputSpell.Duration);
+                command.Parameters.AddWithValue("$jet_sauvegarde",      inputSpell.SaveDice);
+                command.Parameters.AddWithValue("$resistance_magie",    SetMagicRes(inputSpell.MagicResist));
+                command.Parameters.AddWithValue("$description",         inputSpell.Description);
+                command.Parameters.AddWithValue("$comp_sort",           inputSpell.Comp);
 
                 command.ExecuteNonQuery();
 
@@ -178,8 +178,8 @@ namespace SpellBouc.AccessLayer
                 command.CommandText =
                 @"
                         INSERT OR REPLACE INTO 'sorts'
-                        (id, nom, niveau_divin, typesort, type, effet_type, source, domaine, domaine, composantes, temps_incantation, portee,
-                        zone_effet, duree, jet_sauvegarde, resistance_magie, description, comp_sort, html
+                        (id, nom, niveau_divin, typesort, type, effet_type, source, domaine, composantes, temps_incantation, portee,
+                        zone_effet, duree, jet_sauvegarde, resistance_magie, description, html
                         )
 
                         VALUES($id, $nom, $niveau_divin, $typesort, $type, $effet_type, $source, $domaine, $composantes, $temps_incantation, $portee,
@@ -192,8 +192,8 @@ namespace SpellBouc.AccessLayer
                 command.Parameters.AddWithValue("$typesort",            inputSpell.Type);
                 command.Parameters.AddWithValue("$type",                inputSpell.Alignement);
                 command.Parameters.AddWithValue("$effet_type",          inputSpell.EffetType);
-                command.Parameters.AddWithValue("$domaine",             inputSpell.Domaine);
                 command.Parameters.AddWithValue("$source",              inputSpell.Source);
+                command.Parameters.AddWithValue("$domaine",             inputSpell.Domaine);
                 command.Parameters.AddWithValue("$composantes",         inputSpell.Composante);
                 command.Parameters.AddWithValue("$temps_incantation",   inputSpell.IncTime);
                 command.Parameters.AddWithValue("$portee",              inputSpell.Range);
@@ -207,8 +207,9 @@ namespace SpellBouc.AccessLayer
 
                 return ErrorCode.SUCCESS;
             }
-            catch
+            catch (SqliteException ex)
             {
+                var code = ex;
                 return ErrorCode.ERROR;
             }
         }
@@ -577,8 +578,11 @@ namespace SpellBouc.AccessLayer
             if (descr != null && descr != "")
             {
                 // Supprime toutes les balises:
-                formatedDescr = descr.Replace("<br/>", "\n");
+
                 formatedDescr = formatedDescr.Replace("\n\n", "\n");
+
+                formatedDescr = descr.Replace("<br/>", "\n");
+                formatedDescr = descr.Replace("<br>", "\n");
 
                 formatedDescr = formatedDescr.Replace("<p>", " ");
                 formatedDescr = formatedDescr.Replace("</p>", " ");
@@ -615,6 +619,14 @@ namespace SpellBouc.AccessLayer
                 formatedDescr = formatedDescr.Replace("<u>", "");
                 formatedDescr = formatedDescr.Replace("</u>", "");
 
+                formatedDescr = formatedDescr.Replace("<abbr>", "");
+                formatedDescr = formatedDescr.Replace("</abbr>", "");
+
+                // Rajoute de sauts de ligne lorsuq'il y a des points
+                formatedDescr = formatedDescr.Replace(".", ".\n");
+
+
+
                 // Supprime les href
                 int occCount = Regex.Matches(formatedDescr, "href=").Count;
 
@@ -649,7 +661,46 @@ namespace SpellBouc.AccessLayer
                     formatedDescr = formatedDescr.Replace(substrToDelete, "");
                 }
 
+                // Supprime les tableaux
+                occCount = Regex.Matches(formatedDescr, "<table class=").Count;
+
+                for (int i = 0; i < occCount; i++)
+                {
+                    int pFrom = formatedDescr.IndexOf("<table class=");
+                    if (pFrom == -1)
+                    {
+                        break;
+                    }
+                    int pTo = formatedDescr.IndexOf(">", pFrom);
+
+
+                    string substrToDelete = formatedDescr.Substring(pFrom, pTo - pFrom + 1);
+                    formatedDescr = formatedDescr.Replace(substrToDelete, "");
+                }
+
+                // Supprime l'erreur de formattage de certaine description de sprêtres
+                occCount = Regex.Matches(formatedDescr, "Si la ligne « Composantes »").Count;
+
+                for (int i = 0; i < occCount; i++)
+                {
+                    int pFrom = formatedDescr.IndexOf("Si la ligne « Composantes »");
+                    if (pFrom == -1)
+                    {
+                        break;
+                    }
+                    int pTo = formatedDescr.IndexOf(">FD", pFrom);
+
+                    string substrToDelete = formatedDescr.Substring(pFrom, pTo +2  - pFrom + 1);
+                    formatedDescr = formatedDescr.Replace(substrToDelete, "");
+                }
             }
+
+            if(formatedDescr.Length > 1 &&formatedDescr.Substring(formatedDescr.Length - 1) == "\n")
+            {
+                formatedDescr = formatedDescr.Remove(formatedDescr.Length - 1, 1);
+            }
+
+            formatedDescr = formatedDescr.Replace("\n\n", "\n");
             return formatedDescr;
         }
 

@@ -17,6 +17,13 @@ namespace SpellBouc.ViewModel
         private int _selectedIndex;
         private UiDivineSpellTab _selectedTab;
 
+        public DTabViewModel()
+        {
+            InitializeCommands();
+            DivineSpellTabList = new ObservableCollection<UiDivineSpellTab>();
+            InitializeDivineSpellTabList();
+        }
+
         /* Commandes */
         public DAddTabCommand TabPanelButtonClickCommand { get; set; }
 
@@ -65,13 +72,6 @@ namespace SpellBouc.ViewModel
                 _selectedIndex = value;
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedIndex)));
             }
-        }
-
-        public DTabViewModel()
-        {
-            InitializeCommands();
-            DivineSpellTabList = new ObservableCollection<UiDivineSpellTab>();
-            InitializeDivineSpellTabList();
         }
 
         /* Initialise les commandes */

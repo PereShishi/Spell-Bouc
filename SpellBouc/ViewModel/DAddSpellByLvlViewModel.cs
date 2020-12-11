@@ -41,7 +41,6 @@ namespace SpellBouc.ViewModel
                 _selectedSpell = value;
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedSpell)));
             }
-
         }
 
         private void GenerateSPellList()
@@ -57,7 +56,6 @@ namespace SpellBouc.ViewModel
                 default:
                     break;
             }
-           
         }
     }
 }

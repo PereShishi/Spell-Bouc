@@ -22,18 +22,10 @@ namespace SpellBouc.UIContainers
          */
         internal UISpellContainer(UIContainerType uiContainerType)
         {
-            switch (uiContainerType)
-            {
-                /* Dans le cas d'un UIWizardSpell UiSpells devient une List<UIWizardPlayerSpell> */
-                case UIContainerType.UIWizardSpell:
-                    UiSpells = Access.GetUIWizardSpellsFromDB().Select(x => (dynamic)x).ToList();
-                    break;
-
-                /* Dans le cas d'un UIWizardCompletSpell UiSpells devient une List<UiSpell> (empty qui sera remplie ulterieurement)*/
-                case UIContainerType.UIWizardCompletSpell:
-                    UiSpells = new List<UiSpell>().Select(x => (dynamic)x).ToList();
-                    break;
-            }
+            if (uiContainerType == UIContainerType.UIWizardSpell)
+                UiSpells = Access.GetUIWizardSpellsFromDB().Select(x => (dynamic)x).ToList();
+            else
+                UiSpells = new List<UiSpell>().Select(x => (dynamic)x).ToList();
         }
 
         /* Constructeur par défaut avec une liste vide */ 
@@ -57,12 +49,14 @@ namespace SpellBouc.UIContainers
                     status = Access.AddWizardSpellInUiDB(spell.Id);
                     break;
 
-                case UIContainerType.UIPriestSpells:
+                case UIContainerType.UIPriestSpell:
                     uiSpell = CreateUISpellFromSpell(spell, uiContainerType);
+                    status = ErrorCode.SUCCESS;
                     break;
 
-                case UIContainerType.UIDruidSpells:
+                case UIContainerType.UIDruidSpell:
                     uiSpell = CreateUISpellFromSpell(spell, uiContainerType);
+                    status = ErrorCode.SUCCESS;
                     break;
 
                 // Default case: ne peut pas rentrer dans cette étape théoriquement
@@ -89,7 +83,7 @@ namespace SpellBouc.UIContainers
         internal ErrorCode RemoveUISpellInBookAndBD(Spell spell, UIContainerType uiContainerType)
         {
             ErrorCode status = ErrorCode.ERROR;
-
+             
             switch (uiContainerType)
             {
                 // Mise à jour sort de Mage
@@ -97,11 +91,11 @@ namespace SpellBouc.UIContainers
                     status = Access.RemoveWizardSpellInUiDB(spell.Id);
                     break;
 
-                case UIContainerType.UIPriestSpells:
+                case UIContainerType.UIPriestSpell:
                     status = ErrorCode.SUCCESS;
                     break;
 
-                case UIContainerType.UIDruidSpells:
+                case UIContainerType.UIDruidSpell:
                     status = ErrorCode.SUCCESS;
                     break;
 
@@ -187,7 +181,7 @@ namespace SpellBouc.UIContainers
             // Si l'input est un Spell 
             try
             {
-                var returnUiSpell = CreateUISpellFromSpell(InputuiSpellToAdd, uiContainerType);
+                var returnUiSpell = CreateUISpellFromSpell(InputuiSpellToAdd, uiContainerType = default);
                 UiSpells.Add(InputuiSpellToAdd);
             }
             catch
