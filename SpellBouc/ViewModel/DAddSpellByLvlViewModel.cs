@@ -1,5 +1,6 @@
 ﻿using SpellBouc.Model.Common;
 using SpellBouc.Model.Wizard;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -12,7 +13,7 @@ namespace SpellBouc.ViewModel
         private UiSpell _selectedSpell;
         public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
         public int PageLvl { get; set; }
-
+        
         public DAddSpellByLvlViewModel()
         {
             PageLvl = 0;

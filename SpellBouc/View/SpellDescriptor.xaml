@@ -34,11 +34,11 @@
 
 
 
-                <TextBlock TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" LineHeight="12" DataContextChanged="testFunction">
+                <TextBlock TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" LineHeight="12" DataContextChanged="displayElement">
                     
                     <Run Name ="schoolTitle" FontWeight="Bold"/><!--
                     --><Run Text="{Binding School}"/><!--
-                    --><Run x:Name="schoolSpace" Text="test"/><!--
+                    --><Run x:Name="schoolSpace"/><!--
                 
                     --><Run x:Name ="compTitle" FontWeight="Bold"/><!--
                     --><Run Text="{Binding Composante}"/><!--
@@ -68,16 +68,12 @@
                     --><Run Text="{Binding EffetType}"/><!--  
                     --><Run x:Name="typeSpace"/><!--  
                                 
-                    --><Run Text="Résistance à la magie:" FontWeight="Bold"/><!--
-                    --><Run Text="{Binding MagicResist}"/>
+                    --><Run Text="Résistance à la magie: " FontWeight="Bold"/><!--
+                    --><Run x:Name ="magicResistValue"/>
                     <LineBreak/>
                     <LineBreak/>
 
                 </TextBlock>
-
-                
-
-
 
             </StackPanel>
 

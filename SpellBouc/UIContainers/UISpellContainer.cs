@@ -120,57 +120,55 @@ namespace SpellBouc.UIContainers
         /*
          * Créer un UISpell à partir d'un Spell.
          */
-        internal dynamic CreateUISpellFromSpell(Spell spell, UIContainerType uiContainerType = default)
+        internal dynamic CreateUISpellFromSpell(Spell spell, UIContainerType uiContainerType = UIContainerType.UIWizardSpell)
         {
-            switch (uiContainerType)
+            if(uiContainerType == UIContainerType.UIWizardSpell)
             {
-                case UIContainerType.UIWizardSpell:
-                    var uiWizardPlayerSpell = new UIWizardPlayerSpell
-                    {
-                        Id = spell.Id,
-                        Lvl = spell.Lvl,
-                        Name = spell.Name,
-                        School = spell.Type,
-                        Description = spell.Description,
-                        Source = spell.Source,
-                        Composante = spell.Composante,
-                        IncTime = spell.IncTime,
-                        Range = spell.Range,
-                        AreaEffect = spell.AreaEffect,
-                        Duration = spell.Duration,
-                        SaveDice = spell.SaveDice,
-                        MagicResist = spell.MagicResist,
-                        Comp = spell.Comp,
-                        PlayerSpellCount = 0
-                    };
-                    return uiWizardPlayerSpell;
-
-            // Default sera utilisé pour des UISpells classiques
-                default:
-                    var returnedSpell = new UiSpell
-                    {
-                        Id = spell.Id,
-                        Lvl = spell.Lvl,
-                        Name = spell.Name,
-                        School = spell.Type,
-                        Description = spell.Description,
-                        Source = spell.Source,
-                        Composante = spell.Composante,
-                        IncTime = spell.IncTime,
-                        Range = spell.Range,
-                        AreaEffect = spell.AreaEffect,
-                        Duration = spell.Duration,
-                        SaveDice = spell.SaveDice,
-                        MagicResist = spell.MagicResist,
-                        Comp = spell.Comp,
-                        Alignement = spell.Alignement,
-                        Domaine = spell.Domaine,
-                        EffetType = spell.EffetType
-                        
-                    };
-                    return returnedSpell;
+                var uiWizardPlayerSpell = new UIWizardPlayerSpell
+                {
+                    Id = spell.Id,
+                    Lvl = spell.Lvl,
+                    Name = spell.Name,
+                    School = spell.Type,
+                    Description = spell.Description,
+                    Source = spell.Source,
+                    Composante = spell.Composante,
+                    IncTime = spell.IncTime,
+                    Range = spell.Range,
+                    AreaEffect = spell.AreaEffect,
+                    Duration = spell.Duration,
+                    SaveDice = spell.SaveDice,
+                    MagicResist = spell.MagicResist,
+                    Comp = spell.Comp,
+                    PlayerSpellCount = 0
+                };
+                return uiWizardPlayerSpell;
             }
-                
+            else
+            {
+                var returnedSpell = new UiSpell
+                {
+                    Id = spell.Id,
+                    Lvl = spell.Lvl,
+                    Name = spell.Name,
+                    School = spell.Type,
+                    Description = spell.Description,
+                    Source = spell.Source,
+                    Composante = spell.Composante,
+                    IncTime = spell.IncTime,
+                    Range = spell.Range,
+                    AreaEffect = spell.AreaEffect,
+                    Duration = spell.Duration,
+                    SaveDice = spell.SaveDice,
+                    MagicResist = spell.MagicResist,
+                    Comp = spell.Comp,
+                    Alignement = spell.Alignement,
+                    Domaine = spell.Domaine,
+                    EffetType = spell.EffetType
+
+                };
+                return returnedSpell;
+            }     
         }
 
         /*
@@ -181,7 +179,7 @@ namespace SpellBouc.UIContainers
             // Si l'input est un Spell 
             try
             {
-                var returnUiSpell = CreateUISpellFromSpell(InputuiSpellToAdd, uiContainerType = default);
+                var returnUiSpell = CreateUISpellFromSpell(InputuiSpellToAdd, uiContainerType);
                 UiSpells.Add(InputuiSpellToAdd);
             }
             catch

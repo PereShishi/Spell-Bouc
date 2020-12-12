@@ -19,13 +19,13 @@ namespace SpellBouc.SpellBooks
 
         internal override UISpellContainer UICompleteClassSpells { get; set; }
 
-        private ContainerType _playerSpellsType = ContainerType.PriestPlayerSpells;
+        private readonly ContainerType _playerSpellsType = ContainerType.PriestPlayerSpells;
 
-        private ContainerType _completeSpellsType = ContainerType.PriestCompleteSpells;
+        private readonly ContainerType _completeSpellsType = ContainerType.PriestCompleteSpells;
 
-        private UIContainerType _uiplayerSpellsType = UIContainerType.UIPriestSpell;
+        private readonly UIContainerType _uiplayerSpellsType = UIContainerType.UIPriestSpell;
 
-        private UIContainerType _uicompleteSpellsType = UIContainerType.UIDruidSpell;
+        private readonly UIContainerType _uicompleteSpellsType = UIContainerType.UIDruidSpell;
 
 
         /* Initialisation des membres */
@@ -66,7 +66,7 @@ namespace SpellBouc.SpellBooks
             // Partie CompleteClassSpells
             UICompleteClassSpells = new UISpellContainer();
             // Initialise CompleteClassSpells & update les sorts qui sont ajoutables
-            InitUICompleteClassSpells();
+            InitUICompleteClassSpells(UIContainerType.UIPriestSpell);
             UpdateUICompleteClassSpell();
             UpdateSpellNumberByLvl();
         }

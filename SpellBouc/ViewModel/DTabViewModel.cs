@@ -155,6 +155,18 @@ namespace SpellBouc.ViewModel
         /* Au click du boutton de supression on supprime le sort spécifié au spell book */
         public void RemoveSpell(int id)
         {
+
+            int selectedSpellIndex = 0;
+            // Dans le cas ou l'on supprime le sort séléctionné, on change décrémente l'index du selected spell, de 1
+            if (SelectedTab.SelectedSpell == null || SelectedTab.SelectedSpell.Id == id)
+            {
+                selectedSpellIndex = GetSpellIndex(id);
+            }
+            else
+            {
+                selectedSpellIndex = GetSpellIndex(SelectedTab.SelectedSpell.Id);
+            }
+
             switch (Globals.SelectedSpellBook)
             {
                 case ContainerType.PriestPlayerSpells:
@@ -168,14 +180,18 @@ namespace SpellBouc.ViewModel
             }
 
             // Update Ui 
-            foreach(UiSpell spell in SelectedTab.SpellList)
+            foreach (UiSpell spell in SelectedTab.SpellList)
             {
                 if (id == spell.Id)
                 {
                     SelectedTab.SpellList.Remove(spell);
-                    return;
+                    break;
                 }
             }
+
+            if(SelectedTab.SpellList.Count !=0)
+                SelectedTab.SelectedSpell = SelectedTab.SpellList[selectedSpellIndex -1 ];
+
         }
 
         /* Ajoute un sort dans la Tab à partir du boutton Ajouter du menu d'ajout des sorts*/
@@ -212,6 +228,17 @@ namespace SpellBouc.ViewModel
                 tab.MaxSpellsPerDay = maxSpellByLvl[tab.Lvl];
             }
         }
+
+        /* Retourne l'indexe du sort séléctionné */
+        private int GetSpellIndex(int id)
+        {
+            foreach (UiSpell spell in SelectedTab.SpellList)
+                if (spell.Id == id)
+                    return SelectedTab.SpellList.IndexOf(spell);
+            return 0;
+        }
+
+            
 
     }
 }

@@ -52,11 +52,11 @@ namespace SpellBouc.SpellBooks
         }
 
         /* Créer une liste de UISpells à partir de la liste complète des sorts de la classe du joueur */
-        internal void InitUICompleteClassSpells()
+        internal void InitUICompleteClassSpells(UIContainerType uIContainerType)
         {
             foreach (Spell spell in CompleteClassSpells)
             {
-                var spellToAdd = UICompleteClassSpells.CreateUISpellFromSpell(spell);
+                var spellToAdd = UICompleteClassSpells.CreateUISpellFromSpell(spell, uIContainerType);
                 UICompleteClassSpells.AddUiSpell(spellToAdd);
             }
         }
@@ -86,11 +86,11 @@ namespace SpellBouc.SpellBooks
         internal ObservableCollection<UiSpell> GetUiSpellListByLvl(int pageLvl)
         {
             ObservableCollection<UiSpell> returnList = new ObservableCollection<UiSpell>();
-            foreach (UiSpell wUiSpell in UICompleteClassSpells)
+            foreach (UiSpell dUiSpell in UICompleteClassSpells)
             {
-                if (wUiSpell.Lvl == pageLvl)
+                if (dUiSpell.Lvl == pageLvl)
                 {
-                    returnList.Add(wUiSpell);
+                    returnList.Add(dUiSpell);
                 }
             }
             return returnList;

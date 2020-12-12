@@ -38,7 +38,7 @@ namespace SpellBouc.SpellBooks
             // Partie CompleteClassSpells
             UICompleteClassSpells = new UISpellContainer(UIContainerType.UIWizardCompletSpell);
             // Initialise CompleteClassSpells & update les sorts qui sont ajoutables
-            InitUICompleteClassSpells();
+            InitUICompleteClassSpells(UIContainerType.UIWizardSpell);
             UpdateUICompleteClassSpell();
             UpdateSpellNumberByLvl();
         }

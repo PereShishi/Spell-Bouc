@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using SpellBouc.Model.Common;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -23,6 +24,25 @@ namespace SpellBouc.View
             {
                 mainDWindowView.currentDivineSpellTab.currentTabVM.RemoveSpell(id);
             }
+        }
+
+        private void collapseEmptyItem(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            UiSpell dtc = new UiSpell();
+            var dataContext = DataContext;
+            if (dataContext == null)
+                return;
+
+            if (dataContext.GetType() == dtc.GetType())
+            {
+                dtc = (UiSpell)DataContext;
+                if (dtc.Domaine == "" || dtc.Domaine == null)
+                    domainValue.Visibility = Visibility.Collapsed;
+
+                if (dtc.Alignement == "" || dtc.Alignement == null)
+                    alignementValue.Visibility = Visibility.Collapsed;
+            }
+
         }
     }
 }

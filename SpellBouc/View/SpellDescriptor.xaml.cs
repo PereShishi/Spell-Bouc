@@ -25,7 +25,7 @@ namespace SpellBouc.View
             InitializeComponent();
         }
 
-        private void testFunction(object sender, DependencyPropertyChangedEventArgs e)
+        private void displayElement(object sender, DependencyPropertyChangedEventArgs e)
         {
             UiSpell dtc = new UiSpell();
             UIWizardPlayerSpell uiWizardSpell = new UIWizardPlayerSpell();
@@ -141,6 +141,17 @@ namespace SpellBouc.View
                     typeTitle.Text = "Type: ";
                     typeSpace.Text = "\n";
                 }
+
+                //Resistance magie
+                if (dtc.MagicResist == true)
+                {
+                    magicResistValue.Text = "Oui";
+                }
+                else if(dtc.MagicResist == false)
+                {
+                    magicResistValue.Text = "Non";
+                }
+
             } 
         }
     }
