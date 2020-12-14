@@ -517,7 +517,7 @@ namespace SpellBouc.AccessLayer
                 var command = connection.CreateCommand();
                 command.CommandText =
                 @"
-                INSERT OR REPLACE INTO 'spell_per_day'
+                INSERT OR REPLACE INTO 'spell_per_day' VALUES
                 ($lvl, $spellNumber)
                 ";
 

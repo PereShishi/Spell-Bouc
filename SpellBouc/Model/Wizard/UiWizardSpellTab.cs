@@ -67,14 +67,7 @@ namespace SpellBouc.Model.Wizard
             // Initialise les headers
             for (int i = 0; i <= Globals.AppWizardSpellBook.SpellMaxFromPlayer; i++)
             {
-                wizardSpellTabList.Add(new UiWizardSpellTab { Lvl = i , MaxSpellsPerDay  = Globals.AppWizardSpellBook.MaxSpellsByLvl[i] });
-            }
-
-            // Initialise les Contents
-            foreach (UiWizardSpellTab wizardSpellTab in wizardSpellTabList)
-            {
-                wizardSpellTab.SetSpellListFromWizardSpellBook();
-                wizardSpellTab.UpdateTotalSpellCount();
+                wizardSpellTabList.Add(new UiWizardSpellTab (i));
             }
 
             return wizardSpellTabList;

@@ -88,15 +88,25 @@ namespace SpellBouc.ViewModel
         }
 
         /* Au click du boutton + on incrémente le nombre d'utilisation de sorts journaliers du lanceur de sort divin */
-        public void IncrementSpellCount(int id)
-        { 
-            // TODO : on incrémente le nombre de sort journalier du lancer de sort divin
+        public void IncrementSpellCount()
+        {
+            if (Globals.SelectedSpellBook == ContainerType.PriestPlayerSpells)
+                Globals.AppPriestSpellBook.IncrementDivinePlayerSpell(SelectedTab.Lvl);
+            else if (Globals.SelectedSpellBook == ContainerType.DruidPlayerSpells)
+                Globals.AppDruidSpellBook.IncrementDivinePlayerSpell(SelectedTab.Lvl);
+
+            SelectedTab.TotalSpellCount++;
         }
 
         /* Au click du boutton - on décrémente le nombre d'utilisation de sorts journaliers du lanceur de sort divin */
-        public void DecrementSpell(int id)
+        public void DecrementSpell()
         {
-            // TODO : on décrémente le nombre de sort journaliers du lanceur de sort divin
+            if (Globals.SelectedSpellBook == ContainerType.PriestPlayerSpells)
+                Globals.AppPriestSpellBook.DecrementDivinePlayerSpell(SelectedTab.Lvl);
+            else if (Globals.SelectedSpellBook == ContainerType.DruidPlayerSpells)
+                Globals.AppDruidSpellBook.DecrementDivinePlayerSpell(SelectedTab.Lvl);
+
+            SelectedTab.TotalSpellCount--;
         }
 
         /* Au click du boutton Ajouter de la page ADD SPELL on ajoute le sort spécifié au spell book */
@@ -189,8 +199,10 @@ namespace SpellBouc.ViewModel
                 }
             }
 
-            if(SelectedTab.SpellList.Count !=0)
+            if(SelectedTab.SpellList.Count !=0 && selectedSpellIndex > 0)
                 SelectedTab.SelectedSpell = SelectedTab.SpellList[selectedSpellIndex -1 ];
+            else if (SelectedTab.SpellList.Count != 0 && selectedSpellIndex > 0)
+                SelectedTab.SelectedSpell = SelectedTab.SpellList[selectedSpellIndex];
 
         }
 

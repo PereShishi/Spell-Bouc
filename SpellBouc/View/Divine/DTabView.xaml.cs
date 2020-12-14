@@ -33,6 +33,17 @@ namespace SpellBouc.View
                 parentWindow.DragMove();
             }
         }
+
+        // Incrémente le nombre de sorts du lanceur de sort pour un niveau particulier
+        private void IncrementSpell(object sender, RoutedEventArgs e)
+        {
+            currentTabVM.IncrementSpellCount();
+        }
+
+        private void DecrementSpell(object sender, RoutedEventArgs e)
+        {
+            currentTabVM.DecrementSpell();
+        }
     }
 
 }

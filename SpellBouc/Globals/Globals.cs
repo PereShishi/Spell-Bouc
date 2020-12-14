@@ -7,6 +7,9 @@ namespace SpellBouc
     /* Variables globales */
     public static class Globals
     {
+        // Niveau max a afficher dans les tabs:
+        public static int MAX_SPELL = 5;
+
         // Path du project directory 
         public static String PROJECT_DIRECTORY_PATH = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
 

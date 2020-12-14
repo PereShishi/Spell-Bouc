@@ -235,17 +235,17 @@ namespace SpellBouc.SpellBooks
             {
                 case ContainerType.PriestPlayerSpells:
                     // Récupère les valeurs et les set dans la propriété
-                    PlayerSpellsByLvl = Access.GetSpellPerDayPerLvl(SpellMaxFromPlayer + 1, Globals.DB_PLAYER_PRIEST_SPELL_PATH);
+                    PlayerSpellsByLvl = Access.GetSpellPerDayPerLvl(Globals.MAX_SPELL, Globals.DB_PLAYER_PRIEST_SPELL_PATH);
                     break;
 
                 case ContainerType.DruidCompleteSpells:
                     // Récupère les valeurs et les set dans la propriété
-                    PlayerSpellsByLvl = Access.GetSpellPerDayPerLvl(MaxSpellsByLvl.Length, Globals.DB_PLAYER_DRUID_SPELL_PATH);
+                    PlayerSpellsByLvl = Access.GetSpellPerDayPerLvl(Globals.MAX_SPELL, Globals.DB_PLAYER_DRUID_SPELL_PATH);
                     break;
 
                 default:
                     // Récupère les valeurs et les set dans la propriété
-                    PlayerSpellsByLvl = Access.GetSpellPerDayPerLvl(MaxSpellsByLvl.Length, Globals.DB_PLAYER_PRIEST_SPELL_PATH);
+                    PlayerSpellsByLvl = Access.GetSpellPerDayPerLvl(Globals.MAX_SPELL, Globals.DB_PLAYER_PRIEST_SPELL_PATH);
                     break;
             }
         }
@@ -303,7 +303,7 @@ namespace SpellBouc.SpellBooks
         /* Ajoute un sort quotidien */
         internal void IncrementDivinePlayerSpell(int lvl)
         {
-            int spellValue = PlayerSpellsByLvl[lvl]++;
+            int spellValue = PlayerSpellsByLvl[lvl] + 1;
             string db = "";
             switch(_playerSpellsType)
             {
@@ -322,7 +322,7 @@ namespace SpellBouc.SpellBooks
         /* Retire un sort quotidien */
         internal void DecrementDivinePlayerSpell(int lvl)
         {
-            int spellValue = PlayerSpellsByLvl[lvl]--;
+            int spellValue = PlayerSpellsByLvl[lvl] - 1;
             string db = "";
             switch (_playerSpellsType)
             {

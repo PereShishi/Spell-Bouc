@@ -10,8 +10,6 @@ namespace SpellBouc.Model.Divine
         private ObservableCollection<UiSpell> _spellList;
         private UiSpell _selectedSpell;
 
-        /* Constructeur vide utilisé lorsqu'on créer une fenêtre vide */
-        public UiDivineSpellTab(){}
 
         /* Créer une tab en fonction d'un niveau de sort */
         public UiDivineSpellTab(int lvl)
@@ -22,9 +20,11 @@ namespace SpellBouc.Model.Divine
             {
                 case ContainerType.PriestPlayerSpells:
                     MaxSpellsPerDay = Globals.AppPriestSpellBook.MaxSpellsByLvl[lvl];
+                    TotalSpellCount = Globals.AppPriestSpellBook.PlayerSpellsByLvl[lvl];
                     break;
                 case ContainerType.DruidPlayerSpells:
                     MaxSpellsPerDay = Globals.AppDruidSpellBook.MaxSpellsByLvl[lvl];
+                    TotalSpellCount = Globals.AppPriestSpellBook.PlayerSpellsByLvl[lvl];
                     break;
             }
         }
@@ -71,27 +71,10 @@ namespace SpellBouc.Model.Divine
             ObservableCollection<UiDivineSpellTab> divineSpellTabList = new ObservableCollection<UiDivineSpellTab>();
 
             // Initialise les headers
-            switch (Globals.SelectedSpellBook)
+            for (int i = 0; i <= Globals.AppPriestSpellBook.SpellMaxFromPlayer; i++)
             {
-                case ContainerType.PriestPlayerSpells:
-                    for (int i = 0; i <= Globals.AppPriestSpellBook.SpellMaxFromPlayer; i++)
-                    {
-                        divineSpellTabList.Add(new UiDivineSpellTab { Lvl = i, MaxSpellsPerDay = Globals.AppPriestSpellBook.MaxSpellsByLvl[i] });
-                    }
-                    break;
-
-                case ContainerType.DruidPlayerSpells:
-                    for (int i = 0; i <= Globals.AppDruidSpellBook.SpellMaxFromPlayer; i++)
-                    {
-                        divineSpellTabList.Add(new UiDivineSpellTab { Lvl = i, MaxSpellsPerDay = Globals.AppDruidSpellBook.MaxSpellsByLvl[i] });
-                    }
-                    break;
-            }
-
-            // Initialise les Contents
-            foreach (UiDivineSpellTab divineSpellTab in divineSpellTabList)
-            {
-                divineSpellTab.SetSpellListFromDivineSpellBook();
+                //divineSpellTabList.Add(new UiDivineSpellTab { Lvl = i, MaxSpellsPerDay = Globals.AppPriestSpellBook.MaxSpellsByLvl[i] });
+                divineSpellTabList.Add(new UiDivineSpellTab (i));
             }
 
             return divineSpellTabList;

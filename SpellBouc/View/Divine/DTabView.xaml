@@ -35,15 +35,41 @@
 
         <!-- Contenu des tabs -->
         <DataTemplate x:Key="ContentTemplate">
-            <ListBox ItemsSource="{Binding SpellList}"  SelectedItem="{Binding SelectedSpell, Mode=TwoWay}" 
-                     HorizontalContentAlignment="Stretch"
-                     BorderBrush="Transparent" Background="Transparent">
-                <ListBox.ItemTemplate>
-                    <HierarchicalDataTemplate>
-                        <v:DItemView x:Name="itemview"/>
-                    </HierarchicalDataTemplate>
-                </ListBox.ItemTemplate>
+            <StackPanel Orientation="Vertical">
+
+                <!-- Ajout des sorts -->
+                <DockPanel HorizontalAlignment="Right" Margin="0,10,30,10">
+
+                    <Button Style="{StaticResource RoundCornerButton}" 
+                            Grid.Column="0"
+                            Content="+" Margin="0,0,5,0" Width="30" FontWeight="ExtraBold" FontSize="27" FontFamily="Poor Richard" Foreground="#5fadcb"
+                            Click="IncrementSpell">
+                    </Button>
+                    
+                    <Label Grid.Column="0"   
+                           Content="{Binding TotalSpellCount}" 
+                           Margin="0,0,5,0" BorderBrush="Gray" BorderThickness="2"  FontWeight="ExtraBold" FontSize="27" FontFamily="Poor Richard" >
+                    </Label>
+
+                    <Button Style="{StaticResource RoundCornerButton}"
+                            Grid.Column="0"
+                            Content="-" Margin="0,0,5,0" Width="30" FontWeight="ExtraBold" FontSize="27" FontFamily="Poor Richard" Foreground="#5fadcb"
+                            Click="DecrementSpell">
+                    </Button>
+
+                </DockPanel>
+
+                <!-- Liste des sorts -->
+                <ListBox ItemsSource="{Binding SpellList}"  SelectedItem="{Binding SelectedSpell, Mode=TwoWay}" 
+                         HorizontalContentAlignment="Stretch"
+                         BorderBrush="Transparent" Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <HierarchicalDataTemplate>
+                            <v:DItemView x:Name="itemview"/>
+                        </HierarchicalDataTemplate>
+                    </ListBox.ItemTemplate>
             </ListBox>
+            </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
 
