@@ -61,7 +61,7 @@
                 <ColumnDefinition Width="0.27*"/>
             </Grid.ColumnDefinitions>
 
-            <ListBox ItemsSource="{Binding SpellList}" 
+            <ListBox ItemsSource="{Binding AoSpellList}" 
                  Background="Transparent" 
                  Grid.Row="2" Grid.Column="1"
                  x:Name="addSpellList" 
@@ -72,22 +72,27 @@
                 <ListBox.ItemTemplate>
                     <HierarchicalDataTemplate>
                         <Grid>
-                            <DockPanel Name="wizardSpells" DataContext="{Binding}">
-                                <Label Content="{Binding Name}" Grid.Column="3" Margin="0,0,5,0" 
+                            <DockPanel Name="viewSpell" DataContext="{Binding}">
+                                <Label Content="{Binding UiSpell.Lvl}" Margin="0,0,0,0" 
+                                   BorderBrush="Gray" BorderThickness="2" FontFamily="Poor Richard" FontSize="16">
+                                </Label>
+                                
+                                <Label Content="{Binding UiSpell.Name}" Grid.Column="3" Margin="0,0,5,0" 
                                        BorderBrush="Gray" FontFamily="Poor Richard" FontSize="16" >
                                 </Label>
                             </DockPanel>
 
                             <DockPanel  HorizontalAlignment="Right">
-                                <Label Content="{Binding School}" Margin="0,0,0,0" 
-                                   BorderBrush="Gray" BorderThickness="2" FontFamily="Poor Richard" FontSize="16"></Label>
+                                <Label Content="{Binding UiSpell.School}" Margin="0,0,0,0" 
+                                   BorderBrush="Gray" BorderThickness="2" FontFamily="Poor Richard" FontSize="16">
+                                </Label>
                             </DockPanel>
                         </Grid>
                     </HierarchicalDataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
             <v:SpellDescriptor x:Name="spellDescriptor" 
-                           DataContext="{Binding SelectedSpell}" 
+                           DataContext="{Binding SelectedSpell.UiSpell}" 
                            Grid.Row="2" Grid.Column="3"></v:SpellDescriptor>
         </Grid>
     </Grid>

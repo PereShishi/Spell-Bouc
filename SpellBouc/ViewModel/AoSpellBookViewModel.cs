@@ -1,4 +1,5 @@
-﻿using SpellBouc.Model.Common;
+﻿using SpellBouc.Model.Ao;
+using SpellBouc.Model.Common;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -6,12 +7,12 @@ namespace SpellBouc.ViewModel
 {
     public class AoSpellBookViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<UiSpell> SpellList { get; set; } = new ObservableCollection<UiSpell>();
-        private UiSpell _selectedSpell;
+        public ObservableCollection<AoSpellModel> AoSpellList { get; set; } = new ObservableCollection<AoSpellModel>();
+        private AoSpellModel _selectedSpell;
         public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
 
         /* Sort sélectionné */
-        public UiSpell SelectedSpell
+        public AoSpellModel SelectedSpell
         {
             get
             {
@@ -27,17 +28,33 @@ namespace SpellBouc.ViewModel
 
         }
 
-        public AoSpellBookViewModel(ContainerType type = ContainerType.WizardCompleteSpells)
+        public AoSpellBookViewModel(ContainerType type)
         {
             switch (type)
             {
-                case ContainerType.WizardCompleteSpells:
-                    SpellList = Globals.AppWizardSpellBook.GetCompleteUiSpellList();
-                    SelectedSpell = (UiSpell)SpellList[0];
+                case ContainerType.WizardPlayerSpells:
+                    foreach (UiSpell uiSpell in Globals.AppWizardSpellBook.UICompleteClassSpells)
+                    {
+                        AoSpellModel aoSpell = new AoSpellModel(uiSpell);
+                        AoSpellList.Add(aoSpell);
+                    }
+                    SelectedSpell = (AoSpellModel)AoSpellList[0];
                     break;
-                case ContainerType.PriestCompleteSpells:
+                case ContainerType.PriestPlayerSpells:
+                    foreach (UiSpell uiSpell in Globals.AppPriestSpellBook.UICompleteClassSpells)
+                    {
+                        AoSpellModel aoSpell = new AoSpellModel(uiSpell);
+                        AoSpellList.Add(aoSpell);
+                    }
+                    SelectedSpell = (AoSpellModel)AoSpellList[0];
                     break;
-                case ContainerType.DruidCompleteSpells:
+                case ContainerType.DruidPlayerSpells:
+                    foreach (UiSpell uiSpell in Globals.AppDruidSpellBook.UICompleteClassSpells)
+                    {
+                        AoSpellModel aoSpell = new AoSpellModel(uiSpell);
+                        AoSpellList.Add(aoSpell);
+                    }
+                    SelectedSpell = (AoSpellModel)AoSpellList[0];
                     break;
                 default:
                     break;

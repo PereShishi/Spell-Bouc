@@ -61,7 +61,7 @@ namespace SpellBouc.View
 
         private void CreateAoSpellBook(object sender, RoutedEventArgs e)
         {
-            AoSpellBookView aoSpellBook = new AoSpellBookView(ContainerType.WizardCompleteSpells);
+            AoSpellBookView aoSpellBook = new AoSpellBookView(Globals.SelectedSpellBook);
             aoSpellBook.Show();
         }
     }

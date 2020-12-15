@@ -20,7 +20,7 @@ namespace SpellBouc.View
     {
         AoSpellBookViewModel AoVM { get; set; }
 
-        public AoSpellBookView(ContainerType type = ContainerType.WizardCompleteSpells)
+        public AoSpellBookView(ContainerType type)
         {
           
             InitializeComponent();
