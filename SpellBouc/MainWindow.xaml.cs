@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using SpellBouc.View;
-using SpellBouc.SpellBooks;
 
 namespace SpellBouc
 {

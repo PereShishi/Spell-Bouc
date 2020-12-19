@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>iconfinder_Avatar_Famous_Characters-41_2612573.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,7 +27,12 @@
     <Resource Include="img\spellbook_1.png" />
     <Resource Include="img\mglass.png" />
     <Resource Include="img\spelltab_0.png" />
+    <Resource Include="img\spelltab_1.png" />
     <Resource Include="img\spellscroll_0.png" />
+    <Resource Include="img\mage.png" />
+    <Resource Include="img\druid.png" />
+    <Resource Include="img\priest.png" />
+    <Resource Include="img\spellbook.png" />
   </ItemGroup>
 
   <ItemGroup>

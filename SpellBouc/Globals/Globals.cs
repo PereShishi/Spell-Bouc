@@ -1,6 +1,8 @@
 ﻿using SpellBouc.SpellBooks;
 using System;
 using System.IO;
+using System.Reflection;
+using System.Windows;
 
 namespace SpellBouc
 {
@@ -10,8 +12,15 @@ namespace SpellBouc
         // Niveau max a afficher dans les tabs:
         public static int MAX_SPELL = 5;
 
+#if (DEBUG)
+            // Path du project directory 
+            public static String PROJECT_DIRECTORY_PATH = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+#endif
+
+#if (!DEBUG)
         // Path du project directory 
-        public static String PROJECT_DIRECTORY_PATH = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+        public static String PROJECT_DIRECTORY_PATH = AppDomain.CurrentDomain.BaseDirectory;
+    #endif
 
         // Paths de la BDD de chaque movre de sorts complet 
         public static String DB_WIZARD_SPELL_PATH = PROJECT_DIRECTORY_PATH + "\\BDD\\wizard_spells.db";

@@ -38,21 +38,43 @@
         <!-- Boutons Close et Minimize -->
         <StackPanel Orientation="Vertical" Grid.Column="4" Grid.Row="0" VerticalAlignment = "Bottom" Margin="25,0,0,0">
             <StackPanel Orientation="Horizontal">
-                <Button Command="{x:Static SystemCommands.MinimizeWindowCommand}" Content=" - " />
-                <Button Command="{x:Static SystemCommands.CloseWindowCommand}" Content=" X " />
+                <Button Style="{StaticResource RoundCornerButton}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" Content=" - " />
+                <Button Style="{StaticResource RoundCornerButton}" Command="{x:Static SystemCommands.CloseWindowCommand}" Content=" X " />
             </StackPanel>
         </StackPanel>
         
-        <!-- Bouton de mage -->
-        <Button Name="MageButton" Content="Mage" Grid.Column="1" Grid.Row="2" Click="ChoseWizardSpellBook"></Button>
+        <!-- Bouton de mage et de prêtre-->
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" Margin="0,1,0,0">
+            <Button Name="MageButton" Click="ChoseWizardSpellBook" Width="244">
+                <StackPanel>
+                    <Image Source="img/mage.png" />
+                </StackPanel>
+            </Button>
+
+            <Button Name="PriestButton" Click="ChosePriestSpellBook" Margin="0,4,0,0" Width="244">
+                <StackPanel>
+                    <Image Source="img/priest.png" />
+                </StackPanel>
+            </Button>
+            
+        </StackPanel>
+        
         <!-- Boutons de lanceurs de sort divins -->
         <Grid Grid.Column="3" Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Name="PriestButton" Content="Prêtre" Grid.Row="0" Click="ChosePriestSpellBook"></Button>
-            <Button Name="DruidButton" Content="Druide" Grid.Row="1" Click="ChoseDruidSpellBook"></Button>
+
+
+                <Button  Name="DruidButton" Click="ChoseDruidSpellBook" Width="246" Grid.Row="0" Margin="0,1,0,0">
+                    <StackPanel>
+                        <Image Source="img/druid.png" />
+                    </StackPanel>
+                </Button>
+
+                <Image Source="img/spellbook.png"  Grid.Row="1"></Image>
+  
         </Grid>
     </Grid>
 </Window>

@@ -62,9 +62,9 @@
                         <Image Source="../../img/spelltab_0.png" />
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource BookMarkerButton}" Grid.Column="0" Grid.Row="1"  Margin="0,60,0,0" Click="CreateAoSpellBook"  VerticalAlignment="Top">
+                <Button Style="{StaticResource BookMarkerButton}" Grid.Column="0" Grid.Row="1"  Margin="0,8,6,0" Click="CreateAoSpellBook"  VerticalAlignment="Top">
                     <StackPanel>
-                        <Image Source="../../img/spelltab_0.png" />
+                        <Image Source="../../img/spelltab_1.png" />
                     </StackPanel>
                 </Button>
             </StackPanel>

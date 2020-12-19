@@ -70,8 +70,17 @@ namespace SpellBouc.Model.Divine
         {
             ObservableCollection<UiDivineSpellTab> divineSpellTabList = new ObservableCollection<UiDivineSpellTab>();
 
+            int spellMax = 0;
+            if (Globals.SelectedSpellBook == ContainerType.PriestPlayerSpells)
+            {
+                spellMax = Globals.AppPriestSpellBook.SpellMaxFromPlayer;
+            }
+            else
+            {
+                spellMax = Globals.AppDruidSpellBook.SpellMaxFromPlayer;
+            }
             // Initialise les headers
-            for (int i = 0; i <= Globals.AppPriestSpellBook.SpellMaxFromPlayer; i++)
+            for (int i = 0; i <= spellMax; i++)
             {
                 //divineSpellTabList.Add(new UiDivineSpellTab { Lvl = i, MaxSpellsPerDay = Globals.AppPriestSpellBook.MaxSpellsByLvl[i] });
                 divineSpellTabList.Add(new UiDivineSpellTab (i));
