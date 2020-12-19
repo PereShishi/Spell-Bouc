@@ -22,9 +22,6 @@ namespace SpellBouc.ViewModel.Commands
 
             bool? bValue = (bool?)value;
 
-            if (parameter != null && parameter as string == Invert)
-            bValue = !bValue;
-
             return bValue.HasValue && bValue.Value ? Visibility.Visible : Visibility.Hidden;
         }
 

@@ -587,6 +587,9 @@ namespace SpellBouc.AccessLayer
                 formatedDescr = formatedDescr.Replace("<p>", " ");
                 formatedDescr = formatedDescr.Replace("</p>", " ");
 
+                formatedDescr = formatedDescr.Replace("<b>", " ");
+                formatedDescr = formatedDescr.Replace("</b>", " ");
+
                 formatedDescr = formatedDescr.Replace("<h5>", "");
                 formatedDescr = formatedDescr.Replace("</h5>", "");
 

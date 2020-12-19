@@ -51,5 +51,66 @@ namespace SpellBouc.View
         {
             SystemCommands.MinimizeWindow(this);
         }
+
+        private void b0_Click(object sender, RoutedEventArgs e)
+        {
+            AoVM.UpdateFilter(0);
+        }
+
+        private void b1_Click(object sender, RoutedEventArgs e)
+        {
+            AoVM.UpdateFilter(1);
+        }
+
+        private void b2_Click(object sender, RoutedEventArgs e)
+        {
+            AoVM.UpdateFilter(2);
+        }
+
+        private void b3_Click(object sender, RoutedEventArgs e)
+        {
+            AoVM.UpdateFilter(3);
+        }
+
+
+        private void b4_Click(object sender, RoutedEventArgs e)
+        {
+            AoVM.UpdateFilter(4);
+        }
+
+        private void b5_Click(object sender, RoutedEventArgs e)
+        {
+            AoVM.UpdateFilter(5);
+        }
+
+        private void b6_Click(object sender, RoutedEventArgs e)
+        {
+            AoVM.UpdateFilter(6);
+        }
+
+        private void b7_Click(object sender, RoutedEventArgs e)
+        {
+            AoVM.UpdateFilter(7);
+        }
+
+        private void b8_Click(object sender, RoutedEventArgs e)
+        {
+            AoVM.UpdateFilter(8);
+        }
+
+        private void b9_Click(object sender, RoutedEventArgs e)
+        {
+            AoVM.UpdateFilter(9);
+        }
+
+        private void b10_Click(object sender, RoutedEventArgs e)
+        {
+            AoVM.UpdateFilter(10);
+        }
+
+        private void textFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            AoVM.UpdateFilter(textFilter.Text);
+        }
     }
 }
